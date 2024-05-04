@@ -61,3 +61,22 @@ body {
 .MuiToolbar-root {
   background-color: var(--white);
 }
+
+.game-card {
+  position: relative;
+}
+
+.game-card-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.game-card-actions .MuiButtonBase-root {
+  /* font-size: 30px; */
+  /* margin: 5px; */
+  /* cursor: pointer; */
+  margin-left: 0;
+  color: white;
+}
