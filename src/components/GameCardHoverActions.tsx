@@ -3,19 +3,19 @@ import { FaGamepad } from 'react-icons/fa';
 import { IoRemoveCircle } from 'react-icons/io5';
 import { MdDownloadDone, MdEdit } from 'react-icons/md';
 
-export function GameCardActions() {
+export function GameCardHoverActions() {
   return (
-    <CardActions className='game-card-actions'>
-      <IconButton aria-label='delete'>
+    <CardActions className="game-card-actions">
+      <IconButton aria-label="delete">
         <FaGamepad />
       </IconButton>
-      <IconButton aria-label='delete'>
+      <IconButton aria-label="delete">
         <MdDownloadDone />
       </IconButton>
-      <IconButton aria-label='delete'>
+      <IconButton aria-label="delete">
         <IoRemoveCircle />
       </IconButton>
-      <IconButton aria-label='delete'>
+      <IconButton aria-label="delete">
         <MdEdit />
       </IconButton>
     </CardActions>

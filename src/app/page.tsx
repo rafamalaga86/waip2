@@ -1,7 +1,9 @@
 import { Masonry } from '@mui/lab';
 import { GameCard } from 'src/components/GameCard';
+import { prisma } from 'src/database/prismaClient';
+import { GameModel } from 'src/models/GameModel';
 
-const games = [
+const games2 = [
   {
     id: 1,
     name: 'The Legend of Zelda: Breath of the Wild',
@@ -66,7 +68,13 @@ const games = [
   },
 ];
 
-export default function home() {
+export default async function home() {
+  const games2 = await prisma.games.findMany({
+    take: 30, // Obtener los primeros 30 elementos
+  });
+
+  const games = await GameModel.findGamesWithStoppedPlayingNull(1);
+
   return (
     <>
       <Masonry

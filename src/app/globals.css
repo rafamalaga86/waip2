@@ -65,6 +65,12 @@ body {
 .game-card {
   position: relative;
 }
+.game-card img {
+  width: 100%;
+}
+.game-card.game-card-xs {
+  width: 178.67px;
+}
 
 .game-card-actions {
   position: absolute;

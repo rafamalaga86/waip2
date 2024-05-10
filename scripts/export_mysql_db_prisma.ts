@@ -43,10 +43,10 @@ async function doMigrate() {
     'users',
     'auth_user',
     (item: {
-      id?: Number;
-      is_superuser: Number;
-      is_staff: Number;
-      is_active: Number;
+      id?: number;
+      is_superuser: number;
+      is_staff: number;
+      is_active: number;
       date_joined?: Date;
     }) => {
       const mongoItem = {
@@ -61,26 +61,26 @@ async function doMigrate() {
       return mongoItem;
     }
   );
-  await migrateTable('games', 'games_game', (item: { id?: Number }) => {
+  await migrateTable('games', 'games_game', (item: { id?: number }) => {
     const mongoItem = { ...item };
     return mongoItem;
   });
   await migrateTable(
     'playeds',
     'games_played',
-    (item: { id?: Number; beaten: Boolean }) => {
+    (item: { id?: number; beaten: Boolean }) => {
       const mongoItem = { ...item, beaten: !!item.beaten };
       return mongoItem;
     }
   );
-  await migrateTable('notes', 'games_note', (item: { id?: Number }) => {
+  await migrateTable('notes', 'games_note', (item: { id?: number }) => {
     const mongoItem = { ...item };
     return mongoItem;
   });
   return;
 }
 
-async function truncateTable(entity: String) {
+async function truncateTable(entity: string) {
   //@ts-ignore
   const resultDelete = await prisma[entity].deleteMany({ where: {} });
   console.log(`Dropped ${resultDelete.count} records in the table ${entity}`);
@@ -90,9 +90,9 @@ async function truncateTable(entity: String) {
  * @param {String} entity collection_name
  * @param {String} table_name name of the table in the mysql database
  */
-async function migrateTable(entity: String, table_name: String, modifyRecord?: Function) {
+async function migrateTable(entity: string, table_name: string, modifyRecord?: any) {
   const items = await mysqlClient.query('SELECT * FROM ' + table_name);
-  const itemsToInsert = items[0].map((item: { id?: Number }) => {
+  const itemsToInsert = items[0].map((item: { id?: number }) => {
     return modifyRecord ? modifyRecord(item) : item;
   });
 

@@ -1,6 +1,6 @@
 'use client';
 import { AppBar, Button, Container, Drawer, Toolbar } from '@mui/material';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { SideNav } from './SideNav';
 
 export function LayoutUI({ children }: { children: ReactNode }) {
@@ -17,9 +17,11 @@ export function LayoutUI({ children }: { children: ReactNode }) {
       </Drawer>
       <AppBar>
         <Toolbar>
-          <Button variant='contained' onClick={toggleDrawer(true)}>
-            Open drawer
-          </Button>
+          <Container>
+            <Button variant="contained" onClick={toggleDrawer(true)}>
+              Open drawer
+            </Button>
+          </Container>
         </Toolbar>
       </AppBar>
       <Container sx={{ marginTop: '70px' }}>

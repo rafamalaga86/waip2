@@ -13,6 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model igdb_tokens {
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+
+  token String
+  expire_at DateTime
+}
+
 model users {
   id Int @id @map("_id")
 
