@@ -7,14 +7,12 @@ const games2 = [
   {
     id: 1,
     name: 'The Legend of Zelda: Breath of the Wild',
-    cover_url:
-      'https://howlongtobeat.com/games/38019_The_Legend_of_Zelda_Breath_of_the_Wild.jpg',
+    cover_url: 'https://howlongtobeat.com/games/38019_The_Legend_of_Zelda_Breath_of_the_Wild.jpg',
   },
   {
     id: 2,
     name: 'The Legend of Zelda: Tears of the Kingdom',
-    cover_url:
-      'https://howlongtobeat.com/games/72589_The_Legend_of_Zelda_Tears_of_the_Kingdom.jpg',
+    cover_url: 'https://howlongtobeat.com/games/72589_The_Legend_of_Zelda_Tears_of_the_Kingdom.jpg',
   },
   {
     id: 3,
@@ -69,11 +67,14 @@ const games2 = [
 ];
 
 export default async function home() {
+  console.time('first');
   const games2 = await prisma.games.findMany({
     take: 30, // Obtener los primeros 30 elementos
   });
-
+  console.timeEnd('first');
+  console.time('second');
   const games = await GameModel.findGamesWithStoppedPlayingNull(1);
+  console.timeEnd('second');
 
   return (
     <>

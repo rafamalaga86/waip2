@@ -1,3 +1,18 @@
+/* FONT */
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.eot');
+  src: url('/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.eot?#iefix')
+      format('embedded-opentype'),
+    url('/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.woff') format('woff'),
+    url('/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.ttf') format('truetype'),
+    url('/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.svg#proxima_nova_altregular')
+      format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   min-height: 30rem; /* Can be removed; just added for demo purposes */
 
@@ -60,6 +75,42 @@ body {
 
 .MuiToolbar-root {
   background-color: var(--white);
+  align-items: center;
+}
+
+.MuiToolbar-root form {
+  margin-top: 3px;
+}
+
+.MuiToolbar-root .MuiContainer-root {
+  padding: 0;
+}
+
+.MuiMasonry-root {
+  width: calc(100% + 16px);
+}
+
+.MuiTypography-root {
+  font-family: 'Proxima Nova', Arial;
+}
+
+.MuiTypography-h5 {
+  font-family: var(--font-title);
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar-brand h1 {
+  margin-left: 10px;
+  padding: 0;
+  font-family: Baloo, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 22px;
+  color: var(--gray-0) !important;
 }
 
 .game-card {

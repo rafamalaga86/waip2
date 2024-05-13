@@ -6,7 +6,6 @@ import { gameService } from 'src/services/GameService';
 
 export default async function search({ params }: { params: { keyword: string } }) {
   const searchedGames = await gameService.searchGame(params.keyword);
-  console.log('Escupe: ', searchedGames);
   const searchedGames2 = searchedGames.map((item: any, index: any) => {
     return { index, ...item };
   });
@@ -30,10 +29,7 @@ export default async function search({ params }: { params: { keyword: string } }
                 <IGDBImage string_id={game.cover?.image_id} description={game.name + ' cover'} />
               }
             >
-              <div>
-                {game.index}
-                {game.name}
-              </div>
+              <div>{game.name}</div>
             </GameCardLite>
           );
         })}

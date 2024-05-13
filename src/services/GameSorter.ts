@@ -15,7 +15,6 @@ export class GameSorter {
     // @ts-ignore
     console.log(this.#games[0]);
     // this.#gamesScores = this.#games.map((game, index): number => {
-    //   console.log('Escupe: ', game);
     //   return 1;
     // });
   }

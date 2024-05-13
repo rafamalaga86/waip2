@@ -14,7 +14,7 @@ export function GameCard({
       <GameCardHoverActions />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {index + ' ' + game.name}
+          {game.name}
         </Typography>
         <Rating name="simple-controlled" value={3} size="large" precision={0.5} />
         <Typography variant="body2" color="text.secondary">

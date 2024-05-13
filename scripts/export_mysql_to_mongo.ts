@@ -16,11 +16,11 @@ const mysqlConfig = {
 const DB_MONGO = 'waip2';
 
 // Connection URL
-if (!process.env.DATABASE_URL) {
+if (!process.env.MONGO_DATABASE_URL) {
   console.log('Database URL not found');
   process.exit(1);
 }
-const mongoClient = new MongoClient(process.env.DATABASE_URL);
+const mongoClient = new MongoClient(process.env.MONGO_DATABASE_URL);
 let mongoDb: any;
 
 async function connect() {
@@ -75,14 +75,10 @@ async function doMigrate() {
     const mongoItem = { ...item };
     return mongoItem;
   });
-  await migrateTable(
-    'playeds',
-    'games_played',
-    (item: { id?: Number; beaten: Boolean }) => {
-      const mongoItem = { ...item, beaten: !!item.beaten };
-      return mongoItem;
-    }
-  );
+  await migrateTable('playeds', 'games_played', (item: { id?: Number; beaten: Boolean }) => {
+    const mongoItem = { ...item, beaten: !!item.beaten };
+    return mongoItem;
+  });
   await migrateTable('notes', 'games_note', (item: { id?: Number }) => {
     const mongoItem = { ...item };
     return mongoItem;

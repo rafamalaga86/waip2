@@ -56,7 +56,6 @@ class GameService {
     ;
       limit: 500;
     ;`);
-    console.log('Escupe: ', games.length);
     return games;
     // const sorter = new GameSorter(games);
     // return sorter.sortByRelevance();

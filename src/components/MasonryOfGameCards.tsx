@@ -22,9 +22,7 @@ export default function MasonryOfGameCards({ games }: { games: any }) {
             <IGDBImage string_id={game.cover?.image_id} description={game.name + ' cover'} />
           }
         >
-          <div>
-            {game.index}:{game.name}
-          </div>
+          <div>{game.name}</div>
         </GameCardLite>
       );
     }
