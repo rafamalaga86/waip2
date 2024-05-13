@@ -9,19 +9,19 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_URL")
+  provider = "mongodb"
+  url      = env("MONGO_DATABASE_URL")
 }
 
 model igdb_tokens {
-  id Int @id @default(autoincrement())
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
 
   token String
   expire_at DateTime
 }
 
 model users {
-  id Int @id @default(autoincrement())
+  id Int @id @map("_id")
 
   username String @unique
   last_login DateTime @default(now())
@@ -39,9 +39,9 @@ model users {
 }
 
 model games {
-  id Int @id @default(autoincrement())
+  id Int @id @map("_id")
 
-  name String
+  name String @unique
   cover_url String
   metacritic_score String?
   release_date DateTime?
@@ -62,7 +62,7 @@ model games {
 }
 
 model playeds {
-  id Int @id @default(autoincrement())
+  id Int @id @map("_id")
 
   beaten Boolean
   stopped_playing_at DateTime?
@@ -75,7 +75,7 @@ model playeds {
 }
 
 model notes {
-  id Int @id @default(autoincrement())
+  id Int @id @map("_id")
 
   text String
   game_id Int

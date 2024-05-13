@@ -1,15 +1,15 @@
 'use client';
-import { Masonry } from '@mui/lab';
+import Masonry from '@mui/lab/Masonry';
 import { Card, CardContent, CardMedia, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import IGDBImage from 'src/components/IGDBImage';
 
-export default function MasonryOfGameCards({ games }: { games: any }) {
+export function StackOfGameCards({ games }: { games: any }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // setIsLoading(false);
+    setIsLoading(false);
   }, []);
 
   const gamesElements = games.map(
@@ -30,12 +30,12 @@ export default function MasonryOfGameCards({ games }: { games: any }) {
 
   return (
     <>
-      {isLoading && (
+      {
         <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
           {gamesElements}
         </Stack>
-      )}
-      {!isLoading && (
+      }
+      {/* {!isLoading && (
         <Masonry
           columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 4 }}
           spacing={2}
@@ -46,7 +46,7 @@ export default function MasonryOfGameCards({ games }: { games: any }) {
         >
           {gamesElements}
         </Masonry>
-      )}
+      )} */}
     </>
   );
 }

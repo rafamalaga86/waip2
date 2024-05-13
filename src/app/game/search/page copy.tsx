@@ -1,4 +1,4 @@
-import { Masonry } from '@mui/lab';
+import Masonry from '@mui/lab/Masonry';
 import { Stack } from '@mui/system';
 import { GameCardLite } from 'src/components/GameCardLite';
 import IGDBImage from 'src/components/IGDBImage';

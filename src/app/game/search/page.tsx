@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import MasonryOfGameCards from 'src/components/MasonryOfGameCards';
+import { StackOfGameCards } from 'src/components/StackOfGameCards';
 import { gameService } from 'src/services/GameService';
 
 export default async function search({ searchParams }: { searchParams?: any }) {
@@ -12,5 +12,5 @@ export default async function search({ searchParams }: { searchParams?: any }) {
     return { index, ...item };
   });
 
-  return <MasonryOfGameCards games={searchedGames2} />;
+  return <StackOfGameCards games={searchedGames2} />;
 }

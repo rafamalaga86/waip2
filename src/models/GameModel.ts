@@ -1,12 +1,13 @@
 import { prisma } from 'src/database/prismaClient';
+import { PrismaQuery } from 'src/types/types';
 
 class GameModel {
   static async save(object: any) {
     prisma.games.create({ data: object });
   }
 
-  static async findGamesWithStoppedPlayingNull(userId: number) {
-    return await prisma.games.findMany({
+  static async findGamesWithStoppedPlayingNull(userId: number, limit?: number) {
+    const query: PrismaQuery = {
       where: {
         user_id: userId,
         played: {
@@ -15,7 +16,11 @@ class GameModel {
           },
         },
       },
-    });
+    };
+    if (limit) {
+      query.take = limit;
+    }
+    return await prisma.games.findMany(query);
   }
 }
 

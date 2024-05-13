@@ -1,4 +1,4 @@
-import { Masonry } from '@mui/lab';
+import Masonry from '@mui/lab/Masonry';
 import { GameCard } from 'src/components/GameCard';
 import { prisma } from 'src/database/prismaClient';
 import { GameModel } from 'src/models/GameModel';
@@ -69,8 +69,9 @@ const games2 = [
 export default async function home() {
   console.time('first');
   const games2 = await prisma.games.findMany({
-    take: 30, // Obtener los primeros 30 elementos
+    take: 10,
   });
+  console.log('games2.length: ', games2.length);
   console.timeEnd('first');
   console.time('second');
   const games = await GameModel.findGamesWithStoppedPlayingNull(1);

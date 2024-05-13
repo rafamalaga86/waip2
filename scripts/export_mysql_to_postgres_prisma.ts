@@ -65,14 +65,10 @@ async function doMigrate() {
     const mongoItem = { ...item };
     return mongoItem;
   });
-  await migrateTable(
-    'playeds',
-    'games_played',
-    (item: { id?: number; beaten: Boolean }) => {
-      const mongoItem = { ...item, beaten: !!item.beaten };
-      return mongoItem;
-    }
-  );
+  await migrateTable('playeds', 'games_played', (item: { id?: number; beaten: Boolean }) => {
+    const mongoItem = { ...item, beaten: !!item.beaten };
+    return mongoItem;
+  });
   await migrateTable('notes', 'games_note', (item: { id?: number }) => {
     const mongoItem = { ...item };
     return mongoItem;

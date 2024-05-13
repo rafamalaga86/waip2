@@ -1,18 +1,16 @@
-import { Masonry } from '@mui/lab';
+import Masonry from '@mui/lab/Masonry';
 import GameCard from 'src/components/GameCard';
 
 const games = [
   {
     id: 1,
     name: 'The Legend of Zelda: Breath of the Wild',
-    cover_url:
-      'https://howlongtobeat.com/games/38019_The_Legend_of_Zelda_Breath_of_the_Wild.jpg',
+    cover_url: 'https://howlongtobeat.com/games/38019_The_Legend_of_Zelda_Breath_of_the_Wild.jpg',
   },
   {
     id: 2,
     name: 'The Legend of Zelda: Tears of the Kingdom',
-    cover_url:
-      'https://howlongtobeat.com/games/72589_The_Legend_of_Zelda_Tears_of_the_Kingdom.jpg',
+    cover_url: 'https://howlongtobeat.com/games/72589_The_Legend_of_Zelda_Tears_of_the_Kingdom.jpg',
   },
   {
     id: 3,

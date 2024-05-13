@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 
-const isDev = process.env.NODE_ENV === 'development';
-const isProd = process.env.NODE_ENV === 'production';
+const isDev = process.env.ENV === 'development';
+const isProd = process.env.ENV === 'production';
 let prisma: PrismaClient;
 
 declare const globalThis: {
@@ -16,7 +16,7 @@ if (isProd) {
   prisma = new PrismaClient();
   globalThis.prismaClient = prisma;
 } else {
-  throw new Error('Cannot find environment to do a connnection to database');
+  throw new Error('RafaError: Cannot find environment to do a connnection to database');
 }
 
 export { prisma };
