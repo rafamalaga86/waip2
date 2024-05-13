@@ -13,16 +13,20 @@ export function StackOfGameCards({ games }: { games: any }) {
   }, []);
 
   const gamesElements = games.map(
-    (game: { id: number; name: string; cover: { image_id: string } }) => {
+    (game: { id: number; name: string; score: number; cover?: { image_id: string } }) => {
       return (
         <GameCardLite
           game={game}
           key={game.id}
           imgElement={
-            <IGDBImage string_id={game.cover?.image_id} description={game.name + ' cover'} />
+            game.cover ? (
+              <IGDBImage string_id={game.cover?.image_id} description={game.name + ' cover'} />
+            ) : null
           }
         >
-          <div>{game.name}</div>
+          <div>
+            {game.score}: {game.name}
+          </div>
         </GameCardLite>
       );
     }

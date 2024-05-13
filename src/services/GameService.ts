@@ -15,47 +15,46 @@ class GameService {
     return games;
   }
 
-  async searchGame(keyword: string) {
+  async searchGame(keyword: string, hasCover: boolean = true, sort: boolean = true) {
     const connector = await getConnector();
-    const games = await connector.gameFetch(`
+    let query = `
       search "${keyword}"
       ;
       
     fields:
-      *,
-      alternative_names.name,
-      collection.name,
-      collections.name,
-      collections.name,
+      name,
+      alternative_names,
+      collections,
       cover.image_id,
-      dlcs.name,
-      expanded_games.name,
-      expansions.name,
-      franchise.name,
-      franchises.name,
-      forks.name,
-      game_localizations.name,
-      game_modes.name,
-      genres.name,
-      involved_companies.company.name,
-      involved_companies.developer,
-      parent_game.name,
-      platforms.name,
-      player_perspectives.name,
-      ports.name,
-      remakes.name,
-      remasters.name,
-      release_dates.date,
-      release_dates.region,
-      screenshots.url,
-      similar_games.name,
-      standalone_expansions.name,
-      themes.name,
-      version_title,
-      websites.url
+      dlcs,
+      expansions,
+      franchises,
+      game_localizations,
+      parent_game,
+      platforms,
+      ports,
+      remakes,
+      remasters,
+      release_dates,
+      websites,
+      rating,
+      rating_count
     ;
-      limit: 500;
-    ;`);
+      limit: 500
+    ;`;
+
+    if (hasCover) {
+      query += 'where cover != null;';
+    }
+    console.log('Escupe3: ', query);
+
+    let games = await connector.gameFetch(query);
+    console.time('a');
+
+    if (sort) {
+      games = new GameSorter(games).sortByRelevance();
+    }
+    console.timeEnd('a');
     return games;
     // const sorter = new GameSorter(games);
     // return sorter.sortByRelevance();
@@ -70,7 +69,6 @@ class GameService {
       *,
       alternative_names.name,
       collection.name,
-      collections.name,
       collections.name,
       cover.image_id,
       dlcs.name,
