@@ -1,7 +1,7 @@
 import Masonry from '@mui/lab/Masonry';
 import { Stack } from '@mui/system';
 import { GameCardLite } from 'src/components/GameCardLite';
-import IGDBImage from 'src/components/IGDBImage';
+import { IGDBImage } from 'src/components/IGDBImage';
 import { gameService } from 'src/services/GameService';
 
 export default async function search({ params }: { params: { keyword: string } }) {

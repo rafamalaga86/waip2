@@ -34,9 +34,9 @@ async function run() {
 }
 
 async function doMigrate() {
-  await truncateTable('playeds');
+  await truncateTable('oldPlayeds');
   await truncateTable('notes');
-  await truncateTable('games');
+  await truncateTable('oldGames');
   await truncateTable('users');
 
   await migrateTable(
@@ -61,11 +61,11 @@ async function doMigrate() {
       return mongoItem;
     }
   );
-  await migrateTable('games', 'games_game', (item: { id?: number }) => {
+  await migrateTable('oldGames', 'games_game', (item: { id?: number }) => {
     const mongoItem = { ...item };
     return mongoItem;
   });
-  await migrateTable('playeds', 'games_played', (item: { id?: number; beaten: Boolean }) => {
+  await migrateTable('oldPlayeds', 'games_played', (item: { id?: number; beaten: Boolean }) => {
     const mongoItem = { ...item, beaten: !!item.beaten };
     return mongoItem;
   });
@@ -97,7 +97,7 @@ async function migrateTable(entity: string, table_name: string, modifyRecord?: a
     data: itemsToInsert,
   });
 
-  console.log('Inserted ' + resultCreate.count + ' records in table ' + table_name);
+  console.log('Inserted ' + resultCreate.count + ' records in table ' + entity);
 }
 
 run();

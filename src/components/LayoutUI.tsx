@@ -26,7 +26,7 @@ export function LayoutUI({ children }: { children: ReactNode }) {
 
   function submitSearch(event: any) {
     event.preventDefault();
-    router.push('/game/search?keyword=' + event.target.searchKeyword.value);
+    router.push('/games/search?keyword=' + event.target.searchKeyword.value);
   }
 
   return (
@@ -42,7 +42,7 @@ export function LayoutUI({ children }: { children: ReactNode }) {
             </Button>
             <Link href="/" className="navbar-brand">
               <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                <h1>What Am I Playing</h1>
+                <h1 className="brand">What Am I Playing</h1>
               </Box>
             </Link>
 

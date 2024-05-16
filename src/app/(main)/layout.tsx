@@ -1,8 +1,8 @@
 import { CssBaseline } from '@mui/material';
 import type { Metadata } from 'next';
 import { Bungee_Inline } from 'next/font/google';
+import 'src/app/globals.css';
 import { LayoutUI } from 'src/components/LayoutUI';
-import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Waip2',

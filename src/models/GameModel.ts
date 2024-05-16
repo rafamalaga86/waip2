@@ -3,14 +3,14 @@ import { PrismaQuery } from 'src/types/types';
 
 class GameModel {
   static async save(object: any) {
-    prisma.games.create({ data: object });
+    prisma.oldGames.create({ data: object });
   }
 
   static async findGamesWithStoppedPlayingNull(userId: number, limit?: number) {
     const query: PrismaQuery = {
       where: {
         user_id: userId,
-        played: {
+        oldPlayed: {
           some: {
             stopped_playing_at: null,
           },
@@ -20,7 +20,7 @@ class GameModel {
     if (limit) {
       query.take = limit;
     }
-    return await prisma.games.findMany(query);
+    return await prisma.oldGames.findMany(query);
   }
 }
 

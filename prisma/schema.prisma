@@ -33,6 +33,7 @@ model users {
   password String
   email String @unique
   games games[]
+  gamesToImport gamesToImport[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -41,24 +42,18 @@ model users {
 model games {
   id Int @id @default(autoincrement())
 
+  igdb_id Int
   name String
   cover_url String
-  metacritic_score String?
-  release_date DateTime?
-  synopsis String?
-  developer String
-  genres String
-  hltb_length Float?
   order Int @default(10)
-  note notes[]
-  played playeds[]
-  @@unique([id, name])
+  playeds playeds[]
 
   user_id Int
   user users @relation(fields: [user_id], references: [id])
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  
 }
 
 model playeds {
@@ -74,12 +69,15 @@ model playeds {
   updated_at DateTime @updatedAt
 }
 
-model notes {
+model gamesToImport {
   id Int @id @default(autoincrement())
 
-  text String
-  game_id Int
-  game games @relation(fields: [game_id], references: [id])
+  name String
+  beaten Boolean
+  stopped_playing_at DateTime?
+
+  user_id Int
+  user users @relation(fields: [user_id], references: [id])
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

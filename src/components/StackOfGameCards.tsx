@@ -1,11 +1,11 @@
 'use client';
 import Masonry from '@mui/lab/Masonry';
 import { Card, CardContent, CardMedia, Stack } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
-import IGDBImage from 'src/components/IGDBImage';
+import { IGDBImage } from 'src/components/IGDBImage';
 
-export function StackOfGameCards({ games }: { games: any }) {
+export function StackOfGameCards({ games, buttonBar }: { games: any; buttonBar?: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -27,6 +27,7 @@ export function StackOfGameCards({ games }: { games: any }) {
           <div>
             {game.score}: {game.name}
           </div>
+          {buttonBar}
         </GameCardLite>
       );
     }

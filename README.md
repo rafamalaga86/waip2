@@ -1,6 +1,8 @@
 TODO: Disconnect prisma in the end of the application life
 TODO: Make a script that finds broken image links
 TODO: Implement caching
+TODO: Impelement error page
+TODO: Implement full backend validation
 
 ## Deploy on Vercel
 

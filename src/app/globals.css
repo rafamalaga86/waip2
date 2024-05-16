@@ -102,7 +102,7 @@ a {
   text-decoration: none;
 }
 
-.navbar-brand h1 {
+.brand h1 {
   margin-left: 10px;
   padding: 0;
   font-family: Baloo, sans-serif;
@@ -136,4 +136,8 @@ a {
   /* cursor: pointer; */
   margin-left: 0;
   color: white;
+}
+
+.danger {
+  color: red;
 }

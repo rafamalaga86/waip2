@@ -11,9 +11,9 @@ const menuItems = [
 
 export function SideNav() {
   return (
-    <Box sx={{ width: 250 }} role='presentation'>
+    <Box sx={{ width: 250 }} role="presentation">
       {/* <Box sx={{ width: 250 }} role='presentation' onClick={toggleDrawer(false)}> */}
-      What am I playing
+      <h1 className="brand">What Am I Playing</h1>
       <Divider />
       <List>
         {menuItems.map((item, index) => (

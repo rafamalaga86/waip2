@@ -68,15 +68,14 @@ const games2 = [
 
 export default async function home() {
   console.time('first');
-  const games2 = await prisma.games.findMany({
-    take: 10,
-  });
+  // const games2 = await prisma.oldGames.findMany({
+  //   take: 10,
+  // });
   console.log('games2.length: ', games2.length);
   console.timeEnd('first');
   console.time('second');
   const games = await GameModel.findGamesWithStoppedPlayingNull(1);
   console.timeEnd('second');
-
   return (
     <>
       <Masonry
