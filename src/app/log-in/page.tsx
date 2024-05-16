@@ -12,7 +12,8 @@ export default async function LoginPage() {
   }
 
   const user = await UserModel.getAuth();
-  console.log('Escupe: ', user);
-
+  if (user) {
+    redirect('/');
+  }
   return <LogIn handleSubmit={handleSubmit} backgroundNumber={Math.floor(Math.random() * 7 + 1)} />;
 }

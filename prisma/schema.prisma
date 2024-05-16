@@ -24,6 +24,7 @@ model users {
   id Int @id @default(autoincrement())
 
   username String @unique
+  email String @unique
   last_login DateTime @default(now())
   is_superuser Boolean @default(false)
   is_staff Boolean @default(false)
@@ -31,7 +32,6 @@ model users {
   first_name String
   last_name String
   password String
-  email String @unique
   games games[]
   gamesToImport gamesToImport[]
 
