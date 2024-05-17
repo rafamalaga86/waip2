@@ -7,6 +7,16 @@ class GameModel {
     prisma.games.create({ data: object });
   }
 
+  static async discardImportGame(name: string, user_id: number): Promise<boolean> {
+    const result = await prisma.gamesToImport.deleteMany({
+      where: { name: name, user_id: user_id },
+    });
+
+    console.log('Escupe: ', result);
+
+    return result;
+  }
+
   static async importGame(
     gameToImport: gamesToImport,
     igdbGame: igdbSearchedGame,
@@ -32,25 +42,20 @@ class GameModel {
         },
       });
 
-      console.log(toImport);
-      console.log(igdbGame);
+      toImport.forEach(async (item) => {
+        await prisma.playeds.create({
+          data: {
+            beaten: !!item.beaten,
+            stopped_playing_at: item.stopped_playing_at,
+            game_id: game.id,
+          },
+        });
+      });
+
+      await prisma.gamesToImport.deleteMany({
+        where: { name: game.name },
+      });
     });
-
-    // const createdGame = await prisma.games.create({
-    //   data: {
-    //     game,
-    //   },
-    // });
-
-    // toImport.forEach((played) => {
-    // const createdGame = await prisma.games.create({
-    //   data: {
-    //     name: gameToImport.name,
-    //   },
-    // });
-    // });
-
-    // console.log(toImport);
   }
 
   static async findGamesWithStoppedPlayingNull(userId: number, limit?: number) {

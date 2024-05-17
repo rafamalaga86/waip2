@@ -71,7 +71,9 @@ export function LayoutUI({ children }: { children: ReactNode }) {
         </Toolbar>
       </AppBar>
       <Container sx={{ mt: 12 }}>
-        <main>{children}</main>
+        <Box sx={{ ml: -3, mr: -3 }} component="main">
+          {children}
+        </Box>
       </Container>
     </>
   );

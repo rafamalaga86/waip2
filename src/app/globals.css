@@ -96,6 +96,12 @@ body {
   font-family: 'Proxima Nova', Arial;
 }
 
+.MuiCard-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .title-font {
   font-family: var(--font-title);
   color: var(--primary-color);
@@ -123,7 +129,7 @@ h1.brand {
   width: 100%;
 }
 .game-card.game-card-xs {
-  width: 178.67px;
+  width: 186.67px;
 }
 
 .game-card-actions {

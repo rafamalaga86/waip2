@@ -19,10 +19,23 @@ export default async function searchPage({ searchParams }: { searchParams?: any 
     await GameModel.importGame(gameToImport, game, user.id);
   }
 
+  async function discardGame(gameToImport: gamesToImport) {
+    'use server';
+    const user = await getAuthUser();
+    await GameModel.discardImportGame(gameToImport.name, user.id);
+  }
+
+  console.time('primero');
   const game = await prisma.gamesToImport.findFirst({});
+  console.timeEnd('primero');
   if (!game) return <h2>Nothing to import</h2>;
 
   return (
-    <ImportGames gameToImport={game} searchGameServer={searchGameServer} importGame={importGame} />
+    <ImportGames
+      discardGame={discardGame}
+      gameToImport={game}
+      searchGameServer={searchGameServer}
+      importGame={importGame}
+    />
   );
 }

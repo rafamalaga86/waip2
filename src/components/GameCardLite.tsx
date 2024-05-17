@@ -12,11 +12,12 @@ export function GameCardLite({
   imgElement: ReactNode;
 }) {
   return (
-    <Card sx={{ width: 300 }} key={game.id} className="game-card game-card-xs">
+    <Card key={game.id} className="game-card game-card-xs">
       {/* <CardMedia component="img" image={game.cover_url} alt={game.name} /> */}
       {imgElement}
       {/* <GameCardHoverActions /> */}
-      <CardContent>{children}</CardContent>
+      {children}
+      {/* <CardContent sx={{ display: 'flex', flexDirection: 'column' }}></CardContent> */}
     </Card>
   );
 }

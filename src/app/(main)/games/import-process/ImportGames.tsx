@@ -2,6 +2,7 @@
 import {
   Box,
   Button,
+  CardActions,
   Divider,
   Stack,
   TextField,
@@ -11,6 +12,8 @@ import {
 } from '@mui/material';
 import type { gamesToImport } from '@prisma/client';
 import { useEffect, useState } from 'react';
+import { FaFileImport } from 'react-icons/fa6';
+import { GiBroadsword } from 'react-icons/gi';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { igdbSearchedGame } from 'src/types/types';
@@ -19,13 +22,16 @@ export function ImportGames({
   gameToImport,
   searchGameServer,
   importGame,
+  discardGame,
 }: {
   gameToImport: gamesToImport;
   searchGameServer: (arg1: string) => Promise<object[]>;
   importGame: (gameToImport: gamesToImport, game: igdbSearchedGame) => void;
+  discardGame: (gameToImport: gamesToImport) => void;
 }) {
   const [loading, setLoading] = useState(true);
   const [gameTitleToSearch, setGameTitleToSearch] = useState(gameToImport.name);
+  const [gameTitle, setGameTitle] = useState(gameToImport.name);
   const [searchedGames, setSearchedGames] = useState<any>([]);
 
   useEffect(() => {
@@ -45,9 +51,21 @@ export function ImportGames({
   return (
     <>
       <ThemeProvider theme={darkTheme}>
-        <Typography component="h4" variant="h4" sx={{ mb: 5 }}>
-          Importing game: <span className="title-font">{gameToImport.name}</span>
-        </Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'row', mb: 5 }}>
+          <Typography component="h4" variant="h4">
+            Importing game: <span className="title-font">{gameToImport.name}</span>
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{ ml: 'auto' }}
+            onClick={(event) => {
+              discardGame(gameToImport);
+            }}
+            color="error"
+          >
+            Discard Game
+          </Button>
+        </Box>
         <Box
           component="form"
           noValidate
@@ -55,7 +73,7 @@ export function ImportGames({
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const gameName = formData.get('game_name');
-            if (gameName && typeof gameName === 'string') setGameTitleToSearch(gameName);
+            if (gameName && typeof gameName === 'string') setGameTitleToSearch(gameTitle);
           }}
           sx={{ mt: 1 }}
         >
@@ -66,10 +84,9 @@ export function ImportGames({
             id="game_name"
             name="game_name"
             onChange={(event) => {
-              setGameTitleToSearch(event.target.value);
+              setGameTitle(event.target.value);
             }}
-            value={gameTitleToSearch}
-            sx={{ m: 1 }}
+            value={gameTitle}
             // InputProps={}
           />
         </Box>
@@ -79,6 +96,12 @@ export function ImportGames({
           <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
             {searchedGames.map(
               (game: { id: number; name: string; score: number; cover?: { image_id: string } }) => {
+                let fontSize = 20;
+                const length = game.name.length;
+                console.log('Escupe: ', length);
+                if (length <= 10) fontSize = 25;
+                if (length > 20) fontSize = 15;
+                const titleStyles = { p: 1, mt: 1, mb: 'auto', textAlign: 'center', fontSize };
                 return (
                   <GameCardLite
                     game={game}
@@ -92,17 +115,21 @@ export function ImportGames({
                       ) : null
                     }
                   >
-                    <div>
-                      {game.score}: {game.name}
-                    </div>
-                    <Button
-                      variant="contained"
-                      onClick={(event) => {
-                        importGame(gameToImport, game);
-                      }}
-                    >
-                      Link
-                    </Button>
+                    <Box sx={titleStyles} className="title-font">
+                      {game.name}
+                    </Box>
+                    <CardActions sx={{ p: 1, mt: 'auto', justifyContent: 'center' }}>
+                      <Button
+                        variant="contained"
+                        onClick={(event) => {
+                          importGame(gameToImport, game);
+                        }}
+                        sx={{ mb: 1 }}
+                      >
+                        <GiBroadsword />
+                        <Typography sx={{ ml: 1 }}>Import</Typography>
+                      </Button>
+                    </CardActions>
                   </GameCardLite>
                 );
               }
