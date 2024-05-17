@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import 'src/app/globals.css';
-import { login } from 'src/lib/auth';
-import { UserModel } from 'src/models/UserModel';
+import { getAuthUser, login } from 'src/lib/auth';
 import { LogIn } from './LogIn';
 
 export default async function LoginPage() {
@@ -11,7 +10,7 @@ export default async function LoginPage() {
     return wasLoggedIn;
   }
 
-  const user = await UserModel.getAuth();
+  const user = await getAuthUser();
   if (user) {
     redirect('/');
   }

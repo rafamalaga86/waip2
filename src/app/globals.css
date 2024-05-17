@@ -59,9 +59,11 @@ body {
   --white-darker: rgba(235, 235, 235, 0.8);
   --white-darkest: rgba(235, 235, 235, 0.6);
 
-  /* Global CSS Vars */
+  /* New Colours */
+  --new-orange: #ff9a00;
 
-  --primary-color: var(--blue);
+  /* Global CSS Vars */
+  --primary-color: var(--new-orange);
   --primary-color-darker: var(--blue-darker);
   /*
   --primary-color: var(--aqua-green);
@@ -94,15 +96,16 @@ body {
   font-family: 'Proxima Nova', Arial;
 }
 
-.MuiTypography-h5 {
+.title-font {
   font-family: var(--font-title);
+  color: var(--primary-color);
 }
 
 a {
   text-decoration: none;
 }
 
-.brand h1 {
+h1.brand {
   margin-left: 10px;
   padding: 0;
   font-family: Baloo, sans-serif;

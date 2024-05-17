@@ -1,5 +1,4 @@
 import { prisma } from 'src/database/prismaClient';
-import { getSession } from 'src/lib/auth';
 
 interface UserCreationPayload {
   username: string;
@@ -10,10 +9,8 @@ interface UserCreationPayload {
 }
 
 export class UserModel {
-  static async getAuth() {
-    const session = await getSession();
-    if (!session) return null;
-    return prisma.users.findUniqueOrThrow({ where: { email: session.user.email } });
+  static async getByEmailOrThrow(email: string) {
+    return prisma.users.findUniqueOrThrow({ where: { email: email } });
   }
 
   static async getByEmail(email: string) {

@@ -15,7 +15,11 @@ class GameService {
     return games;
   }
 
-  async searchGame(keyword: string, hasCover: boolean = true, sort: boolean = true) {
+  async searchGame(
+    keyword: string,
+    hasCover: boolean = true,
+    sort: boolean = true
+  ): Promise<object[]> {
     const connector = await getConnector();
     let query = `
       search "${keyword}"
@@ -46,7 +50,6 @@ class GameService {
     if (hasCover) {
       query += 'where cover != null;';
     }
-    console.log('Escupe3: ', query);
 
     let games = await connector.gameFetch(query);
     console.time('a');

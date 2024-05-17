@@ -32,6 +32,12 @@ export async function register(formData: FormData) {
   return wasCreated;
 }
 
+export async function getAuthUser() {
+  const session = await getSession();
+  if (!session) return null;
+  return session.user;
+}
+
 export async function login(formData: FormData): Promise<boolean> {
   const email = formData.get('email');
   if (!email || typeof email !== 'string') {

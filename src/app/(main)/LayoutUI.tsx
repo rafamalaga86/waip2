@@ -14,7 +14,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ReactNode, useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { SideNav } from './SideNav';
+import { SideNav } from '../../components/SideNav';
 
 export function LayoutUI({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -70,7 +70,7 @@ export function LayoutUI({ children }: { children: ReactNode }) {
           </Container>
         </Toolbar>
       </AppBar>
-      <Container sx={{ marginTop: '70px' }}>
+      <Container sx={{ mt: 12 }}>
         <main>{children}</main>
       </Container>
     </>

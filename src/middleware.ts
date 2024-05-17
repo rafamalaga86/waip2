@@ -1,11 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateSession } from './lib/auth';
+import { getAuthUser, updateSession } from './lib/auth';
+
+// Routes that stars with that will be protected with login
+const nonAuthRoutesStarts = ['/users', '/games'];
+
+// Routes that are these exact will be protected
+const nonAuthRoutesExact = ['/'];
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  const user = await getAuthUser();
+
+  if (isAuthRoute(request) && !user) {
+    return NextResponse.redirect(new URL('/log-in', request.url));
+  }
+  let res = await updateSession(request);
+
+  return res;
 }
 
-export function otherMiddleware(request: NextRequest) {
-  console.log('Escupe: PUTIN');
-  return NextResponse.next();
+function isAuthRoute(request: NextRequest): boolean {
+  for (const route of nonAuthRoutesStarts) {
+    if (request.nextUrl.pathname.startsWith(route)) {
+      return true;
+    }
+  }
+  for (const route of nonAuthRoutesExact) {
+    if (request.nextUrl.pathname === route) {
+      return true;
+    }
+  }
+  return false;
 }

@@ -42,10 +42,11 @@ model users {
 model games {
   id Int @id @default(autoincrement())
 
-  igdb_id Int
   name String
-  cover_url String
+  igdb_id Int
+  igdb_cover_id String?
   order Int @default(10)
+
   playeds playeds[]
 
   user_id Int
@@ -53,7 +54,8 @@ model games {
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  
+
+  @@unique([user_id, igdb_id])
 }
 
 model playeds {
@@ -75,6 +77,7 @@ model gamesToImport {
   name String
   beaten Boolean
   stopped_playing_at DateTime?
+  order Int
 
   user_id Int
   user users @relation(fields: [user_id], references: [id])

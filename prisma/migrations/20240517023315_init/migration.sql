@@ -11,6 +11,7 @@ CREATE TABLE "igdb_tokens" (
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
     "username" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "last_login" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "is_superuser" BOOLEAN NOT NULL DEFAULT false,
     "is_staff" BOOLEAN NOT NULL DEFAULT false,
@@ -18,7 +19,6 @@ CREATE TABLE "users" (
     "first_name" TEXT NOT NULL,
     "last_name" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -28,9 +28,9 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "games" (
     "id" SERIAL NOT NULL,
-    "igdb_id" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
-    "cover_url" TEXT NOT NULL,
+    "igdb_id" INTEGER NOT NULL,
+    "igdb_cover_id" TEXT,
     "order" INTEGER NOT NULL DEFAULT 10,
     "user_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -57,6 +57,7 @@ CREATE TABLE "gamesToImport" (
     "name" TEXT NOT NULL,
     "beaten" BOOLEAN NOT NULL,
     "stopped_playing_at" TIMESTAMP(3),
+    "order" INTEGER NOT NULL,
     "user_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -69,6 +70,9 @@ CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "games_user_id_igdb_id_key" ON "games"("user_id", "igdb_id");
 
 -- AddForeignKey
 ALTER TABLE "games" ADD CONSTRAINT "games_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
