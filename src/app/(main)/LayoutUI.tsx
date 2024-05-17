@@ -40,11 +40,11 @@ export function LayoutUI({ children }: { children: ReactNode }) {
             <Button variant="contained" onClick={toggleDrawer(true)}>
               Menu
             </Button>
-            <Link href="/" className="navbar-brand">
-              <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
+            <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
+              <Link href="/" className="navbar-brand">
                 <h1 className="brand">What Am I Playing</h1>
-              </Box>
-            </Link>
+              </Link>
+            </Box>
 
             <form style={{ marginLeft: 'auto' }} onSubmit={submitSearch}>
               <OutlinedInput
@@ -70,11 +70,11 @@ export function LayoutUI({ children }: { children: ReactNode }) {
           </Container>
         </Toolbar>
       </AppBar>
-      <Container sx={{ mt: 12 }}>
-        <Box sx={{ ml: -3, mr: -3 }} component="main">
-          {children}
+      <Box component="main">
+        <Box className="container-wrapper">
+          <Container sx={{ mt: 12 }}>{children}</Container>
         </Box>
-      </Container>
+      </Box>
     </>
   );
 }

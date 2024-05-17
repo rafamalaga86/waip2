@@ -7,14 +7,12 @@ class GameModel {
     prisma.games.create({ data: object });
   }
 
-  static async discardImportGame(name: string, user_id: number): Promise<boolean> {
-    const result = await prisma.gamesToImport.deleteMany({
+  static async discardImportGame(name: string, user_id: number): Promise<number> {
+    const deletedImportGamesNumber = await prisma.gamesToImport.deleteMany({
       where: { name: name, user_id: user_id },
     });
 
-    console.log('Escupe: ', result);
-
-    return result;
+    return deletedImportGamesNumber.count;
   }
 
   static async importGame(
@@ -53,7 +51,7 @@ class GameModel {
       });
 
       await prisma.gamesToImport.deleteMany({
-        where: { name: game.name },
+        where: { name: gameToImport.name },
       });
     });
   }

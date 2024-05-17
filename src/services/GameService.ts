@@ -17,7 +17,7 @@ class GameService {
 
   async searchGame(
     keyword: string,
-    hasCover: boolean = true,
+    searchOptions: searchOptions,
     sort: boolean = true
   ): Promise<object[]> {
     const connector = await getConnector();
@@ -47,9 +47,29 @@ class GameService {
       limit: 500
     ;`;
 
-    if (hasCover) {
-      query += 'where cover != null;';
+    const hasAnyOption = Object.values(searchOptions).some(value => !value);
+    console.log('Escupe: ', hasAnyOption);
+    let where = '';
+
+    if (hasAnyOption) {
+      let whereArray = [];
+
+      if (!searchOptions.includeNoCoverGames) {
+        whereArray.push('cover != null');
+      }
+      if (!searchOptions.includeDLCs) {
+        whereArray.push('parent_game = null');
+      }
+      if (!searchOptions.includeEditions) {
+        whereArray.push('version_parent = null');
+      }
+
+      where = 'where: ' + whereArray.join(' & ') + ';';
     }
+
+    console.log('Escupe: where', where);
+
+    query += where;
 
     let games = await connector.gameFetch(query);
     console.time('a');

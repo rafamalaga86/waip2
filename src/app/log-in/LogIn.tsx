@@ -85,7 +85,6 @@ export function LogIn({
                 const formData = new FormData(event.currentTarget);
                 try {
                   const result = await handleSubmit(formData);
-                  console.log('Escupe: ', result);
                 } catch (error: any) {
                   setLoginError(error.message);
                 }
