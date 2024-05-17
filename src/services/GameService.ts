@@ -17,7 +17,7 @@ class GameService {
 
   async searchGame(
     keyword: string,
-    searchOptions: searchOptions,
+    searchOptions: SearchOptions,
     sort: boolean = true
   ): Promise<object[]> {
     const connector = await getConnector();

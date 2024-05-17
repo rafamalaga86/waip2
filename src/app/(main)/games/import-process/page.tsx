@@ -7,13 +7,13 @@ import { gameService } from 'src/services/GameService';
 import { ImportGames } from './ImportGames';
 
 export default async function searchPage({ searchParams }: { searchParams?: any }) {
-  async function searchGameServer(title: string, searchOptions: searchOptions): Promise<object[]> {
+  async function searchGameServer(title: string, searchOptions: SearchOptions): Promise<object[]> {
     'use server';
     const searchedGames = await gameService.searchGame(title, searchOptions);
     return searchedGames;
   }
 
-  async function importGame(gameToImport: gamesToImport, game: igdbSearchedGame) {
+  async function importGame(gameToImport: gamesToImport, game: IgdbSearchedGame) {
     'use server';
     const user = await getAuthUser();
     await GameModel.importGame(gameToImport, game, user.id);

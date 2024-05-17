@@ -17,7 +17,7 @@ class GameModel {
 
   static async importGame(
     gameToImport: gamesToImport,
-    igdbGame: igdbSearchedGame,
+    igdbGame: IgdbSearchedGame,
     user_id: number
   ) {
     const toImport = await prisma.gamesToImport.findMany({
@@ -40,7 +40,7 @@ class GameModel {
         },
       });
 
-      toImport.forEach(async (item) => {
+      toImport.forEach(async item => {
         await prisma.playeds.create({
           data: {
             beaten: !!item.beaten,

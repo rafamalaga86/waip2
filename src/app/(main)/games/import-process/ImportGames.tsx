@@ -28,8 +28,8 @@ export function ImportGames({
   discardGame,
 }: {
   gameToImports: gamesToImport[];
-  searchGameServer: (arg1: string, arg2: object) => Promise<object[]>;
-  importGame: (gameToImport: gamesToImport, game: igdbSearchedGame) => void;
+  searchGameServer: (title: string, searchOptions: SearchOptions) => Promise<object[]>;
+  importGame: (gameToImport: gamesToImport, game: IgdbSearchedGame) => void;
   discardGame: (gameToImport: gamesToImport) => void;
 }) {
   const gameToImport = gameToImports[0];

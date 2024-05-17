@@ -6,7 +6,7 @@ declare global {
     take?: number;
   }
 
-  interface igdbSearchedGame {
+  interface IgdbSearchedGame {
     id: number;
     name: string;
     alternative_names?: number[];
@@ -27,7 +27,7 @@ declare global {
     rating_count?: number;
   }
 
-  interface searchOptions {
+  interface SearchOptions {
     includeNoCoverGames: boolean;
     includeDLCs: boolean;
     includeEditions: boolean;
