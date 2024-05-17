@@ -45,11 +45,11 @@ export function ImportGames({
 
   useEffect(() => {
     (async () => {
-      const searchedGames = await searchGameServer(gameTitleToSearch, searchOptions);
+      const searchedGames = await searchGameServer(gameTitleToSearch, optionsToSearch);
       setSearchedGames(searchedGames);
       setLoading(false);
     })();
-  }, [gameTitleToSearch, optionsToSearch]);
+  }, [gameTitleToSearch, optionsToSearch, searchGameServer]);
 
   const darkTheme = createTheme({
     palette: {
@@ -82,7 +82,7 @@ export function ImportGames({
             {gameToImports.map(item => {
               const date = item.stopped_playing_at;
               const played = item.beaten ? 'Beaten' : 'Tried';
-              const label = date ? played + ': ' + date.toLocaleDateString('en-US') : 'Playing now';
+              const label = date ? played + ': ' + date.toLocaleDateString('es-ES') : 'Playing now';
               return <Chip key={item.id} label={label} color="primary" />;
             })}
           </div>

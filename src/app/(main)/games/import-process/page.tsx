@@ -1,5 +1,4 @@
 import type { gamesToImport } from '@prisma/client';
-import { useRouter } from 'next/router';
 import { prisma } from 'src/database/prismaClient';
 import { getAuthUser } from 'src/lib/auth';
 import { GameModel } from 'src/models/GameModel';

@@ -9,11 +9,11 @@ export function SearchGameSection({
   setOptionsToSearch,
   setLoading,
 }: {
-  setGameTitleToSearch: any;
-  initialGameTitle: any;
-  searchOptions: any;
-  setOptionsToSearch: any;
-  setLoading: any;
+  initialGameTitle: string;
+  setGameTitleToSearch: Function;
+  searchOptions: SearchOptions;
+  setOptionsToSearch: Function;
+  setLoading: Function;
 }) {
   const [gameTitle, setGameTitle] = useState(initialGameTitle);
 

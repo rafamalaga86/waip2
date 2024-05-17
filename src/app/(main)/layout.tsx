@@ -1,6 +1,6 @@
-import { CssBaseline } from '@mui/material';
 import type { Metadata } from 'next';
 import { Bungee_Inline } from 'next/font/google';
+import localFont from 'next/font/local';
 import 'src/app/globals.css';
 import { LayoutUI } from './LayoutUI';
 
@@ -8,6 +8,18 @@ export const metadata: Metadata = {
   title: 'Waip2',
   description: 'New version of waip',
 };
+
+const proximaNova = localFont({
+  src: [
+    {
+      path: '../../../public/fonts/Mark Simonson - Proxima Nova Alt Regular-webfont.woff',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  preload: true,
+  variable: '--primary-font',
+});
 
 const bungeeInline = Bungee_Inline({
   subsets: ['latin'],
@@ -23,8 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <CssBaseline />
-      <html lang="en" className={`${bungeeInline.variable}`}>
+      <html lang="en" className={`${bungeeInline.variable} ${proximaNova.className}`}>
         <head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
