@@ -1,4 +1,4 @@
-import type { gamesToImport } from '@prisma/client';
+import type { games_to_import } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
 import { getAuthUser } from 'src/lib/auth';
 import { GameModel } from 'src/models/GameModel';
@@ -12,24 +12,24 @@ export default async function searchPage({ searchParams }: { searchParams?: any 
     return searchedGames;
   }
 
-  async function importGame(gameToImport: gamesToImport, game: IgdbSearchedGame) {
+  async function importGame(gameToImport: games_to_import, game: IgdbSearchedGame) {
     'use server';
     const user = await getAuthUser();
     await GameModel.importGame(gameToImport, game, user.id);
   }
 
-  async function discardGame(gameToImport: gamesToImport): Promise<number> {
+  async function discardGame(gameToImport: games_to_import): Promise<number> {
     'use server';
     const user = await getAuthUser();
     return await GameModel.discardImportGame(gameToImport.name, user.id);
   }
 
   console.time('primero');
-  const nextGame = await prisma.gamesToImport.findFirst({});
+  const nextGame = await prisma.games_to_import.findFirst();
   console.timeEnd('primero');
   if (!nextGame) return <h2>Nothing to import</h2>;
 
-  const games = await prisma.gamesToImport.findMany({
+  const games = await prisma.games_to_import.findMany({
     where: { name: nextGame.name },
   });
 

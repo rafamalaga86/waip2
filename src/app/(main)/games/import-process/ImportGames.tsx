@@ -1,6 +1,6 @@
 'use client';
 import { Box, Button, CardActions, Chip, Divider, Stack, Tooltip, Typography } from '@mui/material';
-import type { gamesToImport } from '@prisma/client';
+import type { games_to_import } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
@@ -12,10 +12,10 @@ export function ImportGames({
   importGame,
   discardGame,
 }: {
-  gameToImports: gamesToImport[];
+  gameToImports: games_to_import[];
   searchGameServer: (title: string, searchOptions: SearchOptions) => Promise<object[]>;
-  importGame: (gameToImport: gamesToImport, game: IgdbSearchedGame) => void;
-  discardGame: (gameToImport: gamesToImport) => void;
+  importGame: (gameToImport: games_to_import, game: IgdbSearchedGame) => void;
+  discardGame: (gameToImport: games_to_import) => void;
 }) {
   const gameToImport = gameToImports[0];
   const searchOptions = {

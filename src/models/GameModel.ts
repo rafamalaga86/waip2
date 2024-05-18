@@ -1,6 +1,5 @@
-import type { PrismaClient, gamesToImport } from '@prisma/client';
+import type { PrismaClient, games_to_import } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
-import { PrismaQuery, igdbSearchedGame } from 'src/types/types';
 
 class GameModel {
   static async save(object: any) {
@@ -8,7 +7,7 @@ class GameModel {
   }
 
   static async discardImportGame(name: string, user_id: number): Promise<number> {
-    const deletedImportGamesNumber = await prisma.gamesToImport.deleteMany({
+    const deletedImportGamesNumber = await prisma.games_to_import.deleteMany({
       where: { name: name, user_id: user_id },
     });
 
@@ -16,11 +15,11 @@ class GameModel {
   }
 
   static async importGame(
-    gameToImport: gamesToImport,
+    gameToImport: games_to_import,
     igdbGame: IgdbSearchedGame,
     user_id: number
   ) {
-    const toImport = await prisma.gamesToImport.findMany({
+    const toImport = await prisma.games_to_import.findMany({
       where: {
         name: gameToImport.name,
       },
@@ -28,6 +27,9 @@ class GameModel {
 
     //@ts-ignore
     await prisma.$transaction(async (prisma: PrismaClient) => {
+      // History of imports to not to have to repeat it. old_game_properties will
+      // be only in Rafa's import
+
       const game = await prisma.games.create({
         data: {
           name: igdbGame.name,
@@ -37,6 +39,7 @@ class GameModel {
           created_at: gameToImport.created_at,
           updated_at: gameToImport.updated_at,
           user_id: user_id,
+          extra: gameToImport.extra || {},
         },
       });
 
@@ -50,7 +53,7 @@ class GameModel {
         });
       });
 
-      await prisma.gamesToImport.deleteMany({
+      await prisma.games_to_import.deleteMany({
         where: { name: gameToImport.name },
       });
     });

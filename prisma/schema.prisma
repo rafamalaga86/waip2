@@ -33,7 +33,7 @@ model users {
   last_name String
   password String
   games games[]
-  gamesToImport gamesToImport[]
+  games_to_import games_to_import[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -45,6 +45,7 @@ model games {
   name String
   igdb_id Int
   igdb_cover_id String?
+  extra Json @default("{}")
   order Int @default(10)
 
   playeds playeds[]
@@ -71,13 +72,14 @@ model playeds {
   updated_at DateTime @updatedAt
 }
 
-model gamesToImport {
+model games_to_import {
   id Int @id @default(autoincrement())
 
   name String
   beaten Boolean
   stopped_playing_at DateTime?
   order Int
+  extra Json @default("{}")
 
   user_id Int
   user users @relation(fields: [user_id], references: [id])
