@@ -40,6 +40,7 @@ class GameService {
       remakes,
       remasters,
       release_dates,
+      first_release_date,
       websites,
       rating,
       rating_count

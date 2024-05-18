@@ -101,7 +101,7 @@ export function ImportGames({
         {!loading && (
           <>
             {!searchedGames.length && <h5>No games found</h5>}
-            {searchedGames.length && (
+            {!!searchedGames.length && (
               <h5 className="mb-3">
                 Found <strong>{searchedGames.length}</strong> games
               </h5>
@@ -109,6 +109,7 @@ export function ImportGames({
             <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
               {searchedGames.map(
                 (game: {
+                  first_release_date: number;
                   id: number;
                   name: string;
                   score: number;
@@ -134,6 +135,9 @@ export function ImportGames({
                       <Box sx={titleStyles} className="title-font">
                         {game.name}
                       </Box>
+                      <small className="text-align-center">
+                        {new Date(game.first_release_date * 1000).getFullYear()}
+                      </small>
                       <CardActions sx={{ p: 1, mt: 'auto', justifyContent: 'center' }}>
                         <Button
                           variant="contained"

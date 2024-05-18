@@ -210,7 +210,7 @@ h1.brand {
   width: 100%;
 }
 .game-card.game-card-xs {
-  width: 186.67px;
+  width: 178.67px;
 }
 
 .game-card-actions {
@@ -353,5 +353,9 @@ h1.brand {
 .my-5 {
   margin-top: 40px;
   margin-bottom: 40px;
+}
+
+.text-align-center {
+  text-align: center;
 }
 /*-------------------------------------------------------*/

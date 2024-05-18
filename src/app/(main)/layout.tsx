@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { Bungee_Inline } from 'next/font/google';
 import localFont from 'next/font/local';
 import 'src/app/globals.css';
-import { LayoutUI } from './LayoutUI';
+import { Main } from './Main';
+import { TopBarNav } from './TopBarNav';
 
 export const metadata: Metadata = {
   title: 'Waip2',
@@ -46,7 +47,8 @@ export default function RootLayout({
           />
         </head>
         <body>
-          <LayoutUI>{children}</LayoutUI>
+          <TopBarNav />
+          <Main>{children}</Main>
         </body>
       </html>
     </>
