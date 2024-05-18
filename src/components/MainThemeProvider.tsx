@@ -1,3 +1,4 @@
+'use client';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
 import { green } from '@mui/material/colors';
@@ -13,6 +14,6 @@ const theme = createTheme({
   },
 });
 
-export default function MainThemeProvider({ children }: { children: React.ReactNode }) {
+export function MainThemeProvider({ children }: { children: React.ReactNode }) {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }

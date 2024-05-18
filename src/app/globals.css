@@ -184,7 +184,7 @@ a {
 
 .title-font {
   font-family: var(--font-title);
-  color: var(--primary-color);
+  /* color: var(--primary-color); */
 }
 
 h1.brand {

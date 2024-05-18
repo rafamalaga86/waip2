@@ -1,7 +1,10 @@
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import { ThemeProvider } from '@mui/material/styles';
 import type { Metadata } from 'next';
 import { Bungee_Inline } from 'next/font/google';
 import localFont from 'next/font/local';
 import 'src/app/globals.css';
+import { darkTheme } from 'src/app/theme';
 import { Main } from './Main';
 import { TopBarNav } from './TopBarNav';
 
@@ -47,8 +50,12 @@ export default function RootLayout({
           />
         </head>
         <body>
-          <TopBarNav />
-          <Main>{children}</Main>
+          <AppRouterCacheProvider options={{ key: 'css' }}>
+            <ThemeProvider theme={darkTheme}>
+              <TopBarNav />
+              <Main>{children}</Main>
+            </ThemeProvider>
+          </AppRouterCacheProvider>
         </body>
       </html>
     </>
