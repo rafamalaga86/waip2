@@ -1,8 +1,7 @@
 'use client';
-import { Box, Button, CardActions, Chip, Divider, Stack, Typography } from '@mui/material';
+import { Box, Button, CardActions, Chip, Divider, Stack, Tooltip, Typography } from '@mui/material';
 import type { gamesToImport } from '@prisma/client';
 import { useEffect, useState } from 'react';
-import { GiBroadsword } from 'react-icons/gi';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { SearchGameSection } from 'src/components/SearchGameSection';
@@ -51,7 +50,7 @@ export function ImportGames({
             }}
             // color="error"
           >
-            Discard Game
+            Discard this game
           </Button>
         </div>
         <Typography component="h4" variant="h4" color="primary">
@@ -94,12 +93,15 @@ export function ImportGames({
                 cover?: { image_id: string };
                 first_release_date?: number;
               }) => {
+                const date = game.first_release_date;
+                const year = date ? '(' + new Date(date * 1000).getFullYear() + ')' : '';
+
                 let fontSize = 20;
-                if (!game.name) console.log(game);
                 const length = game.name.length;
-                if (length <= 10) fontSize = 25;
-                if (length > 20) fontSize = 15;
+                if (length < 11) fontSize = 25;
+                else if (length > 20) fontSize = 15;
                 const titleStyles = { p: 1, mt: 1, mb: 'auto', textAlign: 'center', fontSize };
+
                 return (
                   <GameCardLite
                     game={game}
@@ -115,9 +117,10 @@ export function ImportGames({
                       {game.name}
                     </Box>
                     <small className="text-align-center">
-                      {game.first_release_date
-                        ? new Date(game.first_release_date * 1000).getFullYear()
-                        : ''}
+                      {!!year && <>{year} - </>}
+                      <Tooltip title="IGDB ID">
+                        <span className="igdb-background-colour mini-chip">{game.id}</span>
+                      </Tooltip>
                     </small>
                     <CardActions sx={{ p: 1, mt: 'auto', justifyContent: 'center' }}>
                       <Button
@@ -126,9 +129,8 @@ export function ImportGames({
                           await importGame(gameToImport, game);
                           window.location.reload();
                         }}
-                        sx={{ mb: 1 }}
+                        sx={{ my: 1 }}
                       >
-                        <GiBroadsword />
                         <Typography sx={{ ml: 1 }}>Import</Typography>
                       </Button>
                     </CardActions>

@@ -33,6 +33,7 @@ body {
   --hltb-colour: #ec9444; /* New Yellow  */
   /*--metacritic-colour: #6c3;*/ /* Old Green */
   --metacritic-colour: #00ce7a; /* New Green */
+  --igdb-colour: #9147ff;
 
   /* Darker versions for hovers */
   --aqua-green-darker: #3faf8f;
@@ -58,9 +59,6 @@ body {
   --white: rgba(235, 235, 235, 1); /* #ebebeb */
   --white-darker: rgba(235, 235, 235, 0.8);
   --white-darkest: rgba(235, 235, 235, 0.6);
-
-  /* New Colours */
-  --new-orange: #ff9a00;
 
   /* Global CSS Vars */
   --primary-color: var(--red);
@@ -198,9 +196,9 @@ h1.brand {
   color: var(--gray-0) !important;
 }
 
-.game-card {
-  position: relative;
-  background-color: var(--primary-color);
+.MuiCard-root.game-card {
+  /* background-color: var(--primary-color); */
+  background-color: var(--gray-2);
 }
 
 .game-card .title-font {
@@ -357,5 +355,16 @@ h1.brand {
 
 .text-align-center {
   text-align: center;
+}
+
+.igdb-colour {
+  color: var(--igdb-colour);
+}
+.igdb-background-colour {
+  background-color: var(--igdb-colour);
+}
+.mini-chip {
+  padding: 3px 5px;
+  border-radius: 10px;
 }
 /*-------------------------------------------------------*/

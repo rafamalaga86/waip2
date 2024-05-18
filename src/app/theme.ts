@@ -1,6 +1,6 @@
 'use client';
 
-import { createTheme } from '@mui/material';
+import { PaletteMode, createTheme } from '@mui/material';
 
 const red = '#ee6352';
 const blue = '#416cde';
@@ -14,29 +14,42 @@ const aquaGreen = '#49c5a1';
 const newOrange = '#ff9a00';
 const sublimePink = '#f92472';
 
-const primaryColor = aquaGreen;
-const secondaryColor = blue;
+const igdbColor = '#9147ff';
 
-export const lightTheme = createTheme({
+const dark: PaletteMode = 'dark';
+
+const theme = {
   palette: {
+    mode: dark,
+    primary: {
+      main: aquaGreen,
+    },
+    secondary: {
+      main: cyan,
+    },
+  },
+
+  components: {
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: 'black',
+          // color: 'red',
+          // border: '1px solid #dadde9',
+        },
+      },
+    },
+  },
+};
+
+let darkTheme = createTheme(theme);
+
+const lightTheme = createTheme({
+  // ...darkTheme,
+  palette: {
+    ...theme.palette,
     mode: 'light',
-    primary: {
-      main: primaryColor,
-    },
-    secondary: {
-      main: secondaryColor,
-    },
   },
 });
 
-export const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: primaryColor,
-    },
-    secondary: {
-      main: secondaryColor,
-    },
-  },
-});
+export { darkTheme, lightTheme };
