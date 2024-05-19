@@ -6,12 +6,43 @@ class GameService {
     const connector = await getConnector();
     return await connector.gameFetch('fields: *, cover.image_id;');
   }
-  async searchGameOld(keyword: string) {
+
+  #searchFields: string = `
+    name,
+    alternative_names,
+    collections,
+    cover.image_id,
+    dlcs,
+    expansions,
+    franchises,
+    game_localizations,
+    parent_game,
+    platforms,
+    ports,
+    remakes,
+    remasters,
+    release_dates,
+    first_release_date,
+    websites,
+    rating,
+    rating_count
+  `;
+
+  async getById(id: number) {
     const connector = await getConnector();
-    const games = await connector.gameFetch(`
-      search "${keyword}";
-      fields: id, name, cover.image_id, total_rating_count;
-      limit: 100;`);
+    let query = `
+      fields ${this.#searchFields};
+      where id = ${id};
+      limit 500
+    ;`;
+
+    let games = await connector.gameFetch(query);
+    console.log('Escupe: ', games);
+
+    if (games[0]?.status) {
+      throw new Error('There was an error fetching the data.');
+    }
+
     return games;
   }
 
@@ -20,36 +51,16 @@ class GameService {
     searchOptions: SearchOptions,
     sort: boolean = true
   ): Promise<object[]> {
+    // const unescaped = keyword.replace(/\\'/g, "'");
     const connector = await getConnector();
     let query = `
-      search "${keyword}"
-      ;
-      
-    fields:
-      name,
-      alternative_names,
-      collections,
-      cover.image_id,
-      dlcs,
-      expansions,
-      franchises,
-      game_localizations,
-      parent_game,
-      platforms,
-      ports,
-      remakes,
-      remasters,
-      release_dates,
-      first_release_date,
-      websites,
-      rating,
-      rating_count
-    ;
+      search ${JSON.stringify(keyword)};
+      fields: ${this.#searchFields};
       limit: 500
     ;`;
+    console.log('Escupe: ', query);
 
     const hasAnyOption = Object.values(searchOptions).some(value => !value);
-    console.log('Escupe: ', hasAnyOption);
     let where = '';
 
     if (hasAnyOption) {
@@ -68,17 +79,17 @@ class GameService {
       where = 'where: ' + whereArray.join(' & ') + ';';
     }
 
-    console.log('Escupe: where', where);
-
     query += where;
 
     let games = await connector.gameFetch(query);
-    console.time('a');
+    console.log('Escupe: ', games);
 
+    if (games[0]?.status) {
+      throw new Error('There was an error fetching the data.');
+    }
     if (sort) {
       games = new GameSorter(games).sortByRelevance();
     }
-    console.timeEnd('a');
     return games;
     // const sorter = new GameSorter(games);
     // return sorter.sortByRelevance();

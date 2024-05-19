@@ -4,7 +4,9 @@ import type { games_to_import } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
+import { ImportByIdForm } from 'src/components/ImportByIdForm';
 import { SearchGameSection } from 'src/components/SearchGameSection';
+import { getFontSize } from 'src/lib/helpers';
 
 export function ImportGames({
   gameToImports,
@@ -31,6 +33,7 @@ export function ImportGames({
   useEffect(() => {
     (async () => {
       const searchedGames = await searchGameServer(gameTitleToSearch, optionsToSearch);
+      console.log('Escupe: ', searchedGames);
       setSearchedGames(searchedGames);
       setLoading(false);
     })();
@@ -78,14 +81,15 @@ export function ImportGames({
       {loading && <h5>Cargando</h5>}
       {!loading && (
         <>
-          {!searchedGames.length && <h5>No games found</h5>}
-          {!!searchedGames.length && (
+          {searchedGames.errorMessage && <h5>{searchedGames.errorMessage}</h5>}
+          {!searchedGames.games.length && !searchedGames.errorMessage && <h5>No games found</h5>}
+          {!!searchedGames.games.length && (
             <h5 className="mb-3">
-              Found <strong>{searchedGames.length}</strong> games
+              Found <strong>{searchedGames.games.length}</strong> games
             </h5>
           )}
           <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
-            {searchedGames.map(
+            {searchedGames.games.map(
               (game: {
                 id: number;
                 name: string;
@@ -96,10 +100,7 @@ export function ImportGames({
                 const date = game.first_release_date;
                 const year = date ? '(' + new Date(date * 1000).getFullYear() + ')' : '';
 
-                let fontSize = 20;
-                const length = game.name.length;
-                if (length < 11) fontSize = 25;
-                else if (length > 20) fontSize = 15;
+                const fontSize = getFontSize(game.name);
                 const titleStyles = { p: 1, mt: 1, mb: 'auto', textAlign: 'center', fontSize };
 
                 return (
@@ -131,7 +132,7 @@ export function ImportGames({
                         }}
                         sx={{ my: 1 }}
                       >
-                        <Typography sx={{ ml: 1 }}>Import</Typography>
+                        Import
                       </Button>
                     </CardActions>
                   </GameCardLite>

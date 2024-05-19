@@ -30,6 +30,19 @@ class GameModel {
       // History of imports to not to have to repeat it. old_game_properties will
       // be only in Rafa's import
 
+      // Only for Rafa
+      if (user_id === 1) {
+        //@ts-ignore
+        const old_game_id = gameToImport.extra?.old_game_properties?.id;
+        await prisma.games_import_history.create({
+          data: {
+            user_id: user_id,
+            igdb_id: igdbGame.id,
+            old_game_id: old_game_id,
+          },
+        });
+      }
+
       const game = await prisma.games.create({
         data: {
           name: igdbGame.name,

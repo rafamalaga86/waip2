@@ -3,6 +3,7 @@ TODO: Make a script that finds broken image links
 TODO: Implement caching
 TODO: Impelement error page
 TODO: Implement full backend validation
+TODO: Make sure it finds in IGDB games like That's you or special characters
 
 ## Deploy on Vercel
 

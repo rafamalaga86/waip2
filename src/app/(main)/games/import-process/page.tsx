@@ -6,10 +6,23 @@ import { gameService } from 'src/services/GameService';
 import { ImportGames } from './ImportGames';
 
 export default async function searchPage({ searchParams }: { searchParams?: any }) {
-  async function searchGameServer(title: string, searchOptions: SearchOptions): Promise<object[]> {
+  async function searchGameServer(
+    keyword: string,
+    searchOptions: SearchOptions
+  ): Promise<{ games: []; errorMessage: string | null }> {
     'use server';
-    const searchedGames = await gameService.searchGame(title, searchOptions);
-    return searchedGames;
+    let games;
+    try {
+      // is a string of numbers?
+      if (/^\d+$/.test(keyword)) {
+        games = await gameService.getById(Number(keyword));
+      } else {
+        games = await gameService.searchGame(keyword, searchOptions);
+      }
+    } catch (error: any) {
+      return { games: [], errorMessage: error?.message };
+    }
+    return { games, errorMessage: null };
   }
 
   async function importGame(gameToImport: games_to_import, game: IgdbSearchedGame) {

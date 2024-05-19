@@ -87,3 +87,12 @@ model games_to_import {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+model games_import_history {
+  id Int @id @default(autoincrement())
+
+  user_id Int
+  igdb_id Int
+  old_game_id Int
+
+  created_at DateTime @default(now())
+}

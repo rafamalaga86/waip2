@@ -1,6 +1,7 @@
 import { Box, Button, Divider, FormControlLabel, Grid, Switch, TextField } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useSwitch } from './hooks/useSwitch';
+import { QuestionTooltip } from './questionTooltip';
 
 export function SearchGameSection({
   initialGameTitle,
@@ -31,13 +32,12 @@ export function SearchGameSection({
           noValidate
           id="search-form"
           onSubmit={async (event: React.FormEvent<HTMLFormElement>) => {
-            console.log('Escupe: llega');
             event.preventDefault();
             setLoading(true);
             setGameTitleToSearch(gameTitle);
             setOptionsToSearch(searchOptions);
           }}
-          sx={{ mt: 1 }}
+          sx={{ mt: 1, display: 'flex', flexDirection: 'row' }}
         >
           <TextField
             required
@@ -51,6 +51,8 @@ export function SearchGameSection({
             value={gameTitle}
             // InputProps={}
           />
+
+          <QuestionTooltip text="If you enver a IGDB ID, it will search by id" />
         </Box>
       </Grid>
       <Grid
