@@ -1,0 +1,26 @@
+
+{"old_game_properties": {"id": 165, "genres": "Action, Shooter, Shooter, First-Person, Sci-Fi, Sci-Fi, Arcade", "synopsis": "A new era of shoot and loot is about to begin. Play as one of four new vault hunters facing off against a massive new world of creatures, psychos and the evil mastermind, Handsome Jack. Make new friends, arm them with a bazillion weapons and fight alongside them in 4 player co-op on a relentless quest for revenge and redemption across the undiscovered and unpredictable living planet.", "cover_url": "https://gamury.com/wp-content/uploads/Borderlands-2-Season-Pass-DLC-Steam-Key-Global.jpg", "developer": "Gearbox Software", "hltb_length": 17.5, "release_date": null, "metacritic_score": "82"}}
+
+{
+  "id": 192,
+  "name": "Dishonored DLCs",
+  "beaten": true,
+  "stopped_playing_at": "2015-04-01 06:00:00",
+  "order": 10,
+  "extra": "{\"old_game_properties\": {\"id\": 192, \"genres\": \"Action Adventure, Modern, General, Modern\", \"synopsis\": \"Continue your journey as the legendary assassin, Daud, in Dishonored: The Brigmore Witches. Access Daud's weapons, gadgets, allies and supernatural abilities once more, and bring his twisted narrative that began with The Knife of Dunwall to a close.\", \"cover_url\": \"https://howlongtobeat.com/games/220px-Dishonored_box_art_Bethesda.jpg\", \"developer\": \"Arkane Studios\", \"hltb_length\": 8.5, \"release_date\": \"2013-08-13T05:00:00.000Z\", \"metacritic_score\": \"80\"}}",
+  "user_id": 1,
+  "created_at": "2018-02-27 21:22:37.433",
+  "updated_at": "2018-02-27 21:22:37.433"
+}
+
+{
+  "id": 268,
+  "name": "The Legend of Zelda: Breath of the Wild - The Champions' Ballad and The Master Trials",
+  "beaten": true,
+  "stopped_playing_at": "2018-04-21 05:00:00",
+  "order": 10,
+  "extra": "{\"old_game_properties\": {\"id\": 268, \"genres\": \"Action Adventure, Open-World\", \"synopsis\": \"The two DLC of The Legend of Zelda\", \"cover_url\": \"https://www.n3rdabl3.com/wp-content/images/uploads/2017/02/zelda-dlc.jpg\", \"developer\": \"Nintendo\", \"hltb_length\": 10, \"release_date\": null, \"metacritic_score\": \"81\"}}",
+  "user_id": 1,
+  "created_at": "2018-04-07 22:42:15.035",
+  "updated_at": "2020-02-05 22:20:09.28"
+}

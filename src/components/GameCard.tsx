@@ -1,32 +1,40 @@
-import { Card, CardContent, CardMedia, Paper, Rating, Typography } from '@mui/material';
-import { GameCardHoverActions } from './GameCardHoverActions';
+import { Box, Card, CardContent, CardMedia, Fade, Paper, Rating, Typography } from '@mui/material';
+import { ReactNode, useState } from 'react';
+import { titleAdjustment } from 'src/lib/helpers';
+import { IGDBImage } from './IGDBImage';
 
 export function GameCard({
   game,
   index,
+  imgElement,
+  children,
 }: {
-  game: { id: number; name: string; cover_url: string };
+  game: { id: number; name: string };
   index: number;
+  imgElement: ReactNode;
+  children: ReactNode;
 }) {
+  const fontSize = titleAdjustment(game.name);
+  const [visible, setVisible] = useState(true);
+
   return (
-    <Card sx={{ width: 300 }} key={game.id} className="game-card">
-      <CardMedia component="img" image={game.cover_url} alt={game.name} />
-      <GameCardHoverActions />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {game.name}
-        </Typography>
-        <Rating name="simple-controlled" value={3} size="large" precision={0.5} />
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-          across all continents except Antarctica
-        </Typography>
-        {/* <CardActions>
-              <Button size='small' color='primary'>
-                Share
-              </Button>
-            </CardActions> */}
-      </CardContent>
-    </Card>
+    <Fade in={visible !== false} key={game.id}>
+      <Card className="game-card" key={game.id} component="div">
+        {imgElement}
+        <CardContent>
+          {children}
+          {/* <Rating name="simple-controlled" value={3} size="large" precision={0.5} /> */}
+          {/* <Typography variant="body2" color="text.secondary">
+              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+              across all continents except Antarctica
+            </Typography> */}
+          {/* <CardActions>
+                  <Button size='small' color='primary'>
+                    Share
+                  </Button>
+                </CardActions> */}
+        </CardContent>
+      </Card>
+    </Fade>
   );
 }

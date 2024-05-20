@@ -25,7 +25,8 @@ class GameService {
     first_release_date,
     websites,
     rating,
-    rating_count
+    rating_count,
+    url
   `;
 
   async getById(id: number) {

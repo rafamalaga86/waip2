@@ -1,6 +1,5 @@
 import { config } from 'dotenv';
 import mysql from 'mysql2/promise';
-import { GameModel } from 'src/models/GameModel';
 import { prisma } from '../src/database/prismaClient';
 
 interface OldGame {

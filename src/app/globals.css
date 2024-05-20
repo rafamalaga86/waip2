@@ -133,7 +133,7 @@ a {
 /* TOP APP BAR ------------------------------------------*/
 .menu-button {
   position: relative;
-  left: -12px;
+  left: -10px;
 }
 /*-------------------------------------------------------*/
 
@@ -172,6 +172,9 @@ a {
 .MuiTypography-root {
   /* font-family: var(--primary-font), Arial; */
 }
+.MuiButtonBase-root.MuiIconButton-root.hid-aura {
+  background-color: inherit;
+}
 
 .MuiCard-root {
   display: flex;
@@ -204,9 +207,21 @@ h1.brand {
   background-color: var(--gray-2);
 }
 
+.masonry-wrapper {
+}
+
+.masonry-games.MuiMasonry-root {
+  /* margin: 0 -7px; */
+}
+
+.card-wrapper {
+  /* padding: 7px; */
+}
+
 .game-card .title-font {
   color: white;
 }
+
 .game-card img {
   width: 100%;
 }
@@ -373,11 +388,20 @@ h1.brand {
 .cursor-pointer {
   cursor: pointer;
 }
-.word-break {
+.word-break-word {
   width: 90%;
   word-wrap: break-word;
 }
-.MuiButtonBase-root.MuiIconButton-root.hid-aura {
-  background-color: inherit;
+
+.color-white {
+  color: white;
 }
+.no-padding {
+  padding: 0 7px !important;
+}
+
+.line-height-1 {
+  line-height: 1;
+}
+
 /*-------------------------------------------------------*/

@@ -4,6 +4,10 @@ TODO: Implement caching
 TODO: Impelement error page
 TODO: Implement full backend validation
 TODO: Make sure it finds in IGDB games like That's you or special characters
+TODO: Include DLCS as games tied to games: info about skipped DLCs in the import
+
+Not game but included:
+Diablo III: Reaper of Souls
 
 ## Deploy on Vercel
 

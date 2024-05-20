@@ -76,7 +76,7 @@ class GameModel {
     const query: PrismaQuery = {
       where: {
         user_id: userId,
-        oldPlayed: {
+        playeds: {
           some: {
             stopped_playing_at: null,
           },

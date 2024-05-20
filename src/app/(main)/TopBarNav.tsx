@@ -39,7 +39,7 @@ export function TopBarNav() {
       </Drawer>
       <ThemeProvider theme={lightTheme}>
         <AppBar>
-          <Toolbar>
+          <Toolbar className="no-padding">
             <Container sx={{ display: 'flex', alignItems: 'center' }} className="toolBar-container">
               {/* <Button variant="contained" onClick={toggleDrawer(true)}>
               </Button> */}

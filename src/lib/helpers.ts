@@ -1,23 +1,23 @@
-export function getFontSize(title: string) {
-  if (typeof title !== 'string') {
-    return 20;
+export function titleAdjustment(
+  title: string,
+  proportion: number = 1
+): [fontSize: number, extraClases: string] {
+  let extraClases = '';
+  if (longestWord(title).length > 11) {
+    extraClases += 'word-break-word';
   }
 
   const length = title.length;
 
   if (length < 10) {
-    return 25;
+    return [25 * proportion, extraClases];
   }
 
   if (length > 20) {
-    return 15;
+    return [15 * proportion, extraClases];
   }
 
-  // if (longestWord(title).length > 11) {
-  //   return 18;
-  // }
-
-  return 20;
+  return [20 * proportion, extraClases];
 }
 
 export function longestWord(phrase: string): string {

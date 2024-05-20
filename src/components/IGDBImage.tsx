@@ -1,6 +1,12 @@
 import React from 'react';
 
-export function IGDBImage({ string_id, description }: { string_id?: string; description: string }) {
+export function IGDBImage({
+  string_id,
+  description,
+}: {
+  string_id?: string | null;
+  description: string;
+}) {
   let src;
   if (string_id) {
     src = `https://images.igdb.com/igdb/image/upload/t_cover_big/${string_id}.webp`;

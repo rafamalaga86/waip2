@@ -4,9 +4,8 @@ import type { games_to_import } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
-import { ImportByIdForm } from 'src/components/ImportByIdForm';
 import { SearchGameSection } from 'src/components/SearchGameSection';
-import { getFontSize } from 'src/lib/helpers';
+import { titleAdjustment } from 'src/lib/helpers';
 
 export function ImportGames({
   gameToImports,
@@ -50,6 +49,7 @@ export function ImportGames({
             sx={{ ml: 'auto' }}
             onClick={() => {
               discardGame(gameToImport);
+              window.location.reload();
             }}
             // color="error"
           >
@@ -96,11 +96,12 @@ export function ImportGames({
                 score: number;
                 cover?: { image_id: string };
                 first_release_date?: number;
+                url: string;
               }) => {
                 const date = game.first_release_date;
                 const year = date ? '(' + new Date(date * 1000).getFullYear() + ')' : '';
 
-                const fontSize = getFontSize(game.name);
+                const { fontSize, classes } = titleAdjustment(game.name);
                 const titleStyles = { p: 1, mt: 1, mb: 'auto', textAlign: 'center', fontSize };
 
                 return (
@@ -119,9 +120,11 @@ export function ImportGames({
                     </Box>
                     <small className="text-align-center">
                       {!!year && <>{year} - </>}
-                      <Tooltip title="IGDB ID">
-                        <span className="igdb-background-colour mini-chip">{game.id}</span>
-                      </Tooltip>
+                      <a className="color-white" href={game.url}>
+                        <Tooltip title="IGDB ID">
+                          <span className="igdb-background-colour mini-chip">{game.id}</span>
+                        </Tooltip>
+                      </a>
                     </small>
                     <CardActions sx={{ p: 1, mt: 'auto', justifyContent: 'center' }}>
                       <Button
