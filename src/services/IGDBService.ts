@@ -107,6 +107,7 @@ class IGDBService {
         dlcs.name,
         expanded_games.name,
         expansions.name,
+        game_engines.name,
         franchise.name,
         franchises.name,
         forks.name,

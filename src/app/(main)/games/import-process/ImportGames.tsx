@@ -32,7 +32,6 @@ export function ImportGames({
   useEffect(() => {
     (async () => {
       const searchedGames = await searchGameServer(gameTitleToSearch, optionsToSearch);
-      console.log('Escupe: ', searchedGames);
       setSearchedGames(searchedGames);
       setLoading(false);
     })();
