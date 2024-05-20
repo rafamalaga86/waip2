@@ -1,14 +1,19 @@
+import { notFound } from 'next/navigation';
 import { gameService } from 'src/services/GameService';
 
-export default async function gameDetailsPage({ params }: { params: any }) {
-  console.log('Escupe: ', params);
+export default async function gameDetailsPage({ params }: { params: { id: string } }) {
   let games: any = [];
-  try {
-    games = await gameService.getAllInfoForGames(1);
-  } catch (error) {}
+  const id = Number(params.id);
 
-  if (games.length === 0) {
-    throw Error('Did not find any game');
+  if (isNaN(id)) {
+    notFound();
   }
-  return <div>page</div>;
+
+  games = await gameService.getGame(id);
+
+  return (
+    <div>
+      <h1>Page with ID: {id}</h1>
+    </div>
+  );
 }

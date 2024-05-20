@@ -38,7 +38,6 @@ class IGDBService {
     ;`;
 
     let games = await connector.gameFetch(query);
-    console.log('Escupe: ', games);
 
     if (games[0]?.status) {
       throw new Error('There was an error fetching the data.');
@@ -59,7 +58,6 @@ class IGDBService {
       fields: ${this.#searchFields};
       limit: 500
     ;`;
-    console.log('Escupe: ', query);
 
     const hasAnyOption = Object.values(searchOptions).some(value => !value);
     let where = '';
@@ -83,7 +81,6 @@ class IGDBService {
     query += where;
 
     let games = await connector.gameFetch(query);
-    console.log('Escupe: ', games);
 
     if (games[0]?.status) {
       throw new Error('There was an error fetching the data.');
@@ -96,7 +93,7 @@ class IGDBService {
     // return sorter.sortByRelevance();
   }
 
-  async getAllInfoForGames(igdbGameIds: number | [number]): Promise<object[]> {
+  async getGames(igdbGameIds: number[]): Promise<object[]> {
     igdbGameIds = typeof igdbGameIds === 'number' ? [igdbGameIds] : igdbGameIds;
     const ids = igdbGameIds.join(',');
     const connector = await getConnector();
@@ -149,8 +146,6 @@ class IGDBService {
         tags,
         total_rating_count,
         total_rating,
-        updated_at,
-        url,
         created_at
       ;
 
@@ -159,6 +154,12 @@ class IGDBService {
       ;
     `);
     return games;
+  }
+
+  async getGame(igdbGameId: number): Promise<object> {
+    const arrayOfGames = await this.getGames([igdbGameId]);
+    const game = arrayOfGames[0];
+    return game;
   }
 }
 

@@ -8,7 +8,6 @@ export async function getClient() {
   const client = new MongoClient(process.env.MONGO_DATABASE_URL);
   try {
     await client.connect();
-    console.log('Connected to MongoDB');
     return client;
   } catch (error: any) {
     console.error(error);

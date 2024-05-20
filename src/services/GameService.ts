@@ -1,4 +1,7 @@
+import { getCacheService } from './CacheService';
 import { igdbService } from './IGDBService';
+
+const CACHE_KEY = 'games';
 
 class GameService {
   async getAllGames() {
@@ -17,8 +20,15 @@ class GameService {
     return await igdbService.searchGame(keyword, searchOptions, sort);
   }
 
-  async getAllInfoForGames(igdbGameIds: number | [number]): Promise<object[]> {
-    return await igdbService.getAllInfoForGames(igdbGameIds);
+  async getGame(igdbGameId: number): Promise<object> {
+    const cacheService = await getCacheService(CACHE_KEY);
+    let game = await cacheService.findById(igdbGameId);
+    if (!game) {
+      // I don't have the game in cache
+      game = await igdbService.getGame(igdbGameId);
+      cacheService.save(game); // Save the game in the cache
+    }
+    return game;
   }
 }
 

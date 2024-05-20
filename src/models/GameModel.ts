@@ -8,7 +8,7 @@ class GameModel {
     try {
       prisma.games.create({ data: object });
     } catch (error) {
-      console.log('Escupe: ', error);
+      console.error('Error: ', error);
     }
   }
 
