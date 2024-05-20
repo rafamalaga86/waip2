@@ -6,7 +6,7 @@ export default async function homePage() {
   const initialGames = await prisma.games.findMany();
   return (
     <>
-      <h4 className="title-font text-align-center">Currently Playing Games</h4>
+      <h4 className="title-font text-align-center color-primary">Currently Playing Games</h4>
       <GameCardsMasonry initialGames={initialGames} />
     </>
   );

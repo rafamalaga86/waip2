@@ -1,13 +1,13 @@
-import { Box, Button, Divider, Menu, MenuItem } from '@mui/material/';
-import { red } from '@mui/material/colors';
+import { Box, Button, Divider, Link, Menu, MenuItem } from '@mui/material/';
 import { useState } from 'react';
 import { BiSolidArchive } from 'react-icons/bi';
 import { BsShareFill } from 'react-icons/bs';
-import { FaEdit, FaFlagCheckered } from 'react-icons/fa';
+import { FaFlagCheckered } from 'react-icons/fa';
 import { MdKeyboardArrowDown } from 'react-icons/md';
+import { TbListDetails } from 'react-icons/tb';
 import { darkTheme } from 'src/app/theme';
 
-export function GameCardActions() {
+export function GameCardActions({ igdbId }: { igdbId: number }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -16,7 +16,6 @@ export function GameCardActions() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const primaryColor = darkTheme.palette.primary;
 
   return (
     <>
@@ -48,9 +47,9 @@ export function GameCardActions() {
       >
         <MenuItem onClick={handleClose} disableRipple>
           <Box sx={{ mr: 2 }} className="line-height-1">
-            <FaFlagCheckered style={{ color: primaryColor }} />
+            <FaFlagCheckered className="color-primary" />
           </Box>
-          Beaten!
+          <span className="color-primary">Beaten!</span>
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
           <Box sx={{ mr: 2 }} className="line-height-1">
@@ -66,10 +65,9 @@ export function GameCardActions() {
           Copy Link To Share
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
-          <Box sx={{ mr: 2 }} className="line-height-1">
-            <FaEdit />
-          </Box>
-          Edit
+          <TbListDetails />
+          <Box sx={{ mr: 2 }} className="line-height-1"></Box>
+          <Link href={'/games/' + igdbId}>See Details</Link>
         </MenuItem>
       </Menu>
     </>

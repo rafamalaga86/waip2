@@ -16,7 +16,7 @@
 body {
   min-height: 30rem; /* Can be removed; just added for demo purposes */
 
-  /* Colours */
+  /* Colors */
   --red: #ee6352;
   --blue: #416cde;
   --cyan: #46b1c9;
@@ -29,16 +29,16 @@ body {
   --dark-pink: #cf9aae;
   --green: #1e6464;
 
-  /*--hltb-colour: #287fc2;*/ /* Old blue  */
-  --hltb-colour: #ec9444; /* New Yellow  */
-  /*--metacritic-colour: #6c3;*/ /* Old Green */
-  --metacritic-colour: #00ce7a; /* New Green */
-  --igdb-colour: #9147ff;
+  /*--hltb-color: #287fc2;*/ /* Old blue  */
+  --hltb-color: #ec9444; /* New Yellow  */
+  /*--metacritic-color: #6c3;*/ /* Old Green */
+  --metacritic-color: #00ce7a; /* New Green */
+  --igdb-color: #9147ff;
 
   /* Darker versions for hovers */
   --aqua-green-darker: #3faf8f;
 
-  /* Others colours that match */
+  /* Others colors that match */
   --gray: #c1cfcc;
   --pink: #deaeae;
   --gray-blue: #a8cef3;
@@ -61,11 +61,10 @@ body {
   --white-darkest: rgba(235, 235, 235, 0.6);
 
   /* Global CSS Vars */
-  --primary-color: var(--red);
-  --primary-color-darker: var(--blue-darker);
-  /*
+  /* --primary-color: var(--red); */
+  /* --primary-color-darker: var(--blue-darker); */
   --primary-color: var(--aqua-green);
-  --primary-color-darker: var(--aqua-green-darker); */
+  --primary-color-darker: var(--aqua-green-darker);
 
   /*
   These are defined in the layout of main of nextjs
@@ -375,11 +374,11 @@ h1.brand {
   text-align: center;
 }
 
-.igdb-colour {
-  color: var(--igdb-colour);
+.igdb-color {
+  color: var(--igdb-color);
 }
-.igdb-background-colour {
-  background-color: var(--igdb-colour);
+.igdb-background-color {
+  background-color: var(--igdb-color);
 }
 .mini-chip {
   padding: 3px 5px;
@@ -395,6 +394,9 @@ h1.brand {
 
 .color-white {
   color: white;
+}
+.color-primary {
+  color: var(--primary-color);
 }
 .no-padding {
   padding: 0 7px !important;

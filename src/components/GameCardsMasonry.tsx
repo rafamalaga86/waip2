@@ -53,7 +53,7 @@ export default function GameCardsMasonry({ initialGames }: { initialGames: games
                 <CardActions
                   sx={{ display: 'flex', justifyContent: 'center', marginTop: 1, paddingBottom: 0 }}
                 >
-                  <GameCardActions />
+                  <GameCardActions igdbId={game.igdb_id} />
                 </CardActions>
               </GameCard>
             </Box>

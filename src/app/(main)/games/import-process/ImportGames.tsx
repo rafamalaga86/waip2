@@ -122,7 +122,7 @@ export function ImportGames({
                       {!!year && <>{year} - </>}
                       <a className="color-white" href={game.url}>
                         <Tooltip title="IGDB ID">
-                          <span className="igdb-background-colour mini-chip">{game.id}</span>
+                          <span className="igdb-background-color mini-chip">{game.id}</span>
                         </Tooltip>
                       </a>
                     </small>

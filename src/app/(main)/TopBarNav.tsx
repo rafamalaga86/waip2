@@ -34,7 +34,7 @@ export function TopBarNav() {
 
   return (
     <>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Drawer open={open} onClose={toggleDrawer(false)} disableScrollLock>
         <SideNav />
       </Drawer>
       <ThemeProvider theme={lightTheme}>

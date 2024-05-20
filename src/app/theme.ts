@@ -1,5 +1,4 @@
 'use client';
-
 import { PaletteMode, createTheme } from '@mui/material';
 
 const red = '#ee6352';
@@ -13,6 +12,8 @@ const orange = '#f04e27';
 const aquaGreen = '#49c5a1';
 const newOrange = '#ff9a00';
 const sublimePink = '#f92472';
+const darkPink = '#cf9aae';
+const green = '#1e6464';
 
 const igdbColor = '#9147ff';
 
