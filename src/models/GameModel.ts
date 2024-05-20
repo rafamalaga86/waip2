@@ -1,9 +1,15 @@
 import type { PrismaClient, games_to_import } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
+import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 
 class GameModel {
   static async save(object: any) {
-    prisma.games.create({ data: object });
+    try {
+      prisma.games.create({ data: object });
+    } catch (error) {
+      console.log('Escupe: ', error);
+    }
   }
 
   static async discardImportGame(name: string, user_id: number): Promise<number> {
@@ -43,18 +49,26 @@ class GameModel {
         });
       }
 
-      const game = await prisma.games.create({
-        data: {
-          name: igdbGame.name,
-          igdb_id: igdbGame.id,
-          igdb_cover_id: igdbGame.cover?.image_id,
-          order: gameToImport.order,
-          created_at: gameToImport.created_at,
-          updated_at: gameToImport.updated_at,
-          user_id: user_id,
-          extra: gameToImport.extra || {},
-        },
-      });
+      let game: any;
+      try {
+        game = await prisma.games.create({
+          data: {
+            name: igdbGame.name,
+            igdb_id: igdbGame.id,
+            igdb_cover_id: igdbGame.cover?.image_id,
+            order: gameToImport.order,
+            created_at: gameToImport.created_at,
+            updated_at: gameToImport.updated_at,
+            user_id: user_id,
+            extra: gameToImport.extra || {},
+          },
+        });
+      } catch (error) {
+        console.log('Escupe: ', error);
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+          throw new ClientFeedbackError(error.message, 409);
+        }
+      }
 
       toImport.forEach(async item => {
         await prisma.playeds.create({

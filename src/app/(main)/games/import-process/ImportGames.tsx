@@ -101,7 +101,7 @@ export function ImportGames({
                 const date = game.first_release_date;
                 const year = date ? '(' + new Date(date * 1000).getFullYear() + ')' : '';
 
-                const { fontSize, classes } = titleAdjustment(game.name);
+                const [fontSize, extraClasses] = titleAdjustment(game.name);
                 const titleStyles = { p: 1, mt: 1, mb: 'auto', textAlign: 'center', fontSize };
 
                 return (
@@ -115,7 +115,7 @@ export function ImportGames({
                       />
                     }
                   >
-                    <Box sx={titleStyles} className="title-font">
+                    <Box sx={titleStyles} className={extraClasses + ' title-font'}>
                       {game.name}
                     </Box>
                     <small className="text-align-center">

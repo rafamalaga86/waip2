@@ -125,7 +125,11 @@ h6 {
   line-height: 1.6;
 }
 
-a {
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
   text-decoration: none;
 }
 
@@ -168,8 +172,8 @@ a {
   width: calc(100% + 16px);
 }
 
-.MuiTypography-root {
-  /* font-family: var(--primary-font), Arial; */
+.MuiMenu-paper a {
+  color: inherit;
 }
 .MuiButtonBase-root.MuiIconButton-root.hid-aura {
   background-color: inherit;
@@ -401,7 +405,6 @@ h1.brand {
 .no-padding {
   padding: 0 7px !important;
 }
-
 .line-height-1 {
   line-height: 1;
 }

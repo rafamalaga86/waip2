@@ -44,10 +44,10 @@ class IGDBConnector {
     return this.#is_initialised;
   }
 
-  #getHeader() {
+  #getHeader(): { 'Content-Type': string; 'Client-ID': string; Authorization: string } {
     return {
       'Content-Type': 'application/json',
-      'Client-ID': process.env.IGDB_CLIENT_ID,
+      'Client-ID': process.env.IGDB_CLIENT_ID || '',
       Authorization: 'Bearer ' + this.#access_token,
     };
   }

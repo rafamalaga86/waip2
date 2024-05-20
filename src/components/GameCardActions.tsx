@@ -7,7 +7,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
 import { darkTheme } from 'src/app/theme';
 
-export function GameCardActions({ igdbId }: { igdbId: number }) {
+export function GameCardActions({ gameId }: { gameId: number }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -64,10 +64,11 @@ export function GameCardActions({ igdbId }: { igdbId: number }) {
           </Box>
           Copy Link To Share
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <TbListDetails />
-          <Box sx={{ mr: 2 }} className="line-height-1"></Box>
-          <Link href={'/games/' + igdbId}>See Details</Link>
+        <MenuItem onClick={handleClose} disableRipple component={Link} href={'/games/' + gameId}>
+          <Box sx={{ mr: 2 }} className="line-height-1">
+            <TbListDetails />
+          </Box>
+          See Details
         </MenuItem>
       </Menu>
     </>
