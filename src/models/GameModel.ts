@@ -1,4 +1,4 @@
-import type { PrismaClient, games_to_import } from '@prisma/client';
+import type { PrismaClient, games, games_to_import } from '@prisma/client';
 import { Prisma } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
@@ -18,6 +18,10 @@ class GameModel {
     });
 
     return deletedImportGamesNumber.count;
+  }
+
+  static async findById(id: number): Promise<IgdbSearchedGame> {
+    return await prisma.games.findUniqueOrThrow({ where: { id: id } });
   }
 
   static async importGame(

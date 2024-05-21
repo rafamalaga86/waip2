@@ -1,5 +1,6 @@
 import { Box, Button, Chip, Typography } from '@mui/material';
 import { notFound } from 'next/navigation';
+import { GameModel } from 'src/models/GameModel';
 import { gameService } from 'src/services/GameService';
 
 export default async function gameDetailsPage({ params }: { params: { id: string } }) {
@@ -9,10 +10,11 @@ export default async function gameDetailsPage({ params }: { params: { id: string
   if (isNaN(id)) {
     notFound();
   }
+  const game = await GameModel.findById(id);
 
-  const game = await gameService.getGame(id);
-  const data = game.data;
-  console.log('Escupe: ', game);
+  const igdbGame = await gameService.getGame(game.id);
+  const data = igdbGame.data;
+  console.log('Escupe: ', igdbGame);
 
   return (
     <>

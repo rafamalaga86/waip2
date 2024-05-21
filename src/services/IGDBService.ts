@@ -93,7 +93,7 @@ class IGDBService {
     // return sorter.sortByRelevance();
   }
 
-  async getGames(igdbGameIds: number[]): Promise<object[]> {
+  async getGames(igdbGameIds: number[]): Promise<IgdbGame[]> {
     igdbGameIds = typeof igdbGameIds === 'number' ? [igdbGameIds] : igdbGameIds;
     const ids = igdbGameIds.join(',');
     const connector = await getConnector();
@@ -129,6 +129,9 @@ class IGDBService {
         standalone_expansions.name,
         themes.name,
         version_title,
+        videos.video_id,
+        videos.name,
+        websites.category,
         websites.url
       ;
 
@@ -157,7 +160,7 @@ class IGDBService {
     return games;
   }
 
-  async getGame(igdbGameId: number): Promise<object> {
+  async getGame(igdbGameId: number): Promise<IgdbGame> {
     const arrayOfGames = await this.getGames([igdbGameId]);
     const game = arrayOfGames[0];
     return game;

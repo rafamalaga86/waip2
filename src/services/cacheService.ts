@@ -13,7 +13,7 @@ class CacheService {
     this.#initialized = true;
   }
 
-  async findById(id: number): Promise<object | null> {
+  async findById(id: number): Promise<{ data: IgdbGame } | null> {
     id = Number(id);
     const cursor = await this.#collection.find({
       _id: id,
@@ -22,7 +22,7 @@ class CacheService {
     return result.length ? result[0] : null;
   }
 
-  async save(game: JsonObject) {
+  async save(game: IgdbGame) {
     console.log('Escupe: fasd');
     const result = this.#collection.updateOne(
       { _id: game.id },

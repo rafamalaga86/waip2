@@ -27,6 +27,48 @@ declare global {
     rating_count?: number;
   }
 
+  interface ObjectIdName {
+    id: number;
+    name: string;
+  }
+
+  interface IgdbGame {
+    id: number;
+    alternative_names?: ObjectIdName[];
+    collection?: ObjectIdName;
+    collections?: ObjectIdName[];
+    cover?: { id: number; image_id: string };
+    first_release_date?: number;
+    game_engines?: ObjectIdName[];
+    game_modes?: ObjectIdName[];
+    genres?: ObjectIdName[];
+    involved_companies?: { id: number; developer: boolean; company: ObjectIdName }[];
+    name: string;
+    parent_game?: ObjectIdName;
+    platforms?: ObjectIdName[];
+    player_perspectives?: ObjectIdName[];
+    release_dates?: { id: number; date: number; region: number }[];
+    screenshots?: { id: number; url: string }[];
+    similar_games?: ObjectIdName[];
+    slug: string;
+    storyline?: string;
+    summary?: string;
+    themes?: ObjectIdName[];
+    videos?: { id: number; name: string; video_id: string };
+    websites?: { id: number; category: number; url: string };
+    ports?: ObjectIdName[];
+    standalone_expansions?: ObjectIdName[];
+    forks?: ObjectIdName[];
+    franchise?: ObjectIdName;
+    franchises?: ObjectIdName[];
+    dlcs?: ObjectIdName[];
+    expansions?: ObjectIdName[];
+    remakes?: ObjectIdName[];
+    remasters?: ObjectIdName[];
+    updated_at?: number[];
+    expanded_games?: ObjectIdName[];
+  }
+
   interface SearchOptions {
     includeNoCoverGames: boolean;
     includeDLCs: boolean;
