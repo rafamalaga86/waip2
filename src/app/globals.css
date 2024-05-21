@@ -190,7 +190,7 @@ a:active {
   /* color: var(--primary-color); */
 }
 
-h1.brand {
+.MuiTypography-root.brand {
   margin-left: 20px;
   padding: 0;
   font-family: Baloo, sans-serif;
@@ -198,9 +198,11 @@ h1.brand {
   font-weight: 400;
   font-style: normal;
   font-size: 22px;
-  color: var(--gray-0) !important;
+  color: var(--gray-0);
 }
-
+.MuiTypography-root.color-white {
+  color: white;
+}
 .MuiButton-root {
   color: white !important;
 }
@@ -210,6 +212,9 @@ h1.brand {
   background-color: var(--gray-2);
 }
 
+.side-menu .MuiListItemButton-root {
+  text-transform: uppercase;
+}
 .masonry-wrapper {
 }
 
@@ -395,10 +400,6 @@ h1.brand {
   width: 90%;
   word-wrap: break-word;
 }
-
-.color-white {
-  color: white;
-}
 .color-primary {
   color: var(--primary-color);
 }
@@ -408,7 +409,9 @@ h1.brand {
 .line-height-1 {
   line-height: 1;
 }
-
+.color-white {
+  color: white;
+}
 .w-100 {
   width: 100%;
 }

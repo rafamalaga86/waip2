@@ -5,7 +5,6 @@ import { BsShareFill } from 'react-icons/bs';
 import { FaFlagCheckered } from 'react-icons/fa';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
-import { darkTheme } from 'src/app/theme';
 
 export function GameCardActions({ gameId }: { gameId: number }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

@@ -54,7 +54,7 @@ export function LogIn({
             backgroundImage: 'url(/images/wallpapers/' + backgroundNumber + '.jpg)',
 
             backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
+            backgroundColor: t =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -73,8 +73,10 @@ export function LogIn({
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <IoLogoGameControllerB />
             </Avatar>
-            <h1 className="brand">What Am I Playing</h1>
-            <Typography component="h1" variant="h5">
+            <Typography className="brand" component="h1" sx={{ m: 0 }}>
+              What Am I Playing
+            </Typography>
+            <Typography component="h5" variant="h5">
               Log In
             </Typography>
             <Box

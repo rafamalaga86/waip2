@@ -10,6 +10,7 @@ import {
   OutlinedInput,
   ThemeProvider,
   Toolbar,
+  Typography,
 } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -50,7 +51,10 @@ export function TopBarNav() {
 
               <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
                 <Link href="/" className="navbar-brand">
-                  <h1 className="brand">What Am I Playing</h1>
+                  {/* <h1 className="brand">What Am I Playing</h1> */}
+                  <Typography component="h1" className="brand">
+                    What Am I Playing
+                  </Typography>
                 </Link>
               </Box>
 

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: 'Waip2',
   description: 'New version of waip',
 };
+console.log('Escupe: alvares');
 
 const proximaNova = localFont({
   src: [
@@ -49,7 +50,7 @@ export default function RootLayout({
             rel="stylesheet"
           />
         </head>
-        <body>
+        <body className="preguntaron">
           <AppRouterCacheProvider options={{ key: 'css' }}>
             <ThemeProvider theme={darkTheme}>
               <TopBarNav />
