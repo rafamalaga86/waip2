@@ -109,7 +109,7 @@ export function ImportGames({
                     key={game.id}
                     imgElement={
                       <IGDBImage
-                        string_id={game.cover?.image_id}
+                        stringId={game.cover?.image_id}
                         description={game.name + ' cover'}
                       />
                     }

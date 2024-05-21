@@ -21,7 +21,7 @@ class GameModel {
   }
 
   static async findById(id: number): Promise<games> {
-    return await prisma.games.findUniqueOrThrow({ where: { id: id }, include: { playeds: true } });
+    return await prisma.games.findUniqueOrThrow({ where: { id: id } });
   }
 
   static async importGame(

@@ -2,7 +2,6 @@
 import {
   AppBar,
   Box,
-  Button,
   Container,
   Drawer,
   IconButton,
@@ -45,8 +44,8 @@ export function TopBarNav() {
               {/* <Button variant="contained" onClick={toggleDrawer(true)}>
               </Button> */}
 
-              <IconButton edge="end" className="menu-button">
-                <LuMenuSquare size={40} className="cursor-pointer" onClick={toggleDrawer(true)} />
+              <IconButton edge="end" className="menu-button" onClick={toggleDrawer(true)}>
+                <LuMenuSquare size={40} className="cursor-pointer" />
               </IconButton>
 
               <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
@@ -62,7 +61,7 @@ export function TopBarNav() {
                 <OutlinedInput
                   sx={{ width: '300px' }}
                   // onSubmit={() => router.push('/search/?s=')}
-                  onSubmit={submitSearch}
+                  // onSubmit={submitSearch}
                   placeholder="Search in the Database"
                   id="searchKeyword"
                   name="searchKeyword"

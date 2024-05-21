@@ -23,7 +23,6 @@ class CacheService {
   }
 
   async save(game: IgdbGame) {
-    console.log('Escupe: fasd');
     const result = this.#collection.updateOne(
       { _id: game.id },
       { $set: { _id: game.id, updated_at: game.updated_at, data: game } },

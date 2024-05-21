@@ -1,14 +1,6 @@
 'use client';
 import Masonry from '@mui/lab/Masonry';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  CardActions,
-  Fade,
-} from '@mui/material';
+import { Box, CardActions } from '@mui/material';
 import type { games } from '@prisma/client';
 import { useState } from 'react';
 import { GameCard } from 'src/components/GameCard';
@@ -36,7 +28,7 @@ export default function GameCardsMasonry({ initialGames }: { initialGames: games
                 game={game}
                 index={index}
                 imgElement={
-                  <IGDBImage string_id={game.igdb_cover_id} description={game.name + ' cover'} />
+                  <IGDBImage stringId={game.igdb_cover_id} description={game.name + ' cover'} />
                 }
               >
                 <Box
@@ -53,7 +45,7 @@ export default function GameCardsMasonry({ initialGames }: { initialGames: games
                 <CardActions
                   sx={{ display: 'flex', justifyContent: 'center', marginTop: 1, paddingBottom: 0 }}
                 >
-                  <GameCardActions gameId={game.id} />
+                  <GameCardActions game={game} />
                 </CardActions>
               </GameCard>
             </Box>

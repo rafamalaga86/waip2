@@ -1,6 +1,8 @@
 import { MongoClient } from 'mongodb';
 
-let client: MongoClient | null;
+declare const globalThis: {
+  mongoClient?: MongoClient;
+};
 
 export async function getClient() {
   if (!process.env.MONGO_DATABASE_URL) {
@@ -8,11 +10,13 @@ export async function getClient() {
   }
 
   try {
-    if (!client) {
-      client = new MongoClient(process.env.MONGO_DATABASE_URL);
-      await client.connect();
+    if (globalThis.mongoClient && globalThis.mongoClient instanceof MongoClient) {
+      return globalThis.mongoClient;
     }
-    return client;
+
+    globalThis.mongoClient = new MongoClient(process.env.MONGO_DATABASE_URL);
+    await globalThis.mongoClient.connect();
+    return globalThis.mongoClient;
   } catch (error: any) {
     console.error(error);
     throw new Error(error);

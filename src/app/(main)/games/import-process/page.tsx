@@ -9,13 +9,13 @@ export default async function searchPage({ searchParams }: { searchParams?: any 
   async function searchGameServer(
     keyword: string,
     searchOptions: SearchOptions
-  ): Promise<{ games: []; errorMessage: string | null }> {
+  ): Promise<{ games: any; errorMessage: string | null }> {
     'use server';
     let games;
     try {
       // is a string of numbers?
       if (/^\d+$/.test(keyword)) {
-        games = await gameService.getById(Number(keyword));
+        games = await gameService.getGame(Number(keyword));
       } else {
         games = await gameService.searchGame(keyword, searchOptions);
       }

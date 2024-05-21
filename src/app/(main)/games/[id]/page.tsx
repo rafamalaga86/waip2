@@ -3,19 +3,54 @@ import { notFound } from 'next/navigation';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { formatUnix, toLocale } from 'src/lib/helpers';
 import { GameModel } from 'src/models/GameModel';
+import { PlayedModel } from 'src/models/PlayerModel';
 import { gameService } from 'src/services/GameService';
 
-export default async function gameDetailsPage({ params }: { params: { id: string } }) {
-  let games: any = [];
+export default async function gameDetailsPage({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: any;
+}) {
   const id = Number(params.id);
+  console.log('Escupe: ', searchParams);
+  const igdbId = Number(searchParams.igdbId);
 
   if (isNaN(id)) {
     notFound();
   }
-  const game = await GameModel.findById(id);
-  console.log('Escupe: ', game);
+  // console.time('primero');
+  // await GameModel.findById(id);
+  // console.timeEnd('primero');
 
-  const igdbGame = await gameService.getGame(game.igdb_id);
+  // console.time('segundo');
+  // await gameService.getGame(igdbId);
+  // console.timeEnd('segundo');
+
+  // console.time('tercero');
+  // await PlayedModel.findByGameId(id);
+  // console.timeEnd('tercero');
+
+  let igdbGame, playeds, game;
+
+  console.time('main_page');
+  await (async () => {
+    try {
+      [game, playeds, igdbGame] = await Promise.all([
+        GameModel.findById(id),
+        PlayedModel.findByGameId(id),
+        gameService.getGame(igdbId),
+      ]);
+    } catch (error) {
+      console.log(error);
+      console.error('Error fetching data:', error);
+    }
+  })();
+  console.timeEnd('main_page');
+
+  console.log('Escupe: ', playeds);
+
   const data = igdbGame.data;
 
   function formatValues(values: ObjectIdName[]) {
@@ -70,14 +105,14 @@ export default async function gameDetailsPage({ params }: { params: { id: string
           <Grid item xs={12} md={4}>
             <IGDBImage
               className="w-100"
-              string_id={data.cover?.image_id}
+              stringId={data.cover?.image_id}
               description={data.name + ' cover'}
             />
           </Grid>
         </Grid>
       </section>
       <section className="mt-5">
-        {game.playeds.map(item => {
+        {playeds.map(item => {
           return (
             <Card key={item.id}>
               <div>{toLocale(item.stopped_playing_at)}</div>

@@ -1,4 +1,5 @@
 import { Box, Button, Divider, Link, Menu, MenuItem } from '@mui/material/';
+import { games } from '@prisma/client';
 import { useState } from 'react';
 import { BiSolidArchive } from 'react-icons/bi';
 import { BsShareFill } from 'react-icons/bs';
@@ -6,7 +7,7 @@ import { FaFlagCheckered } from 'react-icons/fa';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
 
-export function GameCardActions({ gameId }: { gameId: number }) {
+export function GameCardActions({ game }: { game: games }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -63,7 +64,12 @@ export function GameCardActions({ gameId }: { gameId: number }) {
           </Box>
           Copy Link To Share
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple component={Link} href={'/games/' + gameId}>
+        <MenuItem
+          onClick={handleClose}
+          disableRipple
+          component={Link}
+          href={`/games/${game.id}?igdbId=${game.igdb_id}`}
+        >
           <Box sx={{ mr: 2 }} className="line-height-1">
             <TbListDetails />
           </Box>

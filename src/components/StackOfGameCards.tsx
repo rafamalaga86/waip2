@@ -20,7 +20,7 @@ export function StackOfGameCards({ games, buttonBar }: { games: any; buttonBar?:
           key={game.id}
           imgElement={
             game.cover ? (
-              <IGDBImage string_id={game.cover?.image_id} description={game.name + ' cover'} />
+              <IGDBImage stringId={game.cover?.image_id} description={game.name + ' cover'} />
             ) : null
           }
         >
