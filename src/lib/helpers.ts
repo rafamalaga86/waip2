@@ -29,3 +29,12 @@ export function longestWord(phrase: string): string {
   });
   return longestWord;
 }
+
+export function formatUnix(unixDate: number): string {
+  const date = new Date(unixDate * 1000);
+  return date.toLocaleDateString(process.env.LOCALE_TIME_FORMAT);
+}
+
+export function toLocale(date: Date): string {
+  return date.toLocaleDateString(process.env.LOCALE_TIME_FORMAT);
+}

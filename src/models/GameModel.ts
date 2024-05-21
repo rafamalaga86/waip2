@@ -20,8 +20,8 @@ class GameModel {
     return deletedImportGamesNumber.count;
   }
 
-  static async findById(id: number): Promise<IgdbSearchedGame> {
-    return await prisma.games.findUniqueOrThrow({ where: { id: id } });
+  static async findById(id: number): Promise<games> {
+    return await prisma.games.findUniqueOrThrow({ where: { id: id }, include: { playeds: true } });
   }
 
   static async importGame(

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { SearchGameSection } from 'src/components/SearchGameSection';
-import { titleAdjustment } from 'src/lib/helpers';
+import { titleAdjustment, toLocale } from 'src/lib/helpers';
 
 export function ImportGames({
   gameToImports,
@@ -62,7 +62,7 @@ export function ImportGames({
           {gameToImports.map(item => {
             const date = item.stopped_playing_at;
             const played = item.beaten ? 'Beaten' : 'Tried';
-            const label = date ? played + ': ' + date.toLocaleDateString('es-ES') : 'Playing now';
+            const label = date ? played + ': ' + toLocale(date) : 'Playing now';
             return <Chip key={item.id} label={label} color="secondary" sx={{ mr: 1 }} />;
           })}
         </Box>
