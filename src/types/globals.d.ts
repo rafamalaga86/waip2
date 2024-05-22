@@ -74,6 +74,16 @@ declare global {
     includeDLCs: boolean;
     includeEditions: boolean;
   }
+
+  type CachedIgdbGame = {
+    data: IgdbGame;
+  };
+
+  type Company = {
+    id: number;
+    developer: boolean;
+    company: ObjectIdName;
+  };
 }
 
 export {};

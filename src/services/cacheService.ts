@@ -13,7 +13,7 @@ class CacheService {
     this.#initialized = true;
   }
 
-  async findById(id: number): Promise<{ data: IgdbGame } | null> {
+  async findById(id: number): Promise<CachedIgdbGame | null> {
     id = Number(id);
     const cursor = await this.#collection.find({
       _id: id,

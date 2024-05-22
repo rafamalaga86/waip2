@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box, Container, Link } from '@mui/material';
 import { ReactNode } from 'react';
 
 export function Main({ children }: { children: ReactNode }) {

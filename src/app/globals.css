@@ -392,6 +392,7 @@ a:active {
 .mini-chip {
   padding: 3px 5px;
   border-radius: 10px;
+  background-color: gray;
 }
 .cursor-pointer {
   cursor: pointer;
@@ -414,6 +415,20 @@ a:active {
 }
 .w-100 {
   width: 100%;
+}
+.h-w-100 {
+  width: 100%;
+}
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+.letter-spacing-008 {
+  letter-spacing: 0.08em;
+}
+.border-radius {
+  border-radius: 2%;
 }
 
 /*-------------------------------------------------------*/

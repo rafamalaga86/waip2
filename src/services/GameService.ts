@@ -12,7 +12,7 @@ class GameService {
     return await igdbService.searchGame(keyword, searchOptions, sort);
   }
 
-  async getGame(igdbGameId: number): Promise<{ data: IgdbGame }> {
+  async getGame(igdbGameId: number): Promise<CachedIgdbGame> {
     const cacheService = await getCacheService(CACHE_KEY);
     let game = await cacheService.findById(igdbGameId);
     if (!game) {

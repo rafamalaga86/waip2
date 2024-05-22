@@ -58,22 +58,35 @@ export function GameCardActions({ game }: { game: games }) {
           Archive (not beaten)
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <Box sx={{ mr: 2 }} className="line-height-1">
-            <BsShareFill />
-          </Box>
-          Copy Link To Share
+        <MenuItem onClick={handleClose} disableRipple sx={{ p: 0 }}>
+          <Link
+            href=""
+            className="line-height-1 h-w-100 d-flex"
+            sx={{ p: 1 }}
+            onClick={() => {
+              // navigator.clipboard.writeText(`/games/${game.id}?idgbId=${game.igdb_id}`);
+              navigator.clipboard.writeText(
+                `${window.location.origin}/games/${game.id}?idgbId=${game.igdb_id}`
+              );
+            }}
+          >
+            <Box sx={{ mr: 2, ml: 1 }} className="d-flex">
+              <BsShareFill />
+            </Box>
+            Copy Link To Share
+          </Link>
         </MenuItem>
-        <MenuItem
-          onClick={handleClose}
-          disableRipple
-          component={Link}
-          href={`/games/${game.id}?igdbId=${game.igdb_id}`}
-        >
-          <Box sx={{ mr: 2 }} className="line-height-1">
-            <TbListDetails />
-          </Box>
-          See Details
+        <MenuItem onClick={handleClose} disableRipple sx={{ p: 0 }}>
+          <Link
+            href={`/games/${game.id}?idgbId=${game.igdb_id}`}
+            sx={{ p: 1 }}
+            className="line-height-1 h-w-100 d-flex"
+          >
+            <Box sx={{ mr: 2, ml: 1 }} className="d-flex">
+              <TbListDetails />
+            </Box>
+            See Details
+          </Link>
         </MenuItem>
       </Menu>
     </>

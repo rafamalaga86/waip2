@@ -47,7 +47,7 @@ export default function RootLayout({
             rel="stylesheet"
           />
         </head>
-        <body className="preguntaron">
+        <body>
           <AppRouterCacheProvider options={{ key: 'css' }}>
             <ThemeProvider theme={darkTheme}>{children}</ThemeProvider>
           </AppRouterCacheProvider>

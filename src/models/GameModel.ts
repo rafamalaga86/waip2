@@ -24,6 +24,18 @@ class GameModel {
     return await prisma.games.findUniqueOrThrow({ where: { id: id } });
   }
 
+  static async findMany(limit: number, fields: string[] = []): Promise<games[]> {
+    // let prismaFields = {};
+    // fields.forEach(item => {
+    //   prismaFields[item] = true;
+    // });
+    // prismaFields = prismaFields === {} ?
+    return await prisma.games.findMany({
+      // select: prismaFields,
+      take: limit,
+    });
+  }
+
   static async importGame(
     gameToImport: games_to_import,
     igdbGame: IgdbSearchedGame,
