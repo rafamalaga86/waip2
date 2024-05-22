@@ -11,7 +11,9 @@ import {
 } from '@mui/material';
 import type { games } from '@prisma/client';
 import { notFound } from 'next/navigation';
+import { FaGun } from 'react-icons/fa6';
 import { MdKeyboardArrowDown } from 'react-icons/md';
+import { GenreIcon } from 'src/components/GenreIcon';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { Playeds } from 'src/components/Playeds';
 import { formatUnix, toLocale } from 'src/lib/helpers';
@@ -89,11 +91,22 @@ export default async function gameDetailsPage({
     return <span>{array.join(', ')}</span>;
   }
 
+  function formatValuesMiniChips(values: ObjectIdName[]) {
+    return values.map(item => {
+      return (
+        <Box component="span" sx={{ marginRight: 0.5 }} className="mini-chip" key={item.id}>
+          {item.name}
+        </Box>
+      );
+    });
+  }
+
   function formatValuesChips(values: ObjectIdName[]) {
     return values.map(item => {
       return (
-        <Box component="span" sx={{ marginRight: 0.5 }} className="mini-chip" key="item.id">
-          {item.name}
+        <Box sx={{ px: 2, mr: 0.5 }} className="chip d-flex" key={item.id}>
+          <GenreIcon genreId={item.id} />
+          <Box sx={{ ml: 1 }}>{item.name}</Box>
         </Box>
       );
     });
@@ -107,6 +120,23 @@ export default async function gameDetailsPage({
     return developers.map(developer => {
       return developer.company.name;
     });
+  }
+
+  function infoRow(data: IgdbGame, property: keyof IgdbGame) {
+    const formattedString = property.replace('_', ' ');
+    // @ts-ignore
+    const values: ObjectIdName[] = data[property];
+    return (
+      values && (
+        <>
+          <Divider />
+          <Box sx={{ my: 1 }}>
+            <span className="color-primary text-transform-capitalize">{formattedString}: </span>
+            {formatValues(values)}
+          </Box>
+        </>
+      )
+    );
   }
 
   return (
@@ -125,65 +155,59 @@ export default async function gameDetailsPage({
                 </Tooltip>
               </Typography>
             )}
-            <Box sx={{ my: 2 }}>{data.genres ? formatValuesChips(data.genres) : ''}</Box>
-            {data.game_engines && (
-              <>
-                <Divider />
-                <Box sx={{ my: 1 }}>
-                  <span className="color-primary">Engines:</span> {formatValues(data.game_engines)}
-                </Box>
-              </>
-            )}
-            {data.game_modes && (
-              <>
-                <Divider />
-                <Box sx={{ my: 1 }}>
-                  <span className="color-primary">Game Modes:</span> {formatValues(data.game_modes)}
-                </Box>
-              </>
-            )}
-            {data.platforms && (
-              <>
-                <Divider />
-                <Box sx={{ my: 1 }}>
-                  <span className="color-primary">Platforms:</span> {formatValues(data.platforms)}
-                </Box>
-              </>
-            )}
-            {data.player_perspectives ? formatValues(data.player_perspectives) : ''}
+            <Box sx={{ my: 4 }} className="d-flex">
+              {data.genres ? formatValuesChips(data.genres) : ''}
+            </Box>
+            <Box sx={{ my: 4 }}>{data.themes ? formatValuesMiniChips(data.themes) : ''}</Box>
+            {infoRow(data, 'game_engines')}
+            {infoRow(data, 'game_modes')}
+            {infoRow(data, 'platforms')}
+            {infoRow(data, 'player_perspectives')}
+            {infoRow(data, 'ports')}
+            {infoRow(data, 'standalone_expansions')}
+            {infoRow(data, 'forks')}
+            {infoRow(data, 'dlcs')}
+            {infoRow(data, 'expansions')}
+            {infoRow(data, 'remakes')}
+            {infoRow(data, 'remasters')}
+            {infoRow(data, 'expanded_games')}
+            {infoRow(data, 'franchises')}
             {/* {data.similar_games ? formatValues(data.similar_games) : ''} */}
-            {data.themes ? formatValues(data.themes) : ''}
-            {data.ports ? formatValues(data.ports) : ''}
-            {data.standalone_expansions ? formatValues(data.standalone_expansions) : ''}
-            {data.forks ? formatValues(data.forks) : ''}
-            {data.dlcs ? formatValues(data.dlcs) : ''}
-            {data.expansions ? formatValues(data.expansions) : ''}
-            {data.remakes ? formatValues(data.remakes) : ''}
-            {data.remasters ? formatValues(data.remasters) : ''}
-            {data.expanded_games ? formatValues(data.expanded_games) : ''}
-            {data.collection ? data.collection.name : ''}
-            {data.parent_game ? data.parent_game.name : ''}
+            {/* {data.collection ? data.collection.name : ''} */}
+            {/* {data.parent_game ? data.parent_game.name : ''} */}
             {/* {data.release_dates ? { id: number; date: number; region: number }[] : ''} */}
             {/* {data.screenshots ? { id: number; url: string }[] : ''} */}
-            {data.storyline ? data.storyline : ''}
             {/* {data.videos ? { id: number; name: string; video_id: string } : ''} */}
             {/* {data.websites ? { id: number; category: number; url: string } : ''} */}
-            {data.franchise ? data.franchise.name : ''}
-            {data.franchises ? formatValues(data.franchises) : ''}
-            <Box sx={{ mt: 3 }}></Box>
-            {data.summary && (
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<MdKeyboardArrowDown />}
-                  aria-controls="panel1-content"
-                  id="panel1-header"
-                >
-                  Summary
-                </AccordionSummary>
-                <AccordionDetails>{data.summary}</AccordionDetails>
-              </Accordion>
-            )}
-
+            {/* {data.franchise ? data.franchise.name : ''} */}
+            <Box sx={{ mt: 3 }}>
+              {data.summary && (
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<MdKeyboardArrowDown />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                  >
+                    Summary
+                  </AccordionSummary>
+                  <AccordionDetails>{data.summary}</AccordionDetails>
+                </Accordion>
+              )}
+            </Box>
+            <Box sx={{ mt: 3 }}>
+              {data.storyline && (
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<MdKeyboardArrowDown />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                  >
+                    Storyline
+                  </AccordionSummary>
+                  <AccordionDetails>{data.storyline}</AccordionDetails>
+                </Accordion>
+              )}
+            </Box>
             <Box sx={{ mt: 5 }}>
               <Playeds playeds={playeds} />
             </Box>

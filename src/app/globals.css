@@ -65,7 +65,7 @@ body {
   /* --primary-color-darker: var(--blue-darker); */
   --primary-color: var(--aqua-green);
   --primary-color-darker: var(--aqua-green-darker);
-
+  --secondary-color: var(--orange);
   /*
   These are defined in the layout of main of nextjs
   --primary-font
@@ -402,6 +402,11 @@ a:active {
 .mini-chip.igdb-background-color {
   background-color: var(--igdb-color);
 }
+.chip {
+  padding: 8px;
+  border-radius: 20px;
+  background-color: var(--secondary-color);
+}
 .mini-chip {
   padding: 3px 5px;
   border-radius: 10px;
@@ -442,7 +447,9 @@ a:active {
 .border-radius {
   border-radius: 2%;
 }
-
+.text-transform-capitalize {
+  text-transform: capitalize;
+}
 .title-font {
   font-family: var(--font-title);
   /* color: var(--primary-color); */
