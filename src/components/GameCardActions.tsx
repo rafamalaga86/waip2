@@ -1,11 +1,11 @@
 import { Box, Button, Divider, Link, Menu, MenuItem } from '@mui/material/';
 import { games } from '@prisma/client';
 import { useState } from 'react';
-import { BiSolidArchive } from 'react-icons/bi';
 import { BsShareFill } from 'react-icons/bs';
-import { FaFlagCheckered } from 'react-icons/fa';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
+import { BeatenIcon } from './icons/BeatenIcon';
+import { TriedIcon } from './icons/TriedIcon';
 
 export function GameCardActions({ game }: { game: games }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -47,13 +47,13 @@ export function GameCardActions({ game }: { game: games }) {
       >
         <MenuItem onClick={handleClose} disableRipple>
           <Box sx={{ mr: 2 }} className="line-height-1">
-            <FaFlagCheckered className="color-primary" />
+            <BeatenIcon className="color-primary" />
           </Box>
           <span className="color-primary">Beaten!</span>
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
           <Box sx={{ mr: 2 }} className="line-height-1">
-            <BiSolidArchive />
+            <TriedIcon />
           </Box>
           Archive (not beaten)
         </MenuItem>

@@ -32,9 +32,13 @@ export function longestWord(phrase: string): string {
 
 export function formatUnix(unixDate: number): string {
   const date = new Date(unixDate * 1000);
-  return date.toLocaleDateString(process.env.LOCALE_TIME_FORMAT);
+  return toLocale(date);
 }
 
 export function toLocale(date: Date): string {
-  return date.toLocaleDateString(process.env.LOCALE_TIME_FORMAT);
+  return date.toLocaleDateString(process.env.LOCALE_TIME_FORMAT, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
 }

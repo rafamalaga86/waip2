@@ -1,7 +1,19 @@
-import { Box, Card, Grid, Tooltip, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Card,
+  Divider,
+  Grid,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import type { games } from '@prisma/client';
 import { notFound } from 'next/navigation';
+import { MdKeyboardArrowDown } from 'react-icons/md';
 import { IGDBImage } from 'src/components/IGDBImage';
+import { Playeds } from 'src/components/Playeds';
 import { formatUnix, toLocale } from 'src/lib/helpers';
 import { GameModel } from 'src/models/GameModel';
 import { PlayedModel } from 'src/models/PlayerModel';
@@ -74,11 +86,7 @@ export default async function gameDetailsPage({
     const array = values.map(item => {
       return item.name;
     });
-    return (
-      <div>
-        <span>{array.join(', ')}</span>
-      </div>
-    );
+    return <span>{array.join(', ')}</span>;
   }
 
   function formatValuesChips(values: ObjectIdName[]) {
@@ -117,10 +125,31 @@ export default async function gameDetailsPage({
                 </Tooltip>
               </Typography>
             )}
-            <Box sx={{ mt: 2 }}>{data.genres ? formatValuesChips(data.genres) : ''}</Box>
-            {data.game_engines ? formatValues(data.game_engines) : ''}
-            {data.game_modes ? formatValues(data.game_modes) : ''}
-            {data.platforms ? formatValues(data.platforms) : ''}
+            <Box sx={{ my: 2 }}>{data.genres ? formatValuesChips(data.genres) : ''}</Box>
+            {data.game_engines && (
+              <>
+                <Divider />
+                <Box sx={{ my: 1 }}>
+                  <span className="color-primary">Engines:</span> {formatValues(data.game_engines)}
+                </Box>
+              </>
+            )}
+            {data.game_modes && (
+              <>
+                <Divider />
+                <Box sx={{ my: 1 }}>
+                  <span className="color-primary">Game Modes:</span> {formatValues(data.game_modes)}
+                </Box>
+              </>
+            )}
+            {data.platforms && (
+              <>
+                <Divider />
+                <Box sx={{ my: 1 }}>
+                  <span className="color-primary">Platforms:</span> {formatValues(data.platforms)}
+                </Box>
+              </>
+            )}
             {data.player_perspectives ? formatValues(data.player_perspectives) : ''}
             {/* {data.similar_games ? formatValues(data.similar_games) : ''} */}
             {data.themes ? formatValues(data.themes) : ''}
@@ -139,10 +168,25 @@ export default async function gameDetailsPage({
             {data.storyline ? data.storyline : ''}
             {/* {data.videos ? { id: number; name: string; video_id: string } : ''} */}
             {/* {data.websites ? { id: number; category: number; url: string } : ''} */}
-            Franchises:
             {data.franchise ? data.franchise.name : ''}
             {data.franchises ? formatValues(data.franchises) : ''}
-            {data.summary && <Box sx={{ mt: 3 }}>{data.summary}</Box>}
+            <Box sx={{ mt: 3 }}></Box>
+            {data.summary && (
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<MdKeyboardArrowDown />}
+                  aria-controls="panel1-content"
+                  id="panel1-header"
+                >
+                  Summary
+                </AccordionSummary>
+                <AccordionDetails>{data.summary}</AccordionDetails>
+              </Accordion>
+            )}
+
+            <Box sx={{ mt: 5 }}>
+              <Playeds playeds={playeds} />
+            </Box>
           </Grid>
           <Grid item xs={12} md={5}>
             <IGDBImage
@@ -153,16 +197,7 @@ export default async function gameDetailsPage({
           </Grid>
         </Grid>
       </section>
-      <section className="mt-5">
-        {playeds.map(item => {
-          return (
-            <Card key={item.id}>
-              {item.stopped_playing_at && <div>{toLocale(item.stopped_playing_at)}</div>}
-              <div>{item.beaten ? 'Beaten' : 'Tried'}</div>
-            </Card>
-          );
-        })}
-      </section>
+      <section className="mt-5"></section>
     </>
   );
 }
