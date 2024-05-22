@@ -1,10 +1,12 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
+// import { ThemeProvider } from '@emotion/react';
 import type { Metadata } from 'next';
 import { Bungee_Inline } from 'next/font/google';
 import localFont from 'next/font/local';
 import 'src/app/globals.css';
 import { darkTheme } from 'src/app/theme';
+import { LayoutClient } from './LayoutClient';
 
 export const metadata: Metadata = {
   title: 'Waip2',
@@ -49,7 +51,9 @@ export default function RootLayout({
         </head>
         <body>
           <AppRouterCacheProvider options={{ key: 'css' }}>
-            <ThemeProvider theme={darkTheme}>{children}</ThemeProvider>
+            <ThemeProvider theme={darkTheme}>
+              <LayoutClient>{children}</LayoutClient>
+            </ThemeProvider>
           </AppRouterCacheProvider>
         </body>
       </html>

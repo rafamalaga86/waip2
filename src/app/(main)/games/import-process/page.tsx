@@ -31,13 +31,13 @@ export default async function searchPage({ searchParams }: { searchParams?: any 
     try {
       const user = await getAuthUser();
       await GameModel.importGame(gameToImport, game, user.id);
-      return { wasSuccesfull: true, message: '' };
+      return { wasSuccessful: true, message: '' };
     } catch (error: any) {
       if (!(error instanceof ClientFeedbackError)) {
         console.log('Escupe: error', error);
         throw new Error(error);
       }
-      return { wasSuccesfull: true, message: error.message };
+      return { wasSuccessful: false, message: error.message };
     }
   }
 

@@ -2,6 +2,7 @@
 import { Box, Button, CardActions, Chip, Divider, Stack, Tooltip, Typography } from '@mui/material';
 import type { games_to_import } from '@prisma/client';
 import { useEffect, useState } from 'react';
+import { Context } from 'src/components/Context';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { SearchGameSection } from 'src/components/SearchGameSection';
@@ -14,7 +15,10 @@ export function ImportGames({
   discardGame,
 }: {
   gameToImports: games_to_import[];
-  searchGameServer: (title: string, searchOptions: SearchOptions) => Promise<object[]>;
+  searchGameServer: (
+    title: string,
+    searchOptions: SearchOptions
+  ) => Promise<{ games: any; errorMessage: string | null }>;
   importGame: (
     gameToImport: games_to_import,
     game: IgdbSearchedGame
@@ -129,18 +133,32 @@ export function ImportGames({
                       </a>
                     </small>
                     <CardActions sx={{ p: 1, mt: 'auto', justifyContent: 'center' }}>
-                      <Button
-                        variant="contained"
-                        onClick={async () => {
-                          const result = await importGame(gameToImport, game);
-                          if (result.wasSuccessful) {
-                            return window.location.reload();
-                          }
+                      <Context.Consumer>
+                        {({
+                          setOpenErrorToast,
+                          setMessageErrorToast,
+                        }: {
+                          setOpenErrorToast: Function;
+                          setMessageErrorToast: Function;
+                        }) => {
+                          return (
+                            <Button
+                              variant="contained"
+                              onClick={async () => {
+                                const result = await importGame(gameToImport, game);
+                                if (result.wasSuccessful) {
+                                  return window.location.reload();
+                                }
+                                setMessageErrorToast(result.message);
+                                setOpenErrorToast(true);
+                              }}
+                              sx={{ my: 1 }}
+                            >
+                              Import
+                            </Button>
+                          );
                         }}
-                        sx={{ my: 1 }}
-                      >
-                        Import
-                      </Button>
+                      </Context.Consumer>
                     </CardActions>
                   </GameCardLite>
                 );

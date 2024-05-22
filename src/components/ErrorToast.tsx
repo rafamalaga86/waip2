@@ -1,32 +1,23 @@
-import { Alert, Button, Snackbar } from '@mui/material';
+import { Alert, Snackbar } from '@mui/material';
+import { useContext } from 'react';
+import { Context } from './Context';
 
-export function ErrorToast({
-  setOpen,
-  open,
-  message,
-}: {
-  setOpen: Function;
-  open: boolean;
-  message: string;
-}) {
-  const handleClick = () => {
-    setOpen(true);
-  };
+export function ErrorToast() {
+  const { openErrorToast, setOpenErrorToast, messageErrorToast } = useContext(Context);
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
 
-    setOpen(false);
+    setOpenErrorToast(false);
   };
 
   return (
     <div>
-      <Button onClick={handleClick}>Open Snackbar</Button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
-          {message}
+      <Snackbar open={openErrorToast} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
+          Error: {messageErrorToast}
         </Alert>
       </Snackbar>
     </div>
