@@ -215,6 +215,14 @@ a:active {
   /* background-color: var(--primary-color); */
   background-color: var(--gray-2);
 }
+.GameCardLite {
+  position: relative;
+}
+.GameCardLite__QuestionToolTip {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
 .side-menu .MuiListItemButton-root {
   text-transform: uppercase;
@@ -390,7 +398,8 @@ a:active {
 .igdb-color {
   color: var(--igdb-color);
 }
-.igdb-background-color {
+.igdb-background-color,
+.mini-chip.igdb-background-color {
   background-color: var(--igdb-color);
 }
 .mini-chip {

@@ -17,7 +17,7 @@ class IGDBService {
     franchises,
     game_localizations,
     parent_game,
-    platforms,
+    platforms.name,
     ports,
     remakes,
     remasters,

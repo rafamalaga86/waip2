@@ -6,13 +6,15 @@ export function GameCardLite({
   children,
   game,
   imgElement,
+  className,
 }: {
   children: ReactNode;
   game: { id: number; name: string };
   imgElement: ReactNode;
+  className: string;
 }) {
   return (
-    <Card key={game.id} className="game-card game-card-xs">
+    <Card key={game.id} className={'game-card game-card-xs ' + className}>
       {/* <CardMedia component="img" image={game.cover_url} alt={game.name} /> */}
       {imgElement}
       {/* <GameCardHoverActions /> */}

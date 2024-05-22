@@ -26,7 +26,7 @@ const theme = {
       main: aquaGreen,
     },
     secondary: {
-      main: cyan,
+      main: orange,
     },
   },
 
