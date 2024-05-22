@@ -82,7 +82,8 @@ class GameModel {
       } catch (error) {
         console.log('Escupe: ', error);
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
-          throw new ClientFeedbackError(error.message, 409);
+          console.log('Escupe: ', error);
+          throw new ClientFeedbackError('Ya tienes ese juego en la base de datos', 409);
         }
       }
 

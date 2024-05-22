@@ -1,6 +1,7 @@
 import type { games_to_import } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
 import { getAuthUser } from 'src/lib/auth';
+import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 import { GameModel } from 'src/models/GameModel';
 import { gameService } from 'src/services/GameService';
 import { ImportGames } from './ImportGames';
@@ -27,8 +28,17 @@ export default async function searchPage({ searchParams }: { searchParams?: any 
 
   async function importGame(gameToImport: games_to_import, game: IgdbSearchedGame) {
     'use server';
-    const user = await getAuthUser();
-    await GameModel.importGame(gameToImport, game, user.id);
+    try {
+      const user = await getAuthUser();
+      await GameModel.importGame(gameToImport, game, user.id);
+      return { wasSuccesfull: true, message: '' };
+    } catch (error: any) {
+      if (!(error instanceof ClientFeedbackError)) {
+        console.log('Escupe: error', error);
+        throw new Error(error);
+      }
+      return { wasSuccesfull: true, message: error.message };
+    }
   }
 
   async function discardGame(gameToImport: games_to_import): Promise<number> {

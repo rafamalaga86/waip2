@@ -49,7 +49,7 @@ export function GameCardActions({ game }: { game: games }) {
           <Box sx={{ mr: 2 }} className="line-height-1">
             <BeatenIcon className="color-primary" />
           </Box>
-          <span className="color-primary">Beaten!</span>
+          <Box className="color-primary">Beaten!</Box>
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
           <Box sx={{ mr: 2 }} className="line-height-1">

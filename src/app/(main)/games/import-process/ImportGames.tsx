@@ -15,7 +15,10 @@ export function ImportGames({
 }: {
   gameToImports: games_to_import[];
   searchGameServer: (title: string, searchOptions: SearchOptions) => Promise<object[]>;
-  importGame: (gameToImport: games_to_import, game: IgdbSearchedGame) => void;
+  importGame: (
+    gameToImport: games_to_import,
+    game: IgdbSearchedGame
+  ) => Promise<{ wasSuccessful: boolean; message: string }>;
   discardGame: (gameToImport: games_to_import) => void;
 }) {
   const gameToImport = gameToImports[0];
@@ -129,8 +132,10 @@ export function ImportGames({
                       <Button
                         variant="contained"
                         onClick={async () => {
-                          await importGame(gameToImport, game);
-                          window.location.reload();
+                          const result = await importGame(gameToImport, game);
+                          if (result.wasSuccessful) {
+                            return window.location.reload();
+                          }
                         }}
                         sx={{ my: 1 }}
                       >

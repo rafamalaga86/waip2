@@ -185,9 +185,13 @@ a:active {
   justify-content: space-between;
 }
 
-.title-font {
-  font-family: var(--font-title);
-  /* color: var(--primary-color); */
+.MuiCard-root.PlayedCard {
+  background-color: var(--gray-2);
+  /* font-family: var(--font-title); */
+}
+.BeatenIcon {
+  /* position: relative;
+  top: 0.2em; */
 }
 
 .MuiTypography-root.brand {
@@ -392,7 +396,7 @@ a:active {
 .mini-chip {
   padding: 3px 5px;
   border-radius: 10px;
-  background-color: gray;
+  background-color: var(--gray-2);
 }
 .cursor-pointer {
   cursor: pointer;
@@ -423,12 +427,16 @@ a:active {
   display: flex;
   align-items: center;
 }
-
-.letter-spacing-008 {
-  letter-spacing: 0.08em;
+.flex-direction-row {
+  flex-direction: row;
 }
 .border-radius {
   border-radius: 2%;
+}
+
+.title-font {
+  font-family: var(--font-title);
+  /* color: var(--primary-color); */
 }
 
 /*-------------------------------------------------------*/
