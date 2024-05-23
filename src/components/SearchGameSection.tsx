@@ -52,7 +52,7 @@ export function SearchGameSection({
             // InputProps={}
           />
 
-          <QuestionTooltip text="If you enver a IGDB ID, it will search by id" />
+          <QuestionTooltip text="If you enter a IGDB ID, it will search by id" />
         </Box>
       </Grid>
       <Grid

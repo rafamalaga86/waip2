@@ -1,13 +1,20 @@
 TODO: Disconnect prisma in the end of the application life
-TODO: Make a script that finds broken image links
 TODO: Implement caching
-TODO: Impelement error page
+TODO: Implement errors page
+TODO: Implement CORS protection
+TODO: Implement Remember Me in Login
 TODO: Implement full backend validation
-TODO: Make sure it finds in IGDB games like That's you or special characters
 TODO: Include DLCS as games tied to games: info about skipped DLCs in the import
+TOOD: Add screenshots to game page, links a websites, maybe videos, etc
+TODO: Add facebook and twitter metadata
+TODO: Improved Playeds in game page
+TODO: The load of gamepage goes werid
+TODO: Make search igdb database give greatest score to a game that is called EXACTLY like the keyword
+TODO: Añadir gráficas con juegos pasados por año
 
 Not game but included:
 Diablo III: Reaper of Souls
+Meter el Splinter Cell 1
 
 ## Deploy on Vercel
 

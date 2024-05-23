@@ -1,49 +1,64 @@
-import { Avatar, Box, Card, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
+'use client';
+import { Avatar, Box, Card, IconButton, Typography } from '@mui/material';
 import type { playeds } from '@prisma/client';
-import { FaEdit } from 'react-icons/fa';
+import { useContext, useState } from 'react';
+import { IoGameController } from 'react-icons/io5';
+import { MdEdit } from 'react-icons/md';
 import { toLocale } from 'src/lib/helpers';
-import { IGDBImage } from './IGDBImage';
+import { AuthContext } from './contexts/AuthContext';
 import { BeatenIcon } from './icons/BeatenIcon';
 import { TriedIcon } from './icons/TriedIcon';
 
 export function Playeds({ playeds }: { playeds: playeds[] }) {
-  return playeds.map(item => {
+  const [username, setUsername] = useState('');
+
+  return playeds.map(played => {
     return (
-      <Card key={item.id} sx={{ display: 'flex', flexDirection: 'row' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', p: 3 }}>
-          <CardContent sx={{ flex: '1 0 auto', p: 0 }}>
-            <Typography component="div" variant="h5">
-              Beaten!
-            </Typography>
-            <Typography variant="subtitle1" color="text.secondary" component="div">
-              <Box sx={{ ml: 0.6, mt: 0.2 }}>at {toLocale(item.stopped_playing_at!)}</Box>
-            </Typography>
-          </CardContent>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar>
-              <BeatenIcon />
-            </Avatar>
-            {/* <IconButton aria-label="edit">
-              <FaEdit />
-            </IconButton>
-            <IconButton aria-label="tried">
-              <TriedIcon />
-            </IconButton>
-            <IconButton aria-label="beaten">
-              <BeatenIcon />
-            </IconButton> */}
-          </Box>
+      <Card className="PlayedComponent" key={played.id}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar>
+            {played.beaten && played.stopped_playing_at && <BeatenIcon />}
+            {!played.beaten && played.stopped_playing_at && <TriedIcon />}
+            {!played.stopped_playing_at && <IoGameController />}
+          </Avatar>
+        </Box>
+        <Box sx={{ ml: 3 }}>
+          {played.stopped_playing_at && (
+            <>
+              <Typography component="div" variant="h5">
+                {played.beaten ? 'Beaten!' : 'Tried'}
+              </Typography>
+              <Typography variant="subtitle1" color="text.secondary" component="div">
+                <Box className="font-size-15">at {toLocale(played.stopped_playing_at)}</Box>
+              </Typography>
+            </>
+          )}
+          {!played.stopped_playing_at && (
+            <>
+              <Typography component="div" variant="h5">
+                Playing it Now
+              </Typography>
+            </>
+          )}
+        </Box>
+        <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', ml: 5 }}>
+          did beat this game already.
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto' }}>
+          <IconButton size="large">
+            <MdEdit size={25} />
+          </IconButton>
         </Box>
 
-        <Box
+        {/* <Box
           sx={{
-            width: 150,
-            height: 150,
+            width: 170,
+            height: 170,
             background:
               'url(https://images.igdb.com/igdb/image/upload/t_720p/co1v85.webp) no-repeat center center',
             backgroundSize: 'cover',
           }}
-        ></Box>
+        ></Box> */}
         {/* <CardMedia
           component="img"
           

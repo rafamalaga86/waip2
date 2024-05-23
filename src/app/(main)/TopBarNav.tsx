@@ -6,6 +6,7 @@ import {
   Drawer,
   IconButton,
   InputAdornment,
+  LinearProgress,
   OutlinedInput,
   ThemeProvider,
   Toolbar,
@@ -80,6 +81,7 @@ export function TopBarNav() {
               </form>
             </Container>
           </Toolbar>
+          <LinearProgress />
         </AppBar>
       </ThemeProvider>
     </>

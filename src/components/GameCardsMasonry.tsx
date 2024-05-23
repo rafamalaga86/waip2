@@ -1,6 +1,6 @@
 'use client';
 import Masonry from '@mui/lab/Masonry';
-import { Box, CardActions } from '@mui/material';
+import { Box, CardActions, Link } from '@mui/material';
 import type { games } from '@prisma/client';
 import { useState } from 'react';
 import { GameCard } from 'src/components/GameCard';
@@ -35,7 +35,9 @@ export default function GameCardsMasonry({ initialGames }: { initialGames: games
                   sx={{ fontSize: fontSize }}
                   className={'text-align-center title-font ' + extraClasses}
                 >
-                  {game.name}
+                  <Link className="color-white" href={`/games/${game.id}?idgbId=${game.igdb_id}`}>
+                    {game.name}
+                  </Link>
                 </Box>
                 {/* <Rating name="simple-controlled" value={3} size="large" precision={0.5} /> */}
                 {/* <Typography variant="body2" color="text.secondary">

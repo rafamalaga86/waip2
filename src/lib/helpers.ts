@@ -3,7 +3,7 @@ export function titleAdjustment(
   proportion: number = 1
 ): [fontSize: number, extraClases: string] {
   let extraClases = '';
-  if (longestWord(title).length > 11) {
+  if (getLongestWord(title).length > 11) {
     extraClases += 'word-break-word';
   }
 
@@ -20,7 +20,7 @@ export function titleAdjustment(
   return [20 * proportion, extraClases];
 }
 
-export function longestWord(phrase: string): string {
+export function getLongestWord(phrase: string): string {
   let longestWord = '';
   const words = phrase.split(' ').forEach(word => {
     if (word.length > longestWord.length) {

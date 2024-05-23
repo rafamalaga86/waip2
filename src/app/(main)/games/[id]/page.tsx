@@ -11,12 +11,11 @@ import {
 } from '@mui/material';
 import type { games } from '@prisma/client';
 import { notFound } from 'next/navigation';
-import { FaGun } from 'react-icons/fa6';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { GenreIcon } from 'src/components/GenreIcon';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { Playeds } from 'src/components/Playeds';
-import { formatUnix, toLocale } from 'src/lib/helpers';
+import { formatUnix } from 'src/lib/helpers';
 import { GameModel } from 'src/models/GameModel';
 import { PlayedModel } from 'src/models/PlayerModel';
 import { gameService } from 'src/services/GameService';
@@ -103,10 +102,11 @@ export default async function gameDetailsPage({
 
   function formatValuesChips(values: ObjectIdName[]) {
     return values.map(item => {
+      const name = item.name !== 'Role-playing (RPG)' ? item.name : 'RPG';
       return (
-        <Box sx={{ px: 2, mr: 0.5 }} className="chip d-flex" key={item.id}>
+        <Box className="chip d-flex" key={item.id}>
           <GenreIcon genreId={item.id} />
-          <Box sx={{ ml: 1 }}>{item.name}</Box>
+          <Box sx={{ ml: 1 }}>{name}</Box>
         </Box>
       );
     });
@@ -155,7 +155,7 @@ export default async function gameDetailsPage({
                 </Tooltip>
               </Typography>
             )}
-            <Box sx={{ my: 4 }} className="d-flex">
+            <Box sx={{ my: 4 }} className="d-flex flex-wrap-wrap">
               {data.genres ? formatValuesChips(data.genres) : ''}
             </Box>
             <Box sx={{ my: 4 }}>{data.themes ? formatValuesMiniChips(data.themes) : ''}</Box>

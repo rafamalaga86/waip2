@@ -3,12 +3,21 @@
 import { ReactNode } from 'react';
 import { ContextProvider } from 'src/components/Context';
 import { ErrorToast } from 'src/components/ErrorToast';
+import { AuthContextProvider } from 'src/components/contexts/AuthContext';
 
-export function LayoutClient({ children }: { children: ReactNode }) {
+export function LayoutClient({
+  children,
+  getAuthUser,
+}: {
+  children: ReactNode;
+  getAuthUser: Function;
+}) {
   return (
-    <ContextProvider>
-      {children}
-      <ErrorToast />
-    </ContextProvider>
+    <AuthContextProvider getAuthUser={getAuthUser}>
+      <ContextProvider>
+        {children}
+        <ErrorToast />
+      </ContextProvider>
+    </AuthContextProvider>
   );
 }

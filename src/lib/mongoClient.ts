@@ -8,7 +8,6 @@ export async function getClient() {
   if (!process.env.MONGO_DATABASE_URL) {
     throw new Error('Needs a URL for Mongo Database');
   }
-
   try {
     if (globalThis.mongoClient && globalThis.mongoClient instanceof MongoClient) {
       return globalThis.mongoClient;

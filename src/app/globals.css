@@ -163,6 +163,21 @@ a:active {
 
 /*-------------------------------------------------------*/
 
+/* PLAYED COMPONENT -------------------------------------*/
+.PlayedComponent,
+.PlayedComponent.MuiCard-root {
+  /* background-color: var(--gray-2); */
+  /* font-family: var(--font-title); */
+  /* flexDirection: 'row', mb: 2, justifyContent: 'flex-start' }} */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
+/*-------------------------------------------------------*/
+
 .MuiToolbar-root {
   background-color: var(--white);
   align-items: center;
@@ -185,10 +200,6 @@ a:active {
   justify-content: space-between;
 }
 
-.MuiCard-root.PlayedCard {
-  background-color: var(--gray-2);
-  /* font-family: var(--font-title); */
-}
 .BeatenIcon {
   /* position: relative;
   top: 0.2em; */
@@ -403,9 +414,13 @@ a:active {
   background-color: var(--igdb-color);
 }
 .chip {
-  padding: 8px;
+  padding: 8px 12px;
   border-radius: 20px;
+  margin-right: 3px;
   background-color: var(--secondary-color);
+}
+.chip:last-child {
+  margin-right: 0;
 }
 .mini-chip {
   padding: 3px 5px;
@@ -444,6 +459,9 @@ a:active {
 .flex-direction-row {
   flex-direction: row;
 }
+.flex-wrap-wrap {
+  flex-wrap: wrap;
+}
 .border-radius {
   border-radius: 2%;
 }
@@ -453,6 +471,9 @@ a:active {
 .title-font {
   font-family: var(--font-title);
   /* color: var(--primary-color); */
+}
+.font-size-15 {
+  font-size: 15px;
 }
 
 /*-------------------------------------------------------*/

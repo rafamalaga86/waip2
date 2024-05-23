@@ -16,7 +16,8 @@ export default async function searchPage({ searchParams }: { searchParams?: any 
     try {
       // is a string of numbers?
       if (/^\d+$/.test(keyword)) {
-        games = await gameService.getGame(Number(keyword));
+        const game = await gameService.getGame(Number(keyword));
+        games = [game.data];
       } else {
         games = await gameService.searchGame(keyword, searchOptions);
       }

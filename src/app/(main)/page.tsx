@@ -9,7 +9,7 @@ export default async function homePage() {
   console.timeEnd('Main page');
   return (
     <>
-      <h4 className="title-font text-align-center color-primary">Currently Playing Games</h4>
+      <h4 className="title-font text-align-center color-primary">Currently Playing</h4>
       <GameCardsMasonry initialGames={initialGames} />
     </>
   );
