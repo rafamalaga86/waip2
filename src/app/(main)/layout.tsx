@@ -14,11 +14,10 @@ export default function MainLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  async function logOutServer(): Promise<boolean> {
+  async function logOutServer(): Promise<void> {
     'use server';
-    const result = await logout();
+    await logout();
     redirect('/');
-    return result;
   }
   return (
     <>

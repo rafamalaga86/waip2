@@ -15,6 +15,7 @@ import {
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { IoLogoGameControllerB } from 'react-icons/io';
+import { useAuth } from 'src/hooks/useAuth';
 
 function Copyright(props: any) {
   return (
@@ -40,6 +41,7 @@ export function LogIn({
   backgroundNumber: number;
 }) {
   const [loginError, setLoginError] = useState('');
+  const { setAuthUser } = useAuth();
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
@@ -85,8 +87,10 @@ export function LogIn({
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
               try {
-                await handleSubmit(formData);
-                console.log('Escupe: pasa por aqui despues del submit');
+                const user = await handleSubmit(formData);
+                if (user) {
+                  setAuthUser(user);
+                }
               } catch (error: any) {
                 setLoginError(error.message);
               }

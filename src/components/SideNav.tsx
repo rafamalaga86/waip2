@@ -12,7 +12,6 @@ export function SideNav({ logOutServer }: { logOutServer: Function }) {
   const { unsetAuthUser } = useAuth();
   async function logOut() {
     const wasLoggedOut = await logOutServer();
-    console.log('Escupe: ', wasLoggedOut);
     if (wasLoggedOut) {
       await unsetAuthUser();
     }

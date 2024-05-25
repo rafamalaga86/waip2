@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -5,6 +6,7 @@ import { UserModel } from 'src/models/UserModel';
 
 const KEY = new TextEncoder().encode(process.env.SECRET_KEY);
 const EXPIRE_TIME = 60 * 60 * 1000; // 1 hour
+const SALT_ROUNDS = 10;
 
 export async function encrypt(payload: any) {
   return await new SignJWT(payload)
@@ -22,13 +24,15 @@ export async function decrypt(input: string): Promise<any> {
 }
 
 export async function register(formData: FormData) {
-  const wasCreated = await UserModel.create({
-    username: 'peter',
-    last_name: 'Griffin',
-    first_name: 'Peter',
-    email: 'peter@griffin.com',
-    password: 'password',
-  });
+  const userDetails = {
+    username: (formData.get('username') || '') as string,
+    last_name: (formData.get('last_name') || '') as string,
+    first_name: (formData.get('first_name') || '') as string,
+    email: (formData.get('email') || '') as string,
+    password: (formData.get('password') || '') as string,
+  };
+
+  const wasCreated = await UserModel.create(userDetails);
   return wasCreated;
 }
 
@@ -43,13 +47,21 @@ export async function login(formData: FormData): Promise<boolean> {
   if (!email || typeof email !== 'string') {
     throw new Error('That is not a valid email');
   }
+  const genericError = 'The password is incorrect or email does not exists';
 
+  const password = formData.get('password');
+  if (!password || typeof password !== 'string') {
+    throw new Error(genericError);
+  }
   // Verify credentials && get the user
   const user = await UserModel.getByEmail(email);
   if (!user) {
-    throw new Error('The password is incorrect or email does not exists');
+    throw new Error(genericError);
   }
-  UserModel.updateLastLogin(user.id);
+  console.log(hashPassword(password));
+  if (!checkPassowrd(password, user.password)) {
+    throw new Error(genericError);
+  }
 
   // Create the session
   const expires = new Date(Date.now() + EXPIRE_TIME);
@@ -61,7 +73,7 @@ export async function login(formData: FormData): Promise<boolean> {
     httpOnly: true, // httpOnly cookies are only read on server
   });
 
-  console.log('Escupe: pas por aqui');
+  UserModel.updateLastLogin(user.id);
 
   return true;
 }
@@ -69,7 +81,6 @@ export async function login(formData: FormData): Promise<boolean> {
 export async function logout(): Promise<boolean> {
   // Destroy the session
   cookies().set('session', '', { expires: new Date(0) });
-  console.log(cookies().getAll());
   return true;
 }
 
@@ -94,4 +105,12 @@ export async function updateSession(request: NextRequest) {
     expires: parsed.expires,
   });
   return res;
+}
+
+async function hashPassword(password: string) {
+  return await bcrypt.hash(password, SALT_ROUNDS);
+}
+
+async function checkPassowrd(password: string, hashedPassowrd: string) {
+  return await bcrypt.compare(password, hashedPassowrd);
 }
