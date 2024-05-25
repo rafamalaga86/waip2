@@ -11,6 +11,7 @@ TODO: Improved Playeds in game page
 TODO: The load of gamepage goes werid
 TODO: Make search igdb database give greatest score to a game that is called EXACTLY like the keyword
 TODO: Añadir gráficas con juegos pasados por año
+TODO: Añadir algún tipo de evento de celebración al completar un juego
 
 Not game but included:
 Diablo III: Reaper of Souls

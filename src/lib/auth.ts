@@ -61,12 +61,16 @@ export async function login(formData: FormData): Promise<boolean> {
     httpOnly: true, // httpOnly cookies are only read on server
   });
 
+  console.log('Escupe: pas por aqui');
+
   return true;
 }
 
-export async function logout() {
+export async function logout(): Promise<boolean> {
   // Destroy the session
   cookies().set('session', '', { expires: new Date(0) });
+  console.log(cookies().getAll());
+  return true;
 }
 
 export async function getSession() {

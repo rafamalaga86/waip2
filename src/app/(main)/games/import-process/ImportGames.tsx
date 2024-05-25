@@ -4,8 +4,8 @@ import type { games_to_import } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
+import { Question } from 'src/components/Question';
 import { SearchGameSection } from 'src/components/SearchGameSection';
-import { QuestionTooltip } from 'src/components/questionTooltip';
 import { CoverSize } from 'src/enums/gameEnums';
 import { titleAdjustment, toLocale } from 'src/lib/helpers';
 import { ImportGamesCardActions } from './ImportGamesCardActions';
@@ -129,8 +129,8 @@ export function ImportGames({
                     </a>
                   </small>
                   {game.platforms && (
-                    <Box className="GameCardLite__QuestionToolTip">
-                      <QuestionTooltip text={game.platforms.map(item => item.name).join(', ')} />
+                    <Box className="GameCardLite__Question">
+                      <Question text={game.platforms.map(item => item.name).join(', ')} />
                     </Box>
                   )}
                   <ImportGamesCardActions

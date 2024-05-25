@@ -229,7 +229,7 @@ a:active {
 .GameCardLite {
   position: relative;
 }
-.GameCardLite__QuestionToolTip {
+.GameCardLite__Question {
   position: absolute;
   top: 0;
   right: 0;
@@ -416,7 +416,7 @@ a:active {
 .chip {
   padding: 8px 12px;
   border-radius: 20px;
-  margin-right: 3px;
+  margin: 5px 3px 0 0;
   background-color: var(--secondary-color);
 }
 .chip:last-child {

@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import { logout } from 'src/lib/auth';
 import { Main } from './Main';
 import { TopBarNav } from './TopBarNav';
 
@@ -12,9 +14,15 @@ export default function MainLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  async function logOutServer(): Promise<boolean> {
+    'use server';
+    const result = await logout();
+    redirect('/');
+    return result;
+  }
   return (
     <>
-      <TopBarNav />
+      <TopBarNav logOutServer={logOutServer} />
       <Main>{children}</Main>
     </>
   );

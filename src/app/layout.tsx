@@ -5,6 +5,7 @@ import { Bungee_Inline } from 'next/font/google';
 import localFont from 'next/font/local';
 import 'src/app/globals.css';
 import { darkTheme } from 'src/app/theme';
+import { useAuth } from 'src/hooks/useAuth';
 import { getAuthUserServer } from 'src/lib/actions';
 import { LayoutClient } from './LayoutClient';
 

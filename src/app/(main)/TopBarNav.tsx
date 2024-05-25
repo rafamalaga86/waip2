@@ -16,11 +16,10 @@ import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { LuMenuSquare } from 'react-icons/lu';
-import { GlobalLoading } from 'src/components/GlobalLoading';
 import { SideNav } from '../../components/SideNav';
 import { lightTheme } from '../theme';
 
-export function TopBarNav() {
+export function TopBarNav({ logOutServer }: { logOutServer: Function }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -36,7 +35,7 @@ export function TopBarNav() {
   return (
     <>
       <Drawer open={open} onClose={toggleDrawer(false)} disableScrollLock>
-        <SideNav />
+        <SideNav logOutServer={logOutServer} />
       </Drawer>
       <ThemeProvider theme={lightTheme}>
         <AppBar>

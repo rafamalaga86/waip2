@@ -85,7 +85,8 @@ export function LogIn({
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
               try {
-                const result = await handleSubmit(formData);
+                await handleSubmit(formData);
+                console.log('Escupe: pasa por aqui despues del submit');
               } catch (error: any) {
                 setLoginError(error.message);
               }
