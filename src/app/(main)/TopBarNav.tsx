@@ -6,7 +6,6 @@ import {
   Drawer,
   IconButton,
   InputAdornment,
-  LinearProgress,
   OutlinedInput,
   ThemeProvider,
   Toolbar,
@@ -14,9 +13,10 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { LuMenuSquare } from 'react-icons/lu';
+import { GlobalLoading } from 'src/components/GlobalLoading';
 import { SideNav } from '../../components/SideNav';
 import { lightTheme } from '../theme';
 
@@ -81,7 +81,7 @@ export function TopBarNav() {
               </form>
             </Container>
           </Toolbar>
-          <LinearProgress />
+          {/* <GlobalLoading /> */}
         </AppBar>
       </ThemeProvider>
     </>

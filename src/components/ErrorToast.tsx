@@ -1,6 +1,6 @@
 import { Alert, Snackbar } from '@mui/material';
 import { useContext } from 'react';
-import { Context } from './Context';
+import { Context } from './contexts/Context';
 
 export function ErrorToast() {
   const { openErrorToast, setOpenErrorToast, messageErrorToast } = useContext(Context);

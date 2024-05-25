@@ -1,11 +1,12 @@
 'use client';
-import { Box, Button, CardActions, Chip, Divider, Stack, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Chip, Divider, Stack, Tooltip, Typography } from '@mui/material';
 import type { games_to_import } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { SearchGameSection } from 'src/components/SearchGameSection';
 import { QuestionTooltip } from 'src/components/questionTooltip';
+import { CoverSize } from 'src/enums/gameEnums';
 import { titleAdjustment, toLocale } from 'src/lib/helpers';
 import { ImportGamesCardActions } from './ImportGamesCardActions';
 
@@ -109,7 +110,11 @@ export function ImportGames({
                   key={game.id}
                   className="GameCardLite"
                   imgElement={
-                    <IGDBImage stringId={game.cover?.image_id} description={game.name + ' cover'} />
+                    <IGDBImage
+                      size={CoverSize.medium}
+                      stringId={game.cover?.image_id}
+                      description={game.name + ' cover'}
+                    />
                   }
                 >
                   <Box sx={titleStyles} className={extraClasses + ' title-font'}>

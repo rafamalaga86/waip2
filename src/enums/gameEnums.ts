@@ -26,3 +26,16 @@ export enum GameStatus {
   rumored = 7,
   delisted = 8,
 }
+
+export enum CoverSize {
+  small = 'cover_small', //	90 x 128	Fit
+  screenshot_med = 'screenshot_med', //	569 x 320	Lfill, Center gravity
+  medium = 'cover_big', //	264 x 374	Fit
+  logo_med = 'logo_med', //	284 x 160	Fit
+  screenshot_big = 'screenshot_big', //	889 x 500	Lfill, Center gravity
+  screenshot_huge = 'screenshot_huge', //	1280 x 720	Lfill, Center gravity
+  thumb = 'thumb', //	90 x 90	Thumb, Center gravity
+  micro = 'micro', //	35 x 35	Thumb, Center gravity
+  big = '720p', //	1280 x 720	Fit, Center gravity
+  veryBig = '1080p', //	1920 x 1080	Fit, Center gravity
+}

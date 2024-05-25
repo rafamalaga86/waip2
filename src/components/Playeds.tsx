@@ -1,17 +1,13 @@
 'use client';
 import { Avatar, Box, Card, IconButton, Typography } from '@mui/material';
 import type { playeds } from '@prisma/client';
-import { useContext, useState } from 'react';
 import { IoGameController } from 'react-icons/io5';
 import { MdEdit } from 'react-icons/md';
 import { toLocale } from 'src/lib/helpers';
-import { AuthContext } from './contexts/AuthContext';
 import { BeatenIcon } from './icons/BeatenIcon';
 import { TriedIcon } from './icons/TriedIcon';
 
 export function Playeds({ playeds }: { playeds: playeds[] }) {
-  const [username, setUsername] = useState('');
-
   return playeds.map(played => {
     return (
       <Card className="PlayedComponent" key={played.id}>

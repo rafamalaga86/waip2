@@ -1,6 +1,5 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
-// import { ThemeProvider } from '@emotion/react';
 import type { Metadata } from 'next';
 import { Bungee_Inline } from 'next/font/google';
 import localFont from 'next/font/local';

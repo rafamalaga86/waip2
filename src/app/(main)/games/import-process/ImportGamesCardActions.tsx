@@ -1,6 +1,6 @@
 import { Button, CardActions } from '@mui/material';
 import { games_to_import } from '@prisma/client';
-import { Context } from 'src/components/Context';
+import { Context } from 'src/components/contexts/Context';
 
 export function ImportGamesCardActions({
   gameToImport,

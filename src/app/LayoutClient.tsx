@@ -1,9 +1,8 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { ContextProvider } from 'src/components/Context';
+import { ContextProvider } from 'src/components/contexts/Context';
 import { ErrorToast } from 'src/components/ErrorToast';
-import { AuthContextProvider } from 'src/components/contexts/AuthContext';
 
 export function LayoutClient({
   children,
@@ -13,11 +12,9 @@ export function LayoutClient({
   getAuthUser: Function;
 }) {
   return (
-    <AuthContextProvider getAuthUser={getAuthUser}>
-      <ContextProvider>
-        {children}
-        <ErrorToast />
-      </ContextProvider>
-    </AuthContextProvider>
+    <ContextProvider>
+      {children}
+      <ErrorToast />
+    </ContextProvider>
   );
 }
