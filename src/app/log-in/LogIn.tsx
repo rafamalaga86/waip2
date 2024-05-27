@@ -121,7 +121,10 @@ export function LogIn({
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <small className="danger">{loginError}</small>
+            <Box>
+              <small className="danger">{loginError}</small>
+            </Box>
+
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Log In
             </Button>

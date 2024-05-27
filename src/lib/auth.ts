@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -58,11 +57,9 @@ export async function login(formData: FormData): Promise<boolean> {
   if (!user) {
     throw new Error(genericError);
   }
-  console.log(hashPassword(password));
-  if (!checkPassowrd(password, user.password)) {
+  if (!(await checkPassowrd(password, user.password))) {
     throw new Error(genericError);
   }
-
   // Create the session
   const expires = new Date(Date.now() + EXPIRE_TIME);
   const session = await encrypt({ user, expires });
@@ -108,9 +105,12 @@ export async function updateSession(request: NextRequest) {
 }
 
 async function hashPassword(password: string) {
+  const bcrypt = require('bcrypt');
+  console.log('Escupe: ', await bcrypt.hash(password, SALT_ROUNDS));
   return await bcrypt.hash(password, SALT_ROUNDS);
 }
 
 async function checkPassowrd(password: string, hashedPassowrd: string) {
+  const bcrypt = require('bcrypt');
   return await bcrypt.compare(password, hashedPassowrd);
 }
