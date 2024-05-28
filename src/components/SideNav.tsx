@@ -11,15 +11,6 @@ export function SideNav({ logOutServer }: { logOutServer: Function }) {
     await logOutServer();
   }
 
-  const menuItems = [
-    { id: 1, icon: <IoGameController className="line-height-1" />, name: 'Playing now', href: '/' },
-    { id: 2, icon: <BeatenIcon />, name: 'Beaten at year...', href: '/beaten-at' },
-    { id: 3, icon: <TriedIcon />, name: 'Tried at year...', href: '/tried-at', divider: true },
-    { id: 4, icon: <TbLogout />, name: 'Log out', onClick: logOut },
-    { id: 6, icon: <TbLogin />, name: 'Log in', href: '/log-in' },
-    { id: 5, icon: <FaUserPlus />, name: 'register', href: '/register' },
-  ];
-
   return (
     <Box sx={{ width: 250 }} role="presentation">
       {/* <Box sx={{ width: 250 }} role='presentation' onClick={toggleDrawer(false)}> */}
@@ -30,19 +21,79 @@ export function SideNav({ logOutServer }: { logOutServer: Function }) {
       </Link>
       <Divider />
       <List sx={{ p: 0 }}>
-        {menuItems.map(item => (
-          <div key={item.id}>
-            <Link className="color-white" href={item.href ?? '#'} onClick={item.onClick ?? null}>
-              <ListItem disablePadding className="side-menu">
-                <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
-                  <Box sx={{ mr: 1 }}>{item.icon}</Box>
-                  <Box>{item.name}</Box>
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            {item.divider ? <Divider /> : ''}
-          </div>
-        ))}
+        {/* Playing Now */}
+        <Link className="color-white" href="/">
+          <ListItem disablePadding className="side-menu">
+            <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+              <Box sx={{ mr: 1 }}>
+                <IoGameController className="line-height-1" />
+              </Box>
+              <Box>Playing now</Box>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        {/* Finished Playing Now */}
+        {/* Beaten Games */}
+        <Link className="color-white" href="/beaten-at">
+          <ListItem disablePadding className="side-menu">
+            <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+              <Box sx={{ mr: 1 }}>
+                <BeatenIcon />
+              </Box>
+              <Box>Beaten Games</Box>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        {/* Finished Beaten Games */}
+        {/* Tried Games */}
+        <Link className="color-white" href="/tried-at">
+          <ListItem disablePadding className="side-menu">
+            <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+              <Box sx={{ mr: 1 }}>
+                <TriedIcon />
+              </Box>
+              <Box>Tried games</Box>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Divider />
+        {/* Finished Tried Games */}
+        {/* Log Out */}
+        <div className="color-white" onClick={logOut}>
+          <ListItem disablePadding className="side-menu">
+            <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+              <Box sx={{ mr: 1 }}>
+                <TbLogout />
+              </Box>
+              <Box>Log out</Box>
+            </ListItemButton>
+          </ListItem>
+        </div>
+        {/* Finished Log Out */}
+        {/* Finished Log In */}
+        <Link className="color-white" href="/log-in">
+          <ListItem disablePadding className="side-menu">
+            <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+              <Box sx={{ mr: 1 }}>
+                <TbLogin />
+              </Box>
+              <Box>Log in</Box>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        {/* Finished Log In */}
+        {/* Register */}
+        <Link className="color-white" href="/register">
+          <ListItem disablePadding className="side-menu">
+            <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+              <Box sx={{ mr: 1 }}>
+                <FaUserPlus />
+              </Box>
+              <Box>Register</Box>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        {/* Finished Register */}
       </List>
       {/* <Divider /> */}
     </Box>
