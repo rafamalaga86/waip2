@@ -1,18 +1,23 @@
 'use client';
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Avatar, Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import { error } from 'console';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { IoLogoGameControllerB } from 'react-icons/io';
 
+interface ErrorMessageBag {
+  first_name?: string;
+  last_name?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+}
+
 export function Register({ handleSubmit }: { handleSubmit: Function }) {
+  const [errorMessageBag, setErrorMessageBag]: [ErrorMessageBag, Function] = useState({});
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   function Copyright(props: any) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -26,11 +31,17 @@ export function Register({ handleSubmit }: { handleSubmit: Function }) {
     );
   }
 
-  // TODO remove, this demo shouldn't need to reset the theme.
+  function parseErrorMessage(errorMessage: string): Object {
+    const resultObject: { [key: string]: any } = {};
+    const arrayErrorMessage = JSON.parse(errorMessage);
+    arrayErrorMessage.forEach((item: { path: string; message: string }) => {
+      resultObject[item.path] = item.message;
+    });
+    return resultObject;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
@@ -49,11 +60,18 @@ export function Register({ handleSubmit }: { handleSubmit: Function }) {
         </Typography>
         <Box
           component="form"
-          noValidate
           onSubmit={async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
+            setLoading(true);
             const formData = new FormData(event.currentTarget);
-            const result = await handleSubmit(formData);
+            try {
+              await handleSubmit(formData);
+            } catch (error: any) {
+              setErrorMessageBag(parseErrorMessage(error.message));
+              setLoading(false);
+              return;
+            }
+            router.push('/');
           }}
           sx={{ mt: 3 }}
         >
@@ -61,13 +79,14 @@ export function Register({ handleSubmit }: { handleSubmit: Function }) {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="given-name"
-                name="firstName"
+                name="first_name"
                 required
                 fullWidth
                 id="firstName"
                 label="First Name"
                 autoFocus
-                value="Peter"
+                error={'first_name' in errorMessageBag}
+                helperText={errorMessageBag?.first_name}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -76,9 +95,10 @@ export function Register({ handleSubmit }: { handleSubmit: Function }) {
                 fullWidth
                 id="lastName"
                 label="Last Name"
-                name="lastName"
+                name="last_name"
                 autoComplete="family-name"
-                value="Griffin"
+                error={'last_name' in errorMessageBag}
+                helperText={errorMessageBag?.last_name}
               />
             </Grid>
             <Grid item xs={12}>
@@ -89,7 +109,8 @@ export function Register({ handleSubmit }: { handleSubmit: Function }) {
                 label="Username"
                 name="username"
                 autoComplete="username"
-                value="pgriffin"
+                error={'username' in errorMessageBag}
+                helperText={errorMessageBag?.username}
               />
             </Grid>
             <Grid item xs={12}>
@@ -100,7 +121,8 @@ export function Register({ handleSubmit }: { handleSubmit: Function }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                value="peter@griffin.com"
+                error={'email' in errorMessageBag}
+                helperText={errorMessageBag?.email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -112,7 +134,8 @@ export function Register({ handleSubmit }: { handleSubmit: Function }) {
                 type="password"
                 id="password"
                 autoComplete="new-password"
-                value="asdfsdafsdf"
+                error={'password' in errorMessageBag}
+                helperText={errorMessageBag?.password}
               />
             </Grid>
             {/* <Grid item xs={12}>
@@ -122,9 +145,15 @@ export function Register({ handleSubmit }: { handleSubmit: Function }) {
                 />
               </Grid> */}
           </Grid>
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Register
-          </Button>
+          <LoadingButton
+            type="submit"
+            fullWidth
+            variant="contained"
+            loading={loading}
+            sx={{ mt: 3, mb: 2, height: '40px' }}
+          >
+            {!loading && 'Register'}
+          </LoadingButton>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/log-in" variant="body2">

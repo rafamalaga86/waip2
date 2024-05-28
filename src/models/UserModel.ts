@@ -35,13 +35,13 @@ export class UserModel {
   }
 
   static async create(payload: UserCreationPayload) {
-    const wasCreated = await prisma.users.create({
+    const user = await prisma.users.create({
       data: {
         // TODO: delete the random part
-        username: payload.username + Math.floor(Math.random() * 1000000),
+        username: payload.username,
         last_name: payload.last_name,
         first_name: payload.first_name,
-        email: payload.email + Math.floor(Math.random() * 1000000),
+        email: payload.email,
         password: payload.password,
         is_active: true,
         is_staff: false,
@@ -49,6 +49,6 @@ export class UserModel {
         last_login: new Date(),
       },
     });
-    return wasCreated;
+    return user;
   }
 }

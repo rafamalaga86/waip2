@@ -1,7 +1,10 @@
+import { Prisma, users } from '@prisma/client';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import { userValidator } from 'src/lib/validators';
 import { UserModel } from 'src/models/UserModel';
+import { ClientFeedbackError } from './errors/ClientFeedbackError';
 
 const KEY = new TextEncoder().encode(process.env.SECRET_KEY);
 const EXPIRE_TIME = 60 * 60 * 1000; // 1 hour
@@ -24,15 +27,55 @@ export async function decrypt(input: string): Promise<any> {
 
 export async function register(formData: FormData) {
   const userDetails = {
-    username: (formData.get('username') || '') as string,
-    last_name: (formData.get('last_name') || '') as string,
-    first_name: (formData.get('first_name') || '') as string,
-    email: (formData.get('email') || '') as string,
-    password: (formData.get('password') || '') as string,
+    username: formData.get('username') as string,
+    last_name: formData.get('last_name') as string,
+    first_name: formData.get('first_name') as string,
+    email: formData.get('email') as string,
+    password: formData.get('password') as string,
   };
 
-  const wasCreated = await UserModel.create(userDetails);
-  return wasCreated;
+  const resultValidator = userValidator.validate(userDetails, { abortEarly: false });
+
+  if (resultValidator.error) {
+    throw new ClientFeedbackError(JSON.stringify(resultValidator.error.details), 400);
+  }
+
+  let user;
+  try {
+    userDetails.password = await hashPassword(userDetails.password);
+    user = await UserModel.create(userDetails);
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (
+        error.code === 'P2002' &&
+        error.meta &&
+        error.meta.target &&
+        // @ts-ignore
+        error.meta.target[0] === 'username'
+      ) {
+        throw new ClientFeedbackError(
+          '[{"path":"username", "message":"The username is being used by another user already"}]',
+          400
+        );
+      } else if (
+        error.code === 'P2002' &&
+        error.meta &&
+        error.meta.target &&
+        // @ts-ignore
+        error.meta.target[0] === 'email'
+      ) {
+        throw new ClientFeedbackError(
+          '[{"path":"email", "message":"That email is being used by another user already"}]',
+          400
+        );
+      }
+    }
+    // Si la excepción no es de tipo UniqueConstraintViolation, la lanzamos nuevamente
+    throw error;
+  }
+  await createSession(user);
+
+  return user;
 }
 
 export async function getAuthUser() {
@@ -61,6 +104,12 @@ export async function login(formData: FormData): Promise<boolean> {
     throw new Error(genericError);
   }
   // Create the session
+  await createSession(user);
+
+  return true;
+}
+
+async function createSession(user: users) {
   const expires = new Date(Date.now() + EXPIRE_TIME);
   const session = await encrypt({ user, expires });
 
@@ -71,8 +120,6 @@ export async function login(formData: FormData): Promise<boolean> {
   });
 
   UserModel.updateLastLogin(user.id);
-
-  return true;
 }
 
 export async function logout(): Promise<boolean> {
@@ -106,7 +153,6 @@ export async function updateSession(request: NextRequest) {
 
 async function hashPassword(password: string) {
   const bcrypt = require('bcrypt');
-  console.log('Escupe: ', await bcrypt.hash(password, SALT_ROUNDS));
   return await bcrypt.hash(password, SALT_ROUNDS);
 }
 
