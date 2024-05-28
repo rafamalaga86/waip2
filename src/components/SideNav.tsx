@@ -1,20 +1,14 @@
 'use_client';
 import { Box, Divider, Link, List, ListItem, ListItemButton, Typography } from '@mui/material';
-import { useRouter } from 'next/router';
 import { FaUserPlus } from 'react-icons/fa6';
 import { IoGameController } from 'react-icons/io5';
 import { TbLogin, TbLogout } from 'react-icons/tb';
-import { useAuth } from 'src/hooks/useAuth';
 import { BeatenIcon } from './icons/BeatenIcon';
 import { TriedIcon } from './icons/TriedIcon';
 
 export function SideNav({ logOutServer }: { logOutServer: Function }) {
-  const { unsetAuthUser } = useAuth();
   async function logOut() {
-    const wasLoggedOut = await logOutServer();
-    if (wasLoggedOut) {
-      await unsetAuthUser();
-    }
+    await logOutServer();
   }
 
   const menuItems = [

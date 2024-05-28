@@ -12,10 +12,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { IoLogoGameControllerB } from 'react-icons/io';
-import { useAuth } from 'src/hooks/useAuth';
 
 function Copyright(props: any) {
   return (
@@ -30,9 +28,6 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
 export function LogIn({
   handleSubmit,
   backgroundNumber,
@@ -41,7 +36,6 @@ export function LogIn({
   backgroundNumber: number;
 }) {
   const [loginError, setLoginError] = useState('');
-  const { setAuthUser } = useAuth();
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
@@ -88,9 +82,6 @@ export function LogIn({
               const formData = new FormData(event.currentTarget);
               try {
                 const user = await handleSubmit(formData);
-                if (user) {
-                  setAuthUser(user);
-                }
               } catch (error: any) {
                 setLoginError(error.message);
               }

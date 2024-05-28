@@ -5,7 +5,6 @@ import { Bungee_Inline } from 'next/font/google';
 import localFont from 'next/font/local';
 import 'src/app/globals.css';
 import { darkTheme } from 'src/app/theme';
-import { getAuthUserServer } from 'src/lib/actions';
 import { LayoutClient } from './LayoutClient';
 
 export const metadata: Metadata = {
@@ -52,7 +51,7 @@ export default function RootLayout({
         <body>
           <AppRouterCacheProvider options={{ key: 'css' }}>
             <ThemeProvider theme={darkTheme}>
-              <LayoutClient getAuthUser={getAuthUserServer}>{children}</LayoutClient>
+              <LayoutClient>{children}</LayoutClient>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </body>
