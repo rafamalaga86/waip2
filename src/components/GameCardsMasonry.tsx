@@ -10,7 +10,6 @@ import { GameCardActions } from './GameCardActions';
 
 export default function GameCardsMasonry({ initialGames }: { initialGames: games[] }) {
   const [games, setGames] = useState(initialGames);
-
   return (
     <Box className="masonry-wrapper">
       <Masonry

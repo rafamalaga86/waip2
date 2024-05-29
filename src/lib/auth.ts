@@ -83,6 +83,16 @@ export async function getAuthUser() {
   if (!session) return null;
   return session.user;
 }
+export async function getAuthUserVisible(): Promise<UserVisible | null> {
+  const user = await getAuthUser();
+  if (!user) return null;
+  return {
+    username: user.username,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    email: user.email,
+  };
+}
 
 export async function login(formData: FormData): Promise<boolean> {
   const email = formData.get('email');

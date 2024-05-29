@@ -6,7 +6,7 @@ import { GameModel } from 'src/models/GameModel';
 import { gameService } from 'src/services/GameService';
 import { ImportGames } from './ImportGames';
 
-export default async function searchPage({ searchParams }: { searchParams?: any }) {
+export default async function searchPage() {
   async function searchGameServer(
     keyword: string,
     searchOptions: SearchOptions

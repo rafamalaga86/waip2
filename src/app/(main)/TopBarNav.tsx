@@ -19,7 +19,13 @@ import { LuMenuSquare } from 'react-icons/lu';
 import { SideNav } from '../../components/SideNav';
 import { lightTheme } from '../theme';
 
-export function TopBarNav({ logOutServer }: { logOutServer: Function }) {
+export function TopBarNav({
+  logOutServer,
+  authUser,
+}: {
+  logOutServer: Function;
+  authUser: UserVisible | null;
+}) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -35,7 +41,7 @@ export function TopBarNav({ logOutServer }: { logOutServer: Function }) {
   return (
     <>
       <Drawer open={open} onClose={toggleDrawer(false)} disableScrollLock>
-        <SideNav logOutServer={logOutServer} />
+        <SideNav logOutServer={logOutServer} authUser={authUser} />
       </Drawer>
       <ThemeProvider theme={lightTheme}>
         <AppBar>

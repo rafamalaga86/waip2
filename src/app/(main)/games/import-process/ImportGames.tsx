@@ -72,7 +72,14 @@ export function ImportGames({
             const date = item.stopped_playing_at;
             const played = item.beaten ? 'Beaten' : 'Tried';
             const label = date ? played + ': ' + toLocale(date) : 'Playing now';
-            return <Chip key={item.id} label={label} color="secondary" sx={{ mr: 1 }} />;
+            return (
+              <Chip
+                key={item.id}
+                label={label}
+                color={item.beaten ? 'secondary' : 'primary'}
+                sx={{ mr: 1 }}
+              />
+            );
           })}
         </Box>
       </section>

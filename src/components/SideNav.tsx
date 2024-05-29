@@ -6,7 +6,13 @@ import { TbLogin, TbLogout } from 'react-icons/tb';
 import { BeatenIcon } from './icons/BeatenIcon';
 import { TriedIcon } from './icons/TriedIcon';
 
-export function SideNav({ logOutServer }: { logOutServer: Function }) {
+export function SideNav({
+  logOutServer,
+  authUser,
+}: {
+  logOutServer: Function;
+  authUser: UserVisible | null;
+}) {
   async function logOut() {
     await logOutServer();
   }
@@ -59,40 +65,46 @@ export function SideNav({ logOutServer }: { logOutServer: Function }) {
         <Divider />
         {/* Finished Tried Games */}
         {/* Log Out */}
-        <div className="color-white" onClick={logOut}>
-          <ListItem disablePadding className="side-menu">
-            <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
-              <Box sx={{ mr: 1 }}>
-                <TbLogout />
-              </Box>
-              <Box>Log out</Box>
-            </ListItemButton>
-          </ListItem>
-        </div>
+        {authUser && (
+          <div className="color-white" onClick={logOut}>
+            <ListItem disablePadding className="side-menu">
+              <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+                <Box sx={{ mr: 1 }}>
+                  <TbLogout />
+                </Box>
+                <Box>Log out</Box>
+              </ListItemButton>
+            </ListItem>
+          </div>
+        )}
         {/* Finished Log Out */}
         {/* Finished Log In */}
-        <Link className="color-white" href="/log-in">
-          <ListItem disablePadding className="side-menu">
-            <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
-              <Box sx={{ mr: 1 }}>
-                <TbLogin />
-              </Box>
-              <Box>Log in</Box>
-            </ListItemButton>
-          </ListItem>
-        </Link>
+        {!authUser && (
+          <Link className="color-white" href="/log-in">
+            <ListItem disablePadding className="side-menu">
+              <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+                <Box sx={{ mr: 1 }}>
+                  <TbLogin />
+                </Box>
+                <Box>Log in</Box>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
         {/* Finished Log In */}
         {/* Register */}
-        <Link className="color-white" href="/register">
-          <ListItem disablePadding className="side-menu">
-            <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
-              <Box sx={{ mr: 1 }}>
-                <FaUserPlus />
-              </Box>
-              <Box>Register</Box>
-            </ListItemButton>
-          </ListItem>
-        </Link>
+        {!authUser && (
+          <Link className="color-white" href="/register">
+            <ListItem disablePadding className="side-menu">
+              <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+                <Box sx={{ mr: 1 }}>
+                  <FaUserPlus />
+                </Box>
+                <Box>Register</Box>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
         {/* Finished Register */}
       </List>
       {/* <Divider /> */}

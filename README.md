@@ -16,6 +16,7 @@ TODO: Añadir algún tipo de evento de celebración al completar un juego
 Not game but included:
 Diablo III: Reaper of Souls
 Meter el Splinter Cell 1
+Add Jackbox Party Pack 1 y 2
 
 ## Deploy on Vercel
 

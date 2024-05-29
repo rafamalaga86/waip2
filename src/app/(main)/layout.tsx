@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { logout } from 'src/lib/auth';
+import { getAuthUserVisible, logout } from 'src/lib/auth';
 import { Main } from './Main';
 import { TopBarNav } from './TopBarNav';
 
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'New version of waip',
 };
 
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -21,7 +21,7 @@ export default function MainLayout({
   }
   return (
     <>
-      <TopBarNav logOutServer={logOutServer} />
+      <TopBarNav logOutServer={logOutServer} authUser={await getAuthUserVisible()} />
       <Main>{children}</Main>
     </>
   );
