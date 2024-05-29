@@ -15,6 +15,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import { GenreIcon } from 'src/components/GenreIcon';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { Playeds } from 'src/components/Playeds';
+import { getAuthUserVisible } from 'src/lib/auth';
 import { formatUnix } from 'src/lib/helpers';
 import { GameModel } from 'src/models/GameModel';
 import { PlayedModel } from 'src/models/PlayerModel';
@@ -39,6 +40,8 @@ export default async function gameDetailsPage({
     preFetchedGame = await GameModel.findById(id);
     igdbId = Number(preFetchedGame.igdb_id);
   }
+
+  const user = await getAuthUserVisible();
 
   // console.time('primero');
   // await GameModel.findById(id);
@@ -209,7 +212,7 @@ export default async function gameDetailsPage({
               )}
             </Box>
             <Box sx={{ mt: 5 }}>
-              <Playeds playeds={playeds} />
+              <Playeds playeds={playeds} username={user.username} />
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>

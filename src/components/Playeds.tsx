@@ -7,7 +7,7 @@ import { toLocale } from 'src/lib/helpers';
 import { BeatenIcon } from './icons/BeatenIcon';
 import { TriedIcon } from './icons/TriedIcon';
 
-export function Playeds({ playeds }: { playeds: playeds[] }) {
+export function Playeds({ playeds, username }: { playeds: playeds[]; username: string }) {
   return playeds.map(played => {
     return (
       <Card className="PlayedComponent" key={played.id}>
@@ -38,7 +38,7 @@ export function Playeds({ playeds }: { playeds: playeds[] }) {
           )}
         </Box>
         <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', ml: 5 }}>
-          did beat this game already.
+          {username} did beat this game already.
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto' }}>
           <IconButton size="large">
