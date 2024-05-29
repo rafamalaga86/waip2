@@ -4,6 +4,7 @@ declare global {
   interface PrismaQuery {
     where?: object;
     take?: number;
+    orderBy?: object;
   }
 
   interface IgdbSearchedGame {

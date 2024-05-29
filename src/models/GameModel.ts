@@ -113,6 +113,9 @@ class GameModel {
           },
         },
       },
+      orderBy: {
+        order: 'desc',
+      },
     };
     if (limit) {
       query.take = limit;
