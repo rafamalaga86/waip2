@@ -9,6 +9,15 @@ interface UserCreationPayload {
 }
 
 export class UserModel {
+  static async getDemoUser() {
+    const user = await prisma.users.findUniqueOrThrow({ where: { id: 1 } });
+    return {
+      username: user.username,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+    };
+  }
   static async getByEmailOrThrow(email: string) {
     return prisma.users.findUniqueOrThrow({ where: { email: email } });
   }

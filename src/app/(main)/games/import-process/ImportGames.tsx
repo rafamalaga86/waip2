@@ -70,7 +70,7 @@ export function ImportGames({
         <Box className="section-title__chips">
           {gameToImports.map(item => {
             const date = item.stopped_playing_at;
-            const played = item.beaten ? 'Beaten' : 'Tried';
+            const played = item.beaten ? 'Beaten' : 'Abandoned';
             const label = date ? played + ': ' + toLocale(date) : 'Playing now';
             return (
               <Chip

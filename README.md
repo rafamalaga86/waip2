@@ -12,11 +12,14 @@ TODO: The load of gamepage goes werid
 TODO: Make search igdb database give greatest score to a game that is called EXACTLY like the keyword
 TODO: Añadir gráficas con juegos pasados por año
 TODO: Añadir algún tipo de evento de celebración al completar un juego
+TODO: Refactor getDemoUser para asegurarse de que se puede cachear
 
 Not game but included:
 Diablo III: Reaper of Souls
 Meter el Splinter Cell 1
 Add Jackbox Party Pack 1 y 2
+
+super mario galaxy tiene otro played que no tengo en la base de datos, pq sé que me lo pasé cuando me compré la wii como en 2008
 
 ## Deploy on Vercel
 

@@ -2,8 +2,8 @@ import { Avatar, Box, Card, CardContent, Typography } from '@mui/material';
 import type { playeds } from '@prisma/client';
 import { IoGameController } from 'react-icons/io5';
 import { toLocale } from 'src/lib/helpers';
+import { AbandonedIcon } from './icons/AbandonedIcon';
 import { BeatenIcon } from './icons/BeatenIcon';
-import { TriedIcon } from './icons/TriedIcon';
 
 export function Playeds({ playeds }: { playeds: playeds[] }) {
   return playeds.map(played => {
@@ -14,7 +14,7 @@ export function Playeds({ playeds }: { playeds: playeds[] }) {
             {played.stopped_playing_at && (
               <>
                 <Typography component="div" variant="h5">
-                  {played.beaten ? 'Beaten!' : 'Tried'}
+                  {played.beaten ? 'Beaten!' : 'Abandoned'}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary" component="div">
                   <Box className="font-size-15">at {toLocale(played.stopped_playing_at)}</Box>
@@ -32,7 +32,7 @@ export function Playeds({ playeds }: { playeds: playeds[] }) {
           <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
             <Avatar>
               {played.beaten && played.stopped_playing_at && <BeatenIcon />}
-              {!played.beaten && played.stopped_playing_at && <TriedIcon />}
+              {!played.beaten && played.stopped_playing_at && <AbandonedIcon />}
               {!played.stopped_playing_at && <IoGameController />}
             </Avatar>
           </Box>

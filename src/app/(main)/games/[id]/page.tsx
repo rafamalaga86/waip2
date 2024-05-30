@@ -3,7 +3,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
-  Card,
   Divider,
   Grid,
   Tooltip,
@@ -19,6 +18,7 @@ import { getAuthUserVisible } from 'src/lib/auth';
 import { formatUnix } from 'src/lib/helpers';
 import { GameModel } from 'src/models/GameModel';
 import { PlayedModel } from 'src/models/PlayerModel';
+import { UserModel } from 'src/models/UserModel';
 import { gameService } from 'src/services/GameService';
 
 export default async function gameDetailsPage({
@@ -41,7 +41,7 @@ export default async function gameDetailsPage({
     igdbId = Number(preFetchedGame.igdb_id);
   }
 
-  const user = await getAuthUserVisible();
+  const user = (await getAuthUserVisible()) || (await UserModel.getDemoUser());
 
   // console.time('primero');
   // await GameModel.findById(id);

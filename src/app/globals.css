@@ -178,6 +178,16 @@ a:active {
 
 /*-------------------------------------------------------*/
 
+.modal {
+  background-color: var(--gray-0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 32px;
+}
+
 .MuiToolbar-root {
   background-color: var(--white);
   align-items: center;
@@ -468,12 +478,17 @@ a:active {
 .text-transform-capitalize {
   text-transform: capitalize;
 }
-.title-font {
+.title-font,
+.MuiTypography-root.title-font {
   font-family: var(--font-title);
   /* color: var(--primary-color); */
 }
 .font-size-15 {
   font-size: 15px;
+}
+
+.date-picker {
+  color-scheme: dark;
 }
 
 /*-------------------------------------------------------*/

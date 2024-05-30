@@ -3,8 +3,8 @@ import { Box, Divider, Link, List, ListItem, ListItemButton, Typography } from '
 import { FaUserPlus } from 'react-icons/fa6';
 import { IoGameController } from 'react-icons/io5';
 import { TbLogin, TbLogout } from 'react-icons/tb';
+import { AbandonedIcon } from './icons/AbandonedIcon';
 import { BeatenIcon } from './icons/BeatenIcon';
-import { TriedIcon } from './icons/TriedIcon';
 
 export function SideNav({
   logOutServer,
@@ -51,19 +51,19 @@ export function SideNav({
           </ListItem>
         </Link>
         {/* Finished Beaten Games */}
-        {/* Tried Games */}
-        <Link className="color-white" href="/tried-at">
+        {/* Abandoned Games */}
+        <Link className="color-white" href="/abandoned-at">
           <ListItem disablePadding className="side-menu">
             <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
               <Box sx={{ mr: 1 }}>
-                <TriedIcon />
+                <AbandonedIcon />
               </Box>
-              <Box>Tried games</Box>
+              <Box>Abandoned games</Box>
             </ListItemButton>
           </ListItem>
         </Link>
         <Divider />
-        {/* Finished Tried Games */}
+        {/* Finished Abandoned Games */}
         {/* Log Out */}
         {authUser && (
           <div className="color-white" onClick={logOut}>
