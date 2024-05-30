@@ -42,3 +42,7 @@ export function toLocale(date: Date): string {
     day: '2-digit',
   });
 }
+
+export function toISO(date: Date | null | undefined): string | null {
+  return date ? date.toISOString().substring(0, 10) : null;
+}

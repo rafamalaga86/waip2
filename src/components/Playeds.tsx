@@ -5,26 +5,32 @@ import { useState } from 'react';
 import { IoGameController } from 'react-icons/io5';
 import { MdEdit } from 'react-icons/md';
 import { EditPlayedModal } from 'src/components/EditPlayedModal';
+import { PlayedStatus } from 'src/enums/playedEnums';
 import { useModal } from 'src/hooks/useModal';
-import { toLocale } from 'src/lib/helpers';
+import { toISO, toLocale } from 'src/lib/helpers';
 import { AbandonedIcon } from './icons/AbandonedIcon';
 import { BeatenIcon } from './icons/BeatenIcon';
 
 export function Playeds({ playeds, username }: { playeds: playeds[]; username: string }) {
   const [isOpened, openModal, closeModal] = useModal(false);
-  const [playedDate, setPlayedDate] = useState<Date | null>(null);
+  const [playedDate, setPlayedDate] = useState<string | null>(null);
   const [playedBeaten, setPlayedBeaten] = useState(false);
+  const [playingState, setPlayingState] = useState<string | null>(null);
+
+  const modalProps = {
+    isOpened,
+    playedDate,
+    playedBeaten,
+    closeModal,
+    playingState,
+    setPlayedDate,
+    setPlayedBeaten,
+    setPlayingState,
+  };
 
   return (
     <>
-      <EditPlayedModal
-        isOpened={isOpened}
-        closeModal={closeModal}
-        playedDate={playedDate}
-        playedBeaten={playedBeaten}
-        setPlayedDate={setPlayedDate}
-        setPlayedBeaten={setPlayedBeaten}
-      />
+      <EditPlayedModal {...modalProps} />
       {playeds.map(played => {
         return (
           <div key={played.id}>
@@ -62,8 +68,15 @@ export function Playeds({ playeds, username }: { playeds: playeds[]; username: s
                 <IconButton
                   size="large"
                   onClick={() => {
-                    setPlayedDate(played.stopped_playing_at);
+                    setPlayedDate(toISO(played.stopped_playing_at));
                     setPlayedBeaten(played.beaten);
+                    setPlayingState(
+                      !played.stopped_playing_at
+                        ? PlayedStatus.playing
+                        : played.beaten
+                        ? PlayedStatus.beaten
+                        : PlayedStatus.abandoned
+                    );
                     openModal();
                   }}
                 >
@@ -74,6 +87,17 @@ export function Playeds({ playeds, username }: { playeds: playeds[]; username: s
           </div>
         );
       })}
+      <Button
+        variant="contained"
+        onClick={() => {
+          setPlayedDate(null);
+          setPlayedBeaten(false);
+          setPlayingState(null);
+          openModal();
+        }}
+      >
+        Add Played
+      </Button>
     </>
   );
 }
