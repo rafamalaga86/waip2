@@ -17,7 +17,7 @@ import { Playeds } from 'src/components/Playeds';
 import { getAuthUserVisible } from 'src/lib/auth';
 import { formatUnix } from 'src/lib/helpers';
 import { GameModel } from 'src/models/GameModel';
-import { PlayedModel } from 'src/models/PlayerModel';
+import { PlayedModel } from 'src/models/PlayedModel';
 import { UserModel } from 'src/models/UserModel';
 import { gameService } from 'src/services/GameService';
 
@@ -212,7 +212,7 @@ export default async function gameDetailsPage({
               )}
             </Box>
             <Box sx={{ mt: 5 }}>
-              <Playeds playeds={playeds} username={user.username} />
+              <Playeds initialPlayeds={playeds} username={user.username} gameId={id} />
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>

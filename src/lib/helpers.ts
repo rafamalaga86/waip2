@@ -35,7 +35,10 @@ export function formatUnix(unixDate: number): string {
   return toLocale(date);
 }
 
-export function toLocale(date: Date): string {
+export function toLocale(date: Date | string): string {
+  if (typeof date === 'string') {
+    date = new Date(date);
+  }
   return date.toLocaleDateString(process.env.LOCALE_TIME_FORMAT, {
     year: 'numeric',
     month: '2-digit',

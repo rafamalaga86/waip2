@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAuthUser, updateSession } from './lib/auth';
 
 // Routes that stars with that will be protected with login
-const nonAuthRoutesStarts = ['/users', '/games'];
+const nonAuthRoutesStarts = ['/users', '/api/v1/users/', '/games', '/api/v1/games/'];
 
-// Routes that are these exact will be protected
+// Routes that are these exact will be protected with login
 const nonAuthRoutesExact = ['/'];
 
 export async function middleware(request: NextRequest) {

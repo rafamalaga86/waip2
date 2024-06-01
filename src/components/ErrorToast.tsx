@@ -17,7 +17,7 @@ export function ErrorToast() {
     <div>
       <Snackbar open={openErrorToast} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
-          Error: {messageErrorToast}
+          {messageErrorToast}
         </Alert>
       </Snackbar>
     </div>

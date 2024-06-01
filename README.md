@@ -13,6 +13,7 @@ TODO: Make search igdb database give greatest score to a game that is called EXA
 TODO: Añadir gráficas con juegos pasados por año
 TODO: Añadir algún tipo de evento de celebración al completar un juego
 TODO: Refactor getDemoUser para asegurarse de que se puede cachear
+TODO: Mirar si sigo necesitando PrismaClient
 
 Not game but included:
 Diablo III: Reaper of Souls
