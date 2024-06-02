@@ -7,7 +7,7 @@ import { IGDBImage } from 'src/components/IGDBImage';
 import { Question } from 'src/components/Question';
 import { SearchGameSection } from 'src/components/SearchGameSection';
 import { CoverSize } from 'src/enums/gameEnums';
-import { titleAdjustment, toLocale } from 'src/lib/helpers';
+import { formatDate, titleAdjustment } from 'src/lib/helpers';
 import { ImportGamesCardActions } from './ImportGamesCardActions';
 
 export function ImportGames({
@@ -71,7 +71,7 @@ export function ImportGames({
           {gameToImports.map(item => {
             const date = item.stopped_playing_at;
             const played = item.beaten ? 'Beaten' : 'Abandoned';
-            const label = date ? played + ': ' + toLocale(date) : 'Playing now';
+            const label = date ? played + ': ' + formatDate(date) : 'Playing now';
             return (
               <Chip
                 key={item.id}

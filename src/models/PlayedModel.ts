@@ -6,7 +6,10 @@ import { GameModel } from './GameModel';
 
 export class PlayedModel {
   static async findByGameId(id: number): Promise<playeds[]> {
-    return await prisma.playeds.findMany({ where: { game_id: id } });
+    return await prisma.playeds.findMany({
+      where: { game_id: id },
+      orderBy: { stopped_playing_at: 'asc' },
+    });
   }
 
   static async findById(id: number) {

@@ -6,20 +6,16 @@ interface Item {
   [key: string]: any;
 }
 
-export function useItems(initialItems: Item[]): [Item[], Function, Function, Function] {
+export function useItems(initialItems: Item[]): [Item[], Function, Function, Function, Function] {
   const [items, setItems] = useState<Item[]>(initialItems);
 
   function removeItem(id: number) {
-    console.log('Escupe: ', id);
     const newItems = items.filter((element: Item) => element.id !== id);
-    console.log('Escupe: ', newItems);
     setItems(newItems);
   }
 
   function addItem(item: Item) {
-    const newItems = [...items];
-    newItems.push(item);
-    setItems(newItems);
+    setItems([...items, item]);
   }
 
   function updateItem(item: Object, id: number) {
@@ -28,5 +24,5 @@ export function useItems(initialItems: Item[]): [Item[], Function, Function, Fun
     setItems(items);
   }
 
-  return [items, addItem, updateItem, removeItem];
+  return [items, addItem, updateItem, removeItem, setItems];
 }

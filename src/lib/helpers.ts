@@ -39,11 +39,21 @@ export function toLocale(date: Date | string): string {
   if (typeof date === 'string') {
     date = new Date(date);
   }
-  return date.toLocaleDateString(process.env.LOCALE_TIME_FORMAT, {
+  return date.toLocaleDateString(undefined, {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
   });
+}
+
+export function formatDate(date: Date | string) {
+  if (typeof date === 'string') {
+    date = new Date(date);
+  }
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const year = date.getUTCFullYear();
+  return `${day}/${month}/${year}`;
 }
 
 export function toISO(date: Date | null | undefined): string | null {

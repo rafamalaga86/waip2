@@ -1,7 +1,7 @@
 import { Avatar, Box, Card, CardContent, Typography } from '@mui/material';
 import type { playeds } from '@prisma/client';
 import { IoGameController } from 'react-icons/io5';
-import { toLocale } from 'src/lib/helpers';
+import { formatDate } from 'src/lib/helpers';
 import { AbandonedIcon } from './icons/AbandonedIcon';
 import { BeatenIcon } from './icons/BeatenIcon';
 
@@ -17,7 +17,7 @@ export function Playeds({ playeds }: { playeds: playeds[] }) {
                   {played.beaten ? 'Beaten!' : 'Abandoned'}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary" component="div">
-                  <Box className="font-size-15">at {toLocale(played.stopped_playing_at)}</Box>
+                  <Box className="font-size-15">at {formatDate(played.stopped_playing_at)}</Box>
                 </Typography>
               </>
             )}

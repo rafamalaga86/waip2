@@ -8,7 +8,8 @@ import {
   ToggleButtonGroup,
   Typography,
 } from '@mui/material';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import { IoClose } from 'react-icons/io5';
 import { PlayedStatus } from 'src/enums/playedEnums';
 import { ModalSkeleton } from './ModalSkeleton';
 import { Context } from './contexts/Context';
@@ -31,12 +32,13 @@ export function EditPlayedModal({
   playedDate: string | null;
   setPlayedDate: Function;
   setPlayedBeaten: Function;
-  playingState: string | null;
+  playingState: PlayedStatus;
   setPlayingState: Function;
   upsertPlayed: Function;
   deletePlayed: Function;
 }) {
   const { setOpenErrorToast, setMessageErrorToast } = useContext(Context);
+  const [dateError, setDateError] = useState<null | string>(null);
 
   function handlePlayingState(event: React.MouseEvent<HTMLElement>, newPlayingState: PlayedStatus) {
     setPlayingState(newPlayingState);
@@ -48,10 +50,39 @@ export function EditPlayedModal({
     }
   }
 
+  async function savePlayed() {
+    if ([PlayedStatus.abandoned, PlayedStatus.beaten].includes(playingState)) {
+      // Needs date
+      if (!playedDate) {
+        setDateError('Beaten or Abandoned requires a valid date');
+        return;
+      }
+    }
+    const wasUpserted = await upsertPlayed();
+    if (!wasUpserted) {
+      setMessageErrorToast("There was some problem and the played couldn't be updated or created");
+      setOpenErrorToast(true);
+    }
+  }
+
   return (
     <>
       <ModalSkeleton open={isOpened} handleClose={closeModal}>
-        <Box sx={{ px: 5, py: 4 }}>
+        <Box sx={{ px: 5, py: 4, position: 'relative' }}>
+          <Box
+            onClick={() => {
+              closeModal();
+            }}
+            sx={{
+              position: 'absolute',
+              fontSize: '30px',
+              cursor: 'pointer',
+              right: '10px',
+              top: '10px',
+            }}
+          >
+            <IoClose />
+          </Box>
           <Typography
             variant="h5"
             component="h2"
@@ -93,8 +124,11 @@ export function EditPlayedModal({
             }}
             disabled={playingState === 'playing'}
             onChange={event => {
+              setDateError(null);
               setPlayedDate(event.target.value);
             }}
+            error={!!dateError}
+            helperText={dateError}
           />
         </Box>
         <Divider />
@@ -114,19 +148,7 @@ export function EditPlayedModal({
               Delete
             </Button>
           )}
-          <Button
-            sx={{ ml: 'auto' }}
-            variant="contained"
-            onClick={async _ => {
-              const wasUpserted = await upsertPlayed();
-              if (!wasUpserted) {
-                setMessageErrorToast(
-                  "There was some problem and the played couldn't be updated or created"
-                );
-                setOpenErrorToast(true);
-              }
-            }}
-          >
+          <Button sx={{ ml: 'auto' }} variant="contained" onClick={savePlayed}>
             Save
           </Button>
         </Box>
