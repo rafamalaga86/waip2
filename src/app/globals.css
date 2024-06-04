@@ -188,8 +188,11 @@ a:active {
   /* padding: 32px; */
 }
 
-.MuiToolbar-root {
+.MuiAppBar-root.MuiAppBar-colorPrimary {
   background-color: var(--white);
+}
+
+.MuiToolbar-root {
   align-items: center;
 }
 

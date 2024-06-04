@@ -66,9 +66,7 @@ export default async function gameDetailsPage({
       ]);
       return { game, playeds, igdbGame };
     } catch (error) {
-      console.log(error);
-      console.error('Error fetching data:', error);
-      throw new Error('Error fetching data:');
+      throw error;
     }
   }
 

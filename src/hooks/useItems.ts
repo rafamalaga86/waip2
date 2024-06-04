@@ -1,28 +1,48 @@
 // import { playeds } from "@prisma/client";
 import { useState } from 'react';
 
-interface Item {
+export interface Item {
   id: number;
   [key: string]: any;
 }
 
-export function useItems(initialItems: Item[]): [Item[], Function, Function, Function, Function] {
+export function useItems(
+  initialItems: Item[]
+): [Item[], Function, Function, Function, Function, Function] {
   const [items, setItems] = useState<Item[]>(initialItems);
 
   function removeItem(id: number) {
-    const newItems = items.filter((element: Item) => element.id !== id);
-    setItems(newItems);
+    setItems(prevItems => prevItems.filter(item => item.id !== id));
   }
 
   function addItem(item: Item) {
-    setItems([...items, item]);
+    setItems(prevItems => [...prevItems, item]);
   }
 
   function updateItem(item: Object, id: number) {
-    const index = items.findIndex(element => element.id === id);
-    items[index] = { ...items[index], ...item };
-    setItems(items);
+    setItems(prevItems => {
+      const index = prevItems.findIndex(element => element.id === id);
+      prevItems[index] = { ...prevItems[index], ...item };
+      return prevItems;
+    });
   }
 
-  return [items, addItem, updateItem, removeItem, setItems];
+  function collapseItem(id: number) {
+    setItems(prevItems =>
+      prevItems.map(item => {
+        return item.id === id ? { ...item, collapsed: true } : item;
+      })
+    );
+  }
+
+  function uncollapseItem(id: number) {
+    console.log('Escupe: ', items, id);
+    setItems(prevItems =>
+      prevItems.map(item => {
+        return item.id === id ? { ...item, collapsed: false } : item;
+      })
+    );
+  }
+
+  return [items, addItem, updateItem, removeItem, collapseItem, uncollapseItem];
 }

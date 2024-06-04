@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { LuMenuSquare } from 'react-icons/lu';
 import { SideNav } from '../../components/SideNav';

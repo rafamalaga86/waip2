@@ -1,7 +1,7 @@
 'use client';
 import { Avatar, Box, Button, Card, Collapse, IconButton, Typography } from '@mui/material';
 import type { playeds } from '@prisma/client';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { IoGameController } from 'react-icons/io5';
 import { MdEdit } from 'react-icons/md';
 import { EditPlayedModal } from 'src/components/EditPlayedModal';
@@ -13,6 +13,10 @@ import { formatDate, toISO } from 'src/lib/helpers';
 import { Context } from './contexts/Context';
 import { AbandonedIcon } from './icons/AbandonedIcon';
 import { BeatenIcon } from './icons/BeatenIcon';
+
+interface Played extends playeds {
+  collapsed: boolean;
+}
 
 export function Playeds({
   initialPlayeds,
@@ -27,7 +31,7 @@ export function Playeds({
     return { ...item, collapsed: false };
   });
   const { setOpenErrorToast, setMessageErrorToast } = useContext(Context);
-  const [playeds, addPlayedItem, updatePlayedItem, removePlayedItem, setItems] =
+  const [playeds, addPlayedItem, updatePlayedItem, removePlayedItem, collapseItem, uncollapseItem] =
     useItems(initialPlayeds);
   const [isOpened, openModal, closeModal] = useModal(false);
   const [playedDate, setPlayedDate] = useState<string | null>(null);
@@ -35,27 +39,13 @@ export function Playeds({
   const [playingState, setPlayingState] = useState<PlayedStatus>(PlayedStatus.playing);
   const [playedId, setPlayedId] = useState<number | undefined>(undefined);
 
-  async function uncollapseItem(id: number) {
-    setItems(playeds =>
-      playeds.map(item => (item.id === id ? { ...item, collapsed: false } : item))
-    );
-  }
-
-  async function collapseItem(id: number) {
-    playeds.forEach(item => {
-      if (id === item.id) {
-        item.collapsed = true;
-      }
-    });
-  }
-
   async function deletePlayed() {
     if (!playedId) {
       return false;
     }
     const res = await deletePlayedRequest(playedId);
     if (res.statusCode === 204) {
-      await collapseItem(playedId);
+      collapseItem(playedId);
       setTimeout(() => {
         removePlayedItem(playedId);
       }, 500);
@@ -67,7 +57,7 @@ export function Playeds({
     return true;
   }
 
-  async function upsertPlayed() {
+  async function insertPlayed() {
     let date = null;
     if (playingState !== PlayedStatus.playing) {
       date = playedDate;
@@ -76,22 +66,32 @@ export function Playeds({
       { stopped_playing_at: date, beaten: playedBeaten, game_id: gameId },
       playedId
     );
-    if (res.statusCode >= 200 && res.statusCode < 300) {
-      const newItem = res.response.data;
-      newItem.stopped_playing_at = newItem.stopped_playing_at
-        ? new Date(newItem.stopped_playing_at)
-        : null;
-      newItem.collapsed = true;
-      addPlayedItem(newItem);
-      setTimeout(() => {
-        uncollapseItem(newItem.id);
-      }, 500);
-      closeModal();
-    } else {
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      // Error
       setMessageErrorToast(res.response.message);
       setOpenErrorToast(true);
+      return false;
     }
+    if (playedId) {
+      console.log('Escupe: llega');
+      updatePlayedItem(res.response.data);
+      return true;
+    }
+    makeNewPlayedItem(res.response.data);
     return true;
+  }
+
+  function makeNewPlayedItem(newPlayedData: Played) {
+    const newItem = newPlayedData;
+    newItem.stopped_playing_at = newItem.stopped_playing_at
+      ? new Date(newItem.stopped_playing_at)
+      : null;
+    newItem.collapsed = true;
+    addPlayedItem(newItem);
+    closeModal();
+    setInterval(() => {
+      uncollapseItem(newItem.id);
+    }, 50);
   }
 
   const modalProps = {
@@ -104,7 +104,7 @@ export function Playeds({
     setPlayedDate,
     setPlayedBeaten,
     setPlayingState,
-    upsertPlayed,
+    insertPlayed,
     deletePlayed,
   };
 

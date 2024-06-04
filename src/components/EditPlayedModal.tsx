@@ -23,7 +23,7 @@ export function EditPlayedModal({
   setPlayedBeaten,
   playingState,
   setPlayingState,
-  upsertPlayed,
+  insertPlayed,
   deletePlayed,
 }: {
   isOpened: boolean;
@@ -34,7 +34,7 @@ export function EditPlayedModal({
   setPlayedBeaten: Function;
   playingState: PlayedStatus;
   setPlayingState: Function;
-  upsertPlayed: Function;
+  insertPlayed: Function;
   deletePlayed: Function;
 }) {
   const { setOpenErrorToast, setMessageErrorToast } = useContext(Context);
@@ -58,10 +58,11 @@ export function EditPlayedModal({
         return;
       }
     }
-    const wasUpserted = await upsertPlayed();
+    const wasUpserted = await insertPlayed();
     if (!wasUpserted) {
       setMessageErrorToast("There was some problem and the played couldn't be updated or created");
       setOpenErrorToast(true);
+    } else {
     }
   }
 

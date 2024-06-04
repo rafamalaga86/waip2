@@ -1,17 +1,22 @@
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 import { PlayedModel } from 'src/models/PlayedModel';
 
-export async function PATCH(_: Request, context: { params: { id: number } }) {
-  console.log('Escupe: pasa');
-  const id = Number(context.params.id);
+export async function PUT(request: Request, context: { params: { id: number } }) {
+  let { stopped_playing_at, beaten, game_id } = await request.json();
+
+  game_id = Number(game_id);
+  stopped_playing_at = stopped_playing_at ? new Date(stopped_playing_at) : null;
+  beaten = Boolean(beaten);
+  let played;
   try {
-    await PlayedModel.update(id);
+    played = await PlayedModel.update(id, { game_id, stopped_playing_at, beaten });
   } catch (error) {
     if (error instanceof ClientFeedbackError) {
       return Response.json({ message: error.message }, { status: 400 });
     }
+    throw error;
   }
-  return Response.json({ message: 'Deleted successfuly' }, { status: 204 });
+  return Response.json({ data: played }, { status: 200 });
 }
 
 export async function DELETE(_: Request, context: { params: { id: number } }) {

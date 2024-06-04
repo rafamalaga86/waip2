@@ -15,7 +15,9 @@ TODO: Añadir algún tipo de evento de celebración al completar un juego
 TODO: Refactor getDemoUser para asegurarse de que se puede cachear
 TODO: Mirar si sigo necesitando PrismaClient
 TODO: Filtrar por categorías las búsquedas normales https://api-docs.igdb.com/#game
-TOOD: Cuando sale el modal de played, aparece una esquina verde en la topbar
+TODO: Cuando sale el modal de played, aparece una esquina verde en la topbar
+TODO: En la pantalla de login, los errores se muestran con <small> y además muestra los errores cuando no conecta a la base de datos que no deben ser mostrados al usuario
+
 Not game but included:
 Diablo III: Reaper of Souls
 Meter el Splinter Cell 1
