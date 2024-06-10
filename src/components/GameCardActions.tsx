@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { BsShareFill } from 'react-icons/bs';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { TbListDetails } from 'react-icons/tb';
+import { abandonPlayed, beatPlayed } from 'src/lib/actions';
 import { AbandonedIcon } from './icons/AbandonedIcon';
 import { BeatenIcon } from './icons/BeatenIcon';
 
-export function GameCardActions({ game }: { game: games }) {
+export function GameCardActions({ game, removeGame }: { game: games; removeGame: Function }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -17,10 +18,17 @@ export function GameCardActions({ game }: { game: games }) {
     setAnchorEl(null);
   };
 
+  async function beatPlayedServer(gameId: number) {
+    return await beatPlayed(gameId);
+  }
+
+  async function abandonPlayedServer(gameId: number) {
+    return await abandonPlayed(gameId);
+  }
+
   return (
     <>
       <Button
-        id="demo-customized-button"
         aria-controls={open ? 'demo-customized-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
@@ -45,17 +53,31 @@ export function GameCardActions({ game }: { game: games }) {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem
+          onClick={async _ => {
+            const successful = await beatPlayedServer(game.id);
+            if (successful) {
+              removeGame(game.id);
+            }
+          }}
+        >
           <Box sx={{ mr: 2 }} className="line-height-1">
             <BeatenIcon className="color-primary" />
           </Box>
           <Box className="color-primary">Beaten!</Box>
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem
+          onClick={async _ => {
+            const successful = await abandonPlayedServer(game.id);
+            if (successful) {
+              removeGame(game.id);
+            }
+          }}
+        >
           <Box sx={{ mr: 2 }} className="line-height-1">
             <AbandonedIcon />
           </Box>
-          Archive (not beaten)
+          Abandon
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleClose} disableRipple sx={{ p: 0 }}>

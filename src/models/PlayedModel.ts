@@ -12,6 +12,24 @@ export class PlayedModel {
     });
   }
 
+  static async finishByGameId(gameId: number, beaten: boolean) {
+    const played = await prisma.playeds.findFirstOrThrow({
+      where: { game_id: gameId, stopped_playing_at: null },
+    });
+
+    console.log('Escupe: ', new Date().toISOString());
+
+    return await prisma.playeds.update({
+      where: {
+        id: played.id,
+      },
+      data: {
+        beaten: beaten,
+        stopped_playing_at: new Date().toISOString(),
+      },
+    });
+  }
+
   static async findById(id: number) {
     return await prisma.playeds.findUniqueOrThrow({ where: { id: id } });
   }

@@ -10,6 +10,15 @@ import { GameCardActions } from './GameCardActions';
 
 export default function GameCardsMasonry({ initialGames }: { initialGames: games[] }) {
   const [games, setGames] = useState(initialGames);
+
+  function removeGame(gameId: number) {
+    const newGames = games.filter(element => {
+      return gameId !== element.id;
+    });
+
+    setGames(newGames);
+  }
+
   return (
     <Box className="masonry-wrapper">
       <Masonry
@@ -46,7 +55,7 @@ export default function GameCardsMasonry({ initialGames }: { initialGames: games
                 <CardActions
                   sx={{ display: 'flex', justifyContent: 'center', marginTop: 1, paddingBottom: 0 }}
                 >
-                  <GameCardActions game={game} />
+                  <GameCardActions game={game} removeGame={removeGame} />
                 </CardActions>
               </GameCard>
             </Box>
