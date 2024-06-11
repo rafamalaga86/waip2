@@ -1,4 +1,4 @@
-import { CoverSize } from 'src/enums/gameEnums';
+import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 
 export function IGDBImage({
   stringId,

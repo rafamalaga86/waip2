@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useContext, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
-import { PlayedStatus } from 'src/enums/playedEnums';
+import { PlayedStatus } from 'src/enums/business/playedEnums';
 import { ModalSkeleton } from './ModalSkeleton';
 import { Context } from './contexts/Context';
 

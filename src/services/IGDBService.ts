@@ -59,7 +59,7 @@ class IGDBService {
       limit: 500
     ;`;
 
-    const hasAnyOption = Object.values(searchOptions).some(value => !value);
+    const hasAnyOption = searchOptions ? Object.values(searchOptions).some(value => !value) : null;
     let where = '';
 
     if (hasAnyOption) {

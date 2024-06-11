@@ -6,7 +6,7 @@ import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { Question } from 'src/components/Question';
 import { SearchGameSection } from 'src/components/SearchGameSection';
-import { CoverSize } from 'src/enums/gameEnums';
+import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { formatDate, titleAdjustment } from 'src/lib/helpers';
 import { ImportGamesCardActions } from './ImportGamesCardActions';
 

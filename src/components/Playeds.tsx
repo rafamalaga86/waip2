@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { IoGameController } from 'react-icons/io5';
 import { MdEdit } from 'react-icons/md';
 import { EditPlayedModal } from 'src/components/EditPlayedModal';
-import { PlayedStatus } from 'src/enums/playedEnums';
+import { PlayedStatus } from 'src/enums/business/playedEnums';
 import { useItems } from 'src/hooks/useItems';
 import { useModal } from 'src/hooks/useModal';
 import { deletePlayedRequest, upsertPlayedRequest } from 'src/lib/apiRequests';

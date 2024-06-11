@@ -7,6 +7,7 @@ import { PlayedsMasonry } from './PlayedsMasonry';
 export default async function playedsPage({ searchParams }: { searchParams: any }) {
   const year = Number(searchParams.year);
   const beaten = Boolean(Number(searchParams.beaten));
+  const view = Boolean(Number(searchParams.view));
 
   if (isNaN(year)) {
     notFound();
