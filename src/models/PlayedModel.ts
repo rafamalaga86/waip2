@@ -17,8 +17,6 @@ export class PlayedModel {
       where: { game_id: gameId, stopped_playing_at: null },
     });
 
-    console.log('Escupe: ', new Date().toISOString());
-
     return await prisma.playeds.update({
       where: {
         id: played.id,
@@ -36,6 +34,27 @@ export class PlayedModel {
 
   static async findPlayingNow(gameId: number) {
     return await prisma.playeds.findMany({ where: { game_id: gameId, stopped_playing_at: null } });
+  }
+
+  static async findMany(userId: number, year?: number) {
+    let where: any = { game: { user_id: userId } };
+    if (year) {
+      where = {
+        ...where,
+        AND: [
+          { stopped_playing_at: { not: null } },
+          { stopped_playing_at: { gte: new Date(`${year}-01-01`) } },
+          { stopped_playing_at: { lt: new Date(`${year + 1}-01-01`) } },
+        ],
+      };
+    }
+
+    return await prisma.playeds.findMany({
+      where: where,
+      include: {
+        game: true,
+      },
+    });
   }
 
   static async update(id: number, details: Prisma.playedsUpdateInput): Promise<playeds> {

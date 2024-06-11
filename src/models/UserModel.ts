@@ -12,6 +12,7 @@ export class UserModel {
   static async getDemoUser() {
     const user = await prisma.users.findUniqueOrThrow({ where: { id: 1 } });
     return {
+      id: user.id,
       username: user.username,
       first_name: user.first_name,
       last_name: user.last_name,

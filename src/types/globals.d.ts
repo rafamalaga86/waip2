@@ -88,7 +88,8 @@ declare global {
     company: ObjectIdName;
   };
 
-  interface UserVisible extends Pick<users, 'email' | 'username' | 'first_name' | 'last_name'> {}
+  interface UserVisible
+    extends Pick<users, 'id' | 'email' | 'username' | 'first_name' | 'last_name'> {}
 }
 
 export {};
