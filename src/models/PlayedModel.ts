@@ -36,7 +36,7 @@ export class PlayedModel {
     return await prisma.playeds.findMany({ where: { game_id: gameId, stopped_playing_at: null } });
   }
 
-  static async findMany(userId: number, year?: number) {
+  static async findMany(userId: number, year?: number, beaten?: boolean) {
     let where: any = { game: { user_id: userId } };
     if (year) {
       where = {
@@ -47,6 +47,10 @@ export class PlayedModel {
           { stopped_playing_at: { lt: new Date(`${year + 1}-01-01`) } },
         ],
       };
+    }
+
+    if (typeof beaten !== 'undefined') {
+      where = { ...where, beaten: beaten };
     }
 
     return await prisma.playeds.findMany({

@@ -95,6 +95,15 @@ h6 {
   font-weight: normal;
 }
 
+h1 strong,
+h2 strong,
+h3 strong,
+h4 strong,
+h5 strong,
+h6 strong {
+  color: var(--white);
+}
+
 h1 {
   font-size: 6rem;
   line-height: 1.167;
@@ -250,16 +259,6 @@ a:active {
 
 .side-menu .MuiListItemButton-root {
   text-transform: uppercase;
-}
-.masonry-wrapper {
-}
-
-.masonry-games.MuiMasonry-root {
-  /* margin: 0 -7px; */
-}
-
-.card-wrapper {
-  /* padding: 7px; */
 }
 
 .game-card .title-font {
