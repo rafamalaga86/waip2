@@ -57,6 +57,44 @@ export class PlayedModel {
     });
   }
 
+  static async getAllPlayedsByYear(userId: number, beaten: boolean) {
+    const playeds = await prisma.playeds.findMany({
+      select: {
+        stopped_playing_at: true,
+      },
+      where: {
+        beaten: beaten,
+        stopped_playing_at: {
+          not: null,
+        },
+        game: {
+          user_id: userId,
+        },
+      },
+      distinct: ['stopped_playing_at'],
+      orderBy: {
+        stopped_playing_at: 'asc',
+      },
+    });
+
+    const allYears = playeds.map(item => {
+      return item.stopped_playing_at?.getFullYear();
+    });
+
+    const finishedByYear: any = {};
+
+    for (const year of allYears) {
+      const validYear = year as number;
+      if (finishedByYear[validYear]) {
+        finishedByYear[validYear]++;
+      } else {
+        finishedByYear[validYear] = 1;
+      }
+    }
+
+    return finishedByYear;
+  }
+
   static async update(id: number, details: Prisma.playedsUpdateInput): Promise<playeds> {
     const authUser = await getAuthUser();
     let played;
