@@ -1,11 +1,11 @@
 'use client';
 import { Box, CardActions, Link } from '@mui/material';
 import { useState } from 'react';
-import { CardsMasonry } from 'src/components/CardsMasonry';
-import { GameCard } from 'src/components/GameCard';
-import { GameCardActions } from 'src/components/GameCardActions';
-import { IGDBImage } from 'src/components/IGDBImage';
 import { titleAdjustment } from 'src/lib/helpers';
+import { CardsMasonry } from 'src/sharedComponents/CardsMasonry';
+import { GameCard } from 'src/sharedComponents/GameCard';
+import { GameCardActions } from 'src/sharedComponents/GameCardActions';
+import { IGDBImage } from 'src/sharedComponents/IGDBImage';
 
 export function PlayingNowMasonry({ initialItems }: { initialItems: any[] }) {
   const [items, setGames] = useState(initialItems);

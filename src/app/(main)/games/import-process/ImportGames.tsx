@@ -2,12 +2,12 @@
 import { Box, Button, Chip, Divider, Stack, Tooltip, Typography } from '@mui/material';
 import type { games_to_import } from '@prisma/client';
 import { useEffect, useState } from 'react';
-import { GameCardLite } from 'src/components/GameCardLite';
-import { IGDBImage } from 'src/components/IGDBImage';
-import { Question } from 'src/components/Question';
-import { SearchGameSection } from 'src/components/SearchGameSection';
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { formatDate, titleAdjustment } from 'src/lib/helpers';
+import { GameCardLite } from 'src/sharedComponents/GameCardLite';
+import { IGDBImage } from 'src/sharedComponents/IGDBImage';
+import { SearchGameSection } from 'src/sharedComponents/SearchGameSection';
+import { QuestionIcon } from 'src/sharedComponents/icons/QuestionIcon';
 import { ImportGamesCardActions } from './ImportGamesCardActions';
 
 export function ImportGames({
@@ -137,7 +137,7 @@ export function ImportGames({
                   </small>
                   {game.platforms && (
                     <Box className="GameCardLite__Question">
-                      <Question text={game.platforms.map(item => item.name).join(', ')} />
+                      <QuestionIcon tooltip={game.platforms.map(item => item.name).join(', ')} />
                     </Box>
                   )}
                   <ImportGamesCardActions

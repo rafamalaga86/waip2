@@ -1,9 +1,9 @@
 import { IconButton, Tooltip } from '@mui/material';
 import { FaQuestionCircle } from 'react-icons/fa';
 
-export function Question({ text }: { text: string }) {
+export function QuestionIcon({ tooltip }: { tooltip: string }) {
   return (
-    <Tooltip title={text}>
+    <Tooltip title={tooltip}>
       <IconButton className="hid-aura">
         <FaQuestionCircle />
       </IconButton>

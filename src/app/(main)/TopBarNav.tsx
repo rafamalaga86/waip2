@@ -16,8 +16,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { LuMenuSquare } from 'react-icons/lu';
-import { SideNav } from '../../components/SideNav';
 import { lightTheme } from '../theme';
+import { SideNav } from './SideNav';
 
 export function TopBarNav({
   logOutServer,

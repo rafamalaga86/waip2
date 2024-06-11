@@ -11,15 +11,15 @@ import {
 import type { games } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { GenreIcon } from 'src/components/GenreIcon';
-import { IGDBImage } from 'src/components/IGDBImage';
-import { Playeds } from 'src/components/Playeds';
 import { getAuthUserVisible } from 'src/lib/auth';
 import { formatUnix } from 'src/lib/helpers';
 import { GameModel } from 'src/models/GameModel';
 import { PlayedModel } from 'src/models/PlayedModel';
 import { UserModel } from 'src/models/UserModel';
 import { gameService } from 'src/services/GameService';
+import { IGDBImage } from 'src/sharedComponents/IGDBImage';
+import { Playeds } from 'src/sharedComponents/Playeds';
+import { GenreIcon } from 'src/sharedComponents/icons/GenreIcon';
 
 export default async function gameDetailsPage({
   params,

@@ -2,10 +2,10 @@
 import { Box, CardActions } from '@mui/material';
 import type { games, playeds } from '@prisma/client';
 import Link from 'next/link';
-import { CardsMasonry } from 'src/components/CardsMasonry';
-import { GameCard } from 'src/components/GameCard';
-import { IGDBImage } from 'src/components/IGDBImage';
 import { titleAdjustment } from 'src/lib/helpers';
+import { CardsMasonry } from 'src/sharedComponents/CardsMasonry';
+import { GameCard } from 'src/sharedComponents/GameCard';
+import { IGDBImage } from 'src/sharedComponents/IGDBImage';
 
 interface PlayedsWithGame extends playeds {
   game: games; // Define la prop playeds con los tipos correctos

@@ -1,7 +1,7 @@
 import { Box, Button, Divider, FormControlLabel, Grid, Switch, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useSwitch } from '../hooks/useSwitch';
-import { Question } from './Question';
+import { QuestionIcon } from './icons/QuestionIcon';
 
 export function SearchGameSection({
   initialGameTitle,
@@ -52,7 +52,7 @@ export function SearchGameSection({
             // InputProps={}
           />
 
-          <Question text="If you enter a IGDB ID, it will search by id" />
+          <QuestionIcon tooltip="If you enter a IGDB ID, it will search by id" />
         </Box>
       </Grid>
       <Grid
