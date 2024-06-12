@@ -1,17 +1,9 @@
 import { notFound } from 'next/navigation';
 import { gameService } from 'src/services/GameService';
-import { StackOfGameCards } from 'src/shared_components/StackOfGameCards';
+import { SearchPage } from './SearchPage';
 
 export default async function search({ searchParams }: { searchParams?: any }) {
-  if (!searchParams.hasOwnProperty('keyword')) {
-    return notFound();
-  }
-  const searchedGames = await gameService.searchGame(searchParams?.keyword);
+  const keyword = searchParams.keyword;
 
-  return (
-    <>
-      <h1>{searchedGames.length} games found!</h1>
-      <StackOfGameCards games={searchedGames} />
-    </>
-  );
+  return <SearchPage keyword={keyword} />;
 }

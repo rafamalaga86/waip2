@@ -4,17 +4,17 @@ import { useSwitch } from '../hooks/useSwitch';
 import { QuestionIcon } from './icons/QuestionIcon';
 
 export function SearchGameSection({
-  initialGameTitle,
   setGameTitleToSearch,
   searchOptions,
   setOptionsToSearch,
   setLoading,
+  initialGameTitle,
 }: {
-  initialGameTitle: string;
   setGameTitleToSearch: Function;
   searchOptions: SearchOptions;
   setOptionsToSearch: Function;
   setLoading: Function;
+  initialGameTitle?: string;
 }) {
   const [gameTitle, setGameTitle] = useState(initialGameTitle);
 
