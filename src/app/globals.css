@@ -66,6 +66,7 @@ body {
   --primary-color: var(--aqua-green);
   --primary-color-darker: var(--aqua-green-darker);
   --secondary-color: var(--orange);
+  --danger-color: #f44336;
   /*
   These are defined in the layout of main of nextjs
   --primary-font
@@ -205,6 +206,14 @@ a:active {
   align-items: center;
 }
 
+.MuiToggleButtonGroup-root {
+  outline: 1px solid #00000000;
+}
+
+.error-outline {
+  outline-color: var(--danger-color);
+}
+
 .MuiMasonry-root {
   width: calc(100% + 16px);
 }
@@ -214,17 +223,6 @@ a:active {
 }
 .MuiButtonBase-root.MuiIconButton-root.hid-aura {
   background-color: inherit;
-}
-
-.MuiCard-root {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
-}
-
-.BeatenIcon {
-  /* position: relative;
-  top: 0.2em; */
 }
 
 .MuiTypography-root.brand {
@@ -287,8 +285,12 @@ a:active {
   color: white;
 }
 
-.danger {
-  color: red;
+.MuiTypography-root.error-feedback,
+.error-feedback {
+  font-size: 13px;
+  color: var(--danger-color);
+  margin-left: 14px;
+  min-height: 20px;
 }
 
 /* REUSABLE ---------------------------------------------*/

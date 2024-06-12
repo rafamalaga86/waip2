@@ -3,8 +3,8 @@ import { Box, Divider, Link, List, ListItem, ListItemButton, Typography } from '
 import { FaUserPlus } from 'react-icons/fa6';
 import { IoGameController } from 'react-icons/io5';
 import { TbLogin, TbLogout } from 'react-icons/tb';
-import { AbandonedIcon } from '../../sharedComponents/icons/AbandonedIcon';
-import { BeatenIcon } from '../../sharedComponents/icons/BeatenIcon';
+import { AbandonedIcon } from '../../shared_components/icons/AbandonedIcon';
+import { BeatenIcon } from '../../shared_components/icons/BeatenIcon';
 
 export function SideNav({
   logOutServer,

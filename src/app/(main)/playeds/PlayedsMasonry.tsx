@@ -3,9 +3,9 @@ import { Box, CardActions } from '@mui/material';
 import type { games, playeds } from '@prisma/client';
 import Link from 'next/link';
 import { titleAdjustment } from 'src/lib/helpers';
-import { CardsMasonry } from 'src/sharedComponents/CardsMasonry';
-import { GameCard } from 'src/sharedComponents/GameCard';
-import { IGDBImage } from 'src/sharedComponents/IGDBImage';
+import { CardsMasonry } from 'src/shared_components/CardsMasonry';
+import { GameCard } from 'src/shared_components/GameCard';
+import { IGDBImage } from 'src/shared_components/IGDBImage';
 
 interface PlayedsWithGame extends playeds {
   game: games; // Define la prop playeds con los tipos correctos

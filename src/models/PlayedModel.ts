@@ -134,7 +134,14 @@ export class PlayedModel {
     if (details.stopped_playing_at === null && playeds.length > 0) {
       throw new ClientFeedbackError('You cannot create more than one "Playing Now!" for a game');
     }
-    return await prisma.playeds.create({ data: { ...details } });
+
+    let playedCreated;
+    try {
+      playedCreated = await prisma.playeds.create({ data: details });
+    } catch (error) {
+      console.log('Escupe: ', error);
+    }
+    return playedCreated as playeds;
   }
 
   static async delete(id: number): Promise<boolean> {

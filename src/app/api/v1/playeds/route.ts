@@ -9,7 +9,6 @@ export async function POST(request: Request) {
   beaten = Boolean(beaten);
   let played;
   try {
-    console.log('Escupe: llega');
     played = await PlayedModel.create({ game_id, stopped_playing_at, beaten });
   } catch (error) {
     if (error instanceof ClientFeedbackError) {

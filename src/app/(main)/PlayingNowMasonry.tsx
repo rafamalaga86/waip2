@@ -2,10 +2,10 @@
 import { Box, CardActions, Link } from '@mui/material';
 import { useState } from 'react';
 import { titleAdjustment } from 'src/lib/helpers';
-import { CardsMasonry } from 'src/sharedComponents/CardsMasonry';
-import { GameCard } from 'src/sharedComponents/GameCard';
-import { GameCardActions } from 'src/sharedComponents/GameCardActions';
-import { IGDBImage } from 'src/sharedComponents/IGDBImage';
+import { CardsMasonry } from 'src/shared_components/CardsMasonry';
+import { GameCard } from 'src/shared_components/GameCard';
+import { GameCardActions } from 'src/shared_components/GameCardActions';
+import { IGDBImage } from 'src/shared_components/IGDBImage';
 
 export function PlayingNowMasonry({ initialItems }: { initialItems: any[] }) {
   const [items, setGames] = useState(initialItems);

@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { IoLogoGameControllerB } from 'react-icons/io';
+import { ErrorFeedback } from 'src/shared_components/ErrorFeedback';
 
 function Copyright(props: any) {
   return (
@@ -113,7 +114,7 @@ export function LogIn({
               label="Remember me"
             />
             <Box>
-              <small className="danger">{loginError}</small>
+              <ErrorFeedback>{loginError}</ErrorFeedback>
             </Box>
 
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { gameService } from 'src/services/GameService';
-import { StackOfGameCards } from 'src/sharedComponents/StackOfGameCards';
+import { StackOfGameCards } from 'src/shared_components/StackOfGameCards';
 
 export default async function search({ searchParams }: { searchParams?: any }) {
   if (!searchParams.hasOwnProperty('keyword')) {

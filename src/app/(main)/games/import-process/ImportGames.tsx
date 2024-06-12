@@ -4,10 +4,10 @@ import type { games_to_import } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { formatDate, titleAdjustment } from 'src/lib/helpers';
-import { GameCardLite } from 'src/sharedComponents/GameCardLite';
-import { IGDBImage } from 'src/sharedComponents/IGDBImage';
-import { SearchGameSection } from 'src/sharedComponents/SearchGameSection';
-import { QuestionIcon } from 'src/sharedComponents/icons/QuestionIcon';
+import { GameCardLite } from 'src/shared_components/GameCardLite';
+import { IGDBImage } from 'src/shared_components/IGDBImage';
+import { SearchGameSection } from 'src/shared_components/SearchGameSection';
+import { QuestionIcon } from 'src/shared_components/icons/QuestionIcon';
 import { ImportGamesCardActions } from './ImportGamesCardActions';
 
 export function ImportGames({

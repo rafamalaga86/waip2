@@ -17,9 +17,9 @@ import { GameModel } from 'src/models/GameModel';
 import { PlayedModel } from 'src/models/PlayedModel';
 import { UserModel } from 'src/models/UserModel';
 import { gameService } from 'src/services/GameService';
-import { IGDBImage } from 'src/sharedComponents/IGDBImage';
-import { Playeds } from 'src/sharedComponents/Playeds';
-import { GenreIcon } from 'src/sharedComponents/icons/GenreIcon';
+import { IGDBImage } from 'src/shared_components/IGDBImage';
+import { GenreIcon } from 'src/shared_components/icons/GenreIcon';
+import { PlayedsList } from './PlayedsList';
 
 export default async function gameDetailsPage({
   params,
@@ -210,7 +210,7 @@ export default async function gameDetailsPage({
               )}
             </Box>
             <Box sx={{ mt: 5 }}>
-              <Playeds initialPlayeds={playeds} username={user.username} gameId={id} />
+              <PlayedsList initialPlayeds={playeds} username={user.username} gameId={id} />
             </Box>
           </Grid>
           <Grid item xs={12} md={5}>

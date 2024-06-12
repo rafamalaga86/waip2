@@ -28,6 +28,8 @@ async function run() {
         timeout: 3 * 60 * 1000, // 3 minutes
       }
     );
+
+    console.log('Seeding process finished!');
   } catch (error) {
     console.error(error);
     process.exit(1);
@@ -35,4 +37,3 @@ async function run() {
 }
 
 run();
-console.log('Seeding process finished!');

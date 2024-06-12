@@ -9,16 +9,16 @@ import { useItems } from 'src/hooks/useItems';
 import { useModal } from 'src/hooks/useModal';
 import { deletePlayedRequest, upsertPlayedRequest } from 'src/lib/apiRequests';
 import { formatDate, toISO } from 'src/lib/helpers';
-import { EditPlayedModal } from 'src/sharedComponents/EditPlayedModal';
-import { Context } from './contexts/Context';
-import { AbandonedIcon } from './icons/AbandonedIcon';
-import { BeatenIcon } from './icons/BeatenIcon';
+import { Context } from 'src/shared_components/contexts/Context';
+import { AbandonedIcon } from 'src/shared_components/icons/AbandonedIcon';
+import { BeatenIcon } from 'src/shared_components/icons/BeatenIcon';
+import { EditPlayedModal } from './EditPlayedModal';
 
 interface Played extends playeds {
   collapsed: boolean;
 }
 
-export function Playeds({
+export function PlayedsList({
   initialPlayeds,
   username,
   gameId,
