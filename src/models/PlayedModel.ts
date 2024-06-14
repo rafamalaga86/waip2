@@ -4,6 +4,10 @@ import { getAuthUser } from 'src/lib/auth';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 import { GameModel } from './GameModel';
 
+export interface ObjectOfYearsFinished {
+  [key: number]: number;
+}
+
 export class PlayedModel {
   static async findByGameId(id: number): Promise<playeds[]> {
     return await prisma.playeds.findMany({
@@ -58,10 +62,14 @@ export class PlayedModel {
       include: {
         game: true,
       },
+      orderBy: { stopped_playing_at: 'asc' },
     });
   }
 
-  static async getAllPlayedsByYear(userId: number, beaten: boolean) {
+  static async getAllPlayedsByYear(
+    userId: number,
+    beaten: boolean
+  ): Promise<ObjectOfYearsFinished> {
     const playeds = await prisma.playeds.findMany({
       select: {
         stopped_playing_at: true,

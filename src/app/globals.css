@@ -16,7 +16,7 @@
 body {
   min-height: 30rem; /* Can be removed; just added for demo purposes */
 
-  /* Colors */
+  /* Old Colours */
   --red: #ee6352;
   --blue: #416cde;
   --cyan: #46b1c9;
@@ -28,6 +28,12 @@ body {
   --aqua-green: #49c5a1;
   --dark-pink: #cf9aae;
   --green: #1e6464;
+
+  /* New Colours */
+  --aqua-green: #49c5a1;
+  --red: #ee6352;
+  --blue: #6699cc;
+  --yellow: #f2cd5d;
 
   /*--hltb-color: #287fc2;*/ /* Old blue  */
   --hltb-color: #ec9444; /* New Yellow  */
@@ -65,7 +71,7 @@ body {
   /* --primary-color-darker: var(--blue-darker); */
   --primary-color: var(--aqua-green);
   --primary-color-darker: var(--aqua-green-darker);
-  --secondary-color: var(--orange);
+  --secondary-color: var(--red);
   --danger-color: #f44336;
   /*
   These are defined in the layout of main of nextjs
@@ -134,7 +140,6 @@ h6 {
   font-size: 1.25rem;
   line-height: 1.6;
 }
-
 a,
 a:link,
 a:visited,
@@ -210,6 +215,12 @@ a:active {
   outline: 1px solid #00000000;
 }
 
+.MuiPaper-root .MuiAccordionSummary-root,
+.MuiAccordionDetails-root {
+  background-color: var(--gray-2);
+  line-height: 1.3;
+}
+
 .error-outline {
   outline-color: var(--danger-color);
 }
@@ -240,6 +251,11 @@ a:active {
 }
 .MuiButton-root {
   color: white !important;
+}
+
+.MuiCard-root.MuiPaper-root p {
+  color: var(--white);
+  filter: brightness(0.9);
 }
 
 .MuiCard-root.game-card {
@@ -291,6 +307,15 @@ a:active {
   color: var(--danger-color);
   margin-left: 14px;
   min-height: 20px;
+}
+
+/* BY YEAR PAGE -----------------------------------------*/
+
+.year-card a .MuiTypography-root {
+  color: var(--white);
+}
+.year-card a .MuiTypography-root:hover {
+  filter: brightness(1.4);
 }
 
 /* REUSABLE ---------------------------------------------*/

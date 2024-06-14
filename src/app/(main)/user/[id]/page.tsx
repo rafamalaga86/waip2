@@ -1,5 +1,5 @@
 import Masonry from '@mui/lab/Masonry';
-import GameCard from 'src/shared_components/GameCard';
+import GameCard from 'src/components/GameCard';
 
 const games = [
   {

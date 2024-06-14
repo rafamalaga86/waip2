@@ -10,9 +10,9 @@ import {
 } from '@mui/material';
 import { useContext, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
+import { ModalSkeleton } from 'src/components/ModalSkeleton';
+import { Context } from 'src/components/contexts/Context';
 import { PlayedStatus } from 'src/enums/business/playedEnums';
-import { ModalSkeleton } from 'src/shared_components/ModalSkeleton';
-import { Context } from 'src/shared_components/contexts/Context';
 import PlayedStatusButtonGroup from './PlayedStatusButtonGroup';
 
 export function EditPlayedModal({

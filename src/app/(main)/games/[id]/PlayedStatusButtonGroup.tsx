@@ -1,6 +1,6 @@
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { ErrorFeedback } from 'src/components/ErrorFeedback';
 import { PlayedStatus } from 'src/enums/business/playedEnums';
-import { ErrorFeedback } from 'src/shared_components/ErrorFeedback';
 
 type Props = {
   playingState: PlayedStatus;

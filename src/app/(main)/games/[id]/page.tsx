@@ -11,14 +11,14 @@ import {
 import type { games } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import { MdKeyboardArrowDown } from 'react-icons/md';
+import { IGDBImage } from 'src/components/IGDBImage';
+import { GenreIcon } from 'src/components/icons/GenreIcon';
 import { getAuthUserVisible } from 'src/lib/auth';
 import { formatUnix } from 'src/lib/helpers';
 import { GameModel } from 'src/models/GameModel';
 import { PlayedModel } from 'src/models/PlayedModel';
 import { UserModel } from 'src/models/UserModel';
 import { gameService } from 'src/services/GameService';
-import { IGDBImage } from 'src/shared_components/IGDBImage';
-import { GenreIcon } from 'src/shared_components/icons/GenreIcon';
 import { PlayedsList } from './PlayedsList';
 
 export default async function gameDetailsPage({
@@ -209,11 +209,14 @@ export default async function gameDetailsPage({
                 </Accordion>
               )}
             </Box>
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ mt: 8 }}>
+              <Typography sx={{ mb: 1 }} component="h5" variant="h5">
+                Playeds History
+              </Typography>
               <PlayedsList initialPlayeds={playeds} username={user.username} gameId={id} />
             </Box>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={5} sx={{ mt: { xs: 7, md: 0 } }}>
             <IGDBImage
               className="w-100 border-radius"
               stringId={data.cover?.image_id}

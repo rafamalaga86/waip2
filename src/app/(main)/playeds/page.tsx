@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { PageTitle } from 'src/components/PageTitle';
 import { Views } from 'src/enums/nonBusiness/styleEnums';
 import { getAuthUserVisible } from 'src/lib/auth';
 import { PlayedModel } from 'src/models/PlayedModel';
@@ -25,17 +26,18 @@ export default async function playedsPage({ searchParams }: { searchParams: any 
   let playedsComponent;
   if (view === Views.masonry) {
     playedsComponent = <PlayedsMasonry playeds={playeds} />;
-  } else if (view === Views.stack) {
-    playedsComponent = <PlayedsStack playeds={playeds} />;
   }
+  // else if (view === Views.stack) {
+  //   playedsComponent = <PlayedsStack playeds={playeds} />;
+  // }
   // else if (view === Views.table) {
   // }
 
   return (
     <>
-      <h4 className="title-font text-align-center color-primary">
+      <PageTitle alignCenter={true}>
         {beaten ? 'Beaten' : 'Abandoned'} at <strong>{year}</strong>
-      </h4>
+      </PageTitle>
       {playedsComponent}
     </>
   );

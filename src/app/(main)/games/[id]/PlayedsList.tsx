@@ -4,14 +4,14 @@ import type { playeds } from '@prisma/client';
 import { useContext, useState } from 'react';
 import { IoGameController } from 'react-icons/io5';
 import { MdEdit } from 'react-icons/md';
+import { Context } from 'src/components/contexts/Context';
+import { AbandonedIcon } from 'src/components/icons/AbandonedIcon';
+import { BeatenIcon } from 'src/components/icons/BeatenIcon';
 import { PlayedStatus } from 'src/enums/business/playedEnums';
 import { useItems } from 'src/hooks/useItems';
 import { useModal } from 'src/hooks/useModal';
 import { deletePlayedRequest, upsertPlayedRequest } from 'src/lib/apiRequests';
 import { formatDate, toISO } from 'src/lib/helpers';
-import { Context } from 'src/shared_components/contexts/Context';
-import { AbandonedIcon } from 'src/shared_components/icons/AbandonedIcon';
-import { BeatenIcon } from 'src/shared_components/icons/BeatenIcon';
 import { EditPlayedModal } from './EditPlayedModal';
 
 interface Played extends playeds {

@@ -1,3 +1,4 @@
+import { PageTitle } from 'src/components/PageTitle';
 import { getAuthUserVisible } from 'src/lib/auth';
 import { GameModel } from 'src/models/GameModel';
 import { UserModel } from 'src/models/UserModel';
@@ -15,7 +16,7 @@ export default async function homePage() {
       )}
       {Boolean(initialGames.length) && (
         <>
-          <h4 className="title-font text-align-center color-primary">Currently Playing</h4>
+          <PageTitle alignCenter={true}>Currently Playing</PageTitle>
           <PlayingNowMasonry initialItems={initialGames} />
         </>
       )}

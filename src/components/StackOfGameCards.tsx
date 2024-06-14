@@ -2,8 +2,8 @@
 import Masonry from '@mui/lab/Masonry';
 import { Card, CardContent, CardMedia, Stack } from '@mui/material';
 import { ReactNode, useEffect, useState } from 'react';
-import { GameCardLite } from 'src/shared_components/GameCardLite';
-import { IGDBImage } from 'src/shared_components/IGDBImage';
+import { GameCardLite } from 'src/components/GameCardLite';
+import { IGDBImage } from 'src/components/IGDBImage';
 
 export function StackOfGameCards({ games, buttonBar }: { games: any; buttonBar?: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);

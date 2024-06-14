@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { IoLogoGameControllerB } from 'react-icons/io';
-import { ErrorFeedback } from 'src/shared_components/ErrorFeedback';
+import { ErrorFeedback } from 'src/components/ErrorFeedback';
 
 function Copyright(props: any) {
   return (

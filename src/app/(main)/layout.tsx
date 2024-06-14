@@ -23,6 +23,7 @@ export default async function MainLayout({
     <>
       <TopBarNav logOutServer={logOutServer} authUser={await getAuthUserVisible()} />
       <Main>{children}</Main>
+      <Footer />
     </>
   );
 }

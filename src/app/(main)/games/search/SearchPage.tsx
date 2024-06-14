@@ -1,12 +1,12 @@
 'use client';
 import { Box, Divider, Stack, Tooltip, Typography } from '@mui/material';
 import { useState } from 'react';
+import { GameCardLite } from 'src/components/GameCardLite';
+import { IGDBImage } from 'src/components/IGDBImage';
+import { SearchGameSection } from 'src/components/SearchGameSection';
+import { QuestionIcon } from 'src/components/icons/QuestionIcon';
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { titleAdjustment } from 'src/lib/helpers';
-import { GameCardLite } from 'src/shared_components/GameCardLite';
-import { IGDBImage } from 'src/shared_components/IGDBImage';
-import { SearchGameSection } from 'src/shared_components/SearchGameSection';
-import { QuestionIcon } from 'src/shared_components/icons/QuestionIcon';
 import { ImportGamesCardActions } from '../import-process/ImportGamesCardActions';
 
 type Props = {
@@ -27,7 +27,7 @@ export function SearchPage({ keyword }: Props) {
     <>
       <section className="section-title">
         <div className="section-title__pre">
-          <h5>Searching games: </h5>
+          <h5>Searching games to add: </h5>
         </div>
         <Typography component="h4" variant="h4" color="primary">
           <span className="title-font">{keyword}</span>

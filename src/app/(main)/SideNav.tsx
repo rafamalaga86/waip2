@@ -3,8 +3,8 @@ import { Box, Divider, Link, List, ListItem, ListItemButton, Typography } from '
 import { FaUserPlus } from 'react-icons/fa6';
 import { IoGameController } from 'react-icons/io5';
 import { TbLogin, TbLogout } from 'react-icons/tb';
-import { AbandonedIcon } from '../../shared_components/icons/AbandonedIcon';
-import { BeatenIcon } from '../../shared_components/icons/BeatenIcon';
+import { AbandonedIcon } from '../../components/icons/AbandonedIcon';
+import { BeatenIcon } from '../../components/icons/BeatenIcon';
 
 export function SideNav({
   logOutServer,
@@ -40,7 +40,7 @@ export function SideNav({
         </Link>
         {/* Finished Playing Now */}
         {/* Beaten Games */}
-        <Link className="color-white" href="/beaten-at">
+        <Link className="color-white" href="/playeds/by-year">
           <ListItem disablePadding className="side-menu">
             <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
               <Box sx={{ mr: 1 }}>
@@ -52,7 +52,7 @@ export function SideNav({
         </Link>
         {/* Finished Beaten Games */}
         {/* Abandoned Games */}
-        <Link className="color-white" href="/abandoned-at">
+        {/* <Link className="color-white" href="/abandoned-at">
           <ListItem disablePadding className="side-menu">
             <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
               <Box sx={{ mr: 1 }}>
@@ -61,7 +61,7 @@ export function SideNav({
               <Box>Abandoned games</Box>
             </ListItemButton>
           </ListItem>
-        </Link>
+        </Link> */}
         <Divider />
         {/* Finished Abandoned Games */}
         {/* Log Out */}
