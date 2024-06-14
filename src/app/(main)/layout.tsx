@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getAuthUserVisible, logout } from 'src/lib/auth';
+import { Footer } from './Footer';
 import { Main } from './Main';
 import { TopBarNav } from './TopBarNav';
 

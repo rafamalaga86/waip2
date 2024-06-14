@@ -68,6 +68,8 @@ export function TopBarNav({
                   sx={{ width: '300px' }}
                   // onSubmit={() => router.push('/search/?s=')}
                   // onSubmit={submitSearch}
+
+                  autoComplete="off"
                   placeholder="Search in the Database"
                   id="searchKeyword"
                   name="searchKeyword"

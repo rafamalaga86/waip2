@@ -13,8 +13,13 @@
   font-style: normal;
 } */
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   min-height: 30rem; /* Can be removed; just added for demo purposes */
+  margin: 0;
 
   /* Old Colours */
   --red: #ee6352;
@@ -309,6 +314,13 @@ a:active {
   min-height: 20px;
 }
 
+/* FOOTER -----------------------------------------------*/
+
+footer {
+  background-color: var(--white);
+  color: var(--gray-0);
+}
+
 /* BY YEAR PAGE -----------------------------------------*/
 
 .year-card a .MuiTypography-root {
@@ -477,7 +489,7 @@ a:active {
   color: var(--primary-color);
 }
 .no-padding {
-  padding: 0 7px !important;
+  padding: 0 !important;
 }
 .line-height-1 {
   line-height: 1;

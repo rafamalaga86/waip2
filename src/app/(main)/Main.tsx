@@ -3,9 +3,9 @@ import { ReactNode } from 'react';
 
 export function Main({ children }: { children: ReactNode }) {
   return (
-    <Box component="main">
-      <Box className="container-wrapper">
-        <Container sx={{ mt: 12 }}>{children}</Container>
+    <Box component="main" id="very-top">
+      <Box sx={{ pt: 12 }} className="container-wrapper">
+        <Container>{children}</Container>
       </Box>
     </Box>
   );

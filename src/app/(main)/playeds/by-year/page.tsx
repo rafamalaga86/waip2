@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardContent, CardMedia, Link, Typography } from '@mui/material';
 import { FaCalendarCheck } from 'react-icons/fa6';
 import { bestGameByYearType, bestGamesByYear } from 'src/bestGamesByYear';
+import { PageTitle } from 'src/components/PageTitle';
 import { getAuthUserVisible } from 'src/lib/auth';
 import { ObjectOfYearsFinished, PlayedModel } from 'src/models/PlayedModel';
 import { UserModel } from 'src/models/UserModel';
@@ -21,9 +22,16 @@ export default async function allYearsGamePage() {
 
   return (
     <>
+      <PageTitle alignCenter={true}>Your Games</PageTitle>
       <Box
         component="section"
-        sx={{ display: 'flex', flexWrap: 'wrap', gap: '30px', justifyContent: 'center' }}
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '30px',
+          justifyContent: 'space-evenly',
+          mt: 3.5,
+        }}
       >
         {Object.keys(allBeaten)
           .reverse()
@@ -77,10 +85,7 @@ export default async function allYearsGamePage() {
             );
           })}
       </Box>
-      <Box
-        component="section"
-        sx={{ display: 'flex', flexWrap: 'wrap', gap: '30px', justifyContent: 'center' }}
-      >
+      <Box component="section">
         <BeatenChart beatenSet={allBeaten} />
       </Box>
     </>

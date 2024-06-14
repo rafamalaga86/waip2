@@ -14,12 +14,10 @@ export function ErrorToast() {
   };
 
   return (
-    <div>
-      <Snackbar open={openErrorToast} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
-          {messageErrorToast}
-        </Alert>
-      </Snackbar>
-    </div>
+    <Snackbar open={openErrorToast} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
+        {messageErrorToast}
+      </Alert>
+    </Snackbar>
   );
 }
