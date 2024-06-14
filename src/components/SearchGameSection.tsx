@@ -5,24 +5,26 @@ import { QuestionIcon } from './icons/QuestionIcon';
 
 export function SearchGameSection({
   setGameTitleToSearch,
-  searchOptions,
+  initialSearchOptions,
   setOptionsToSearch,
   setLoading,
+  searchLabel,
   initialGameTitle,
 }: {
   setGameTitleToSearch: Function;
-  searchOptions: SearchOptions;
+  initialSearchOptions: SearchOptions;
   setOptionsToSearch: Function;
   setLoading: Function;
+  searchLabel: string;
   initialGameTitle?: string;
 }) {
   const [gameTitle, setGameTitle] = useState(initialGameTitle);
 
   // Switches initialization
   let toggleIncludeNoCoverGames, toggleIncludeDLCs, toggleIncludeEditions;
-  [searchOptions.includeNoCoverGames, toggleIncludeNoCoverGames] = useSwitch(false);
-  [searchOptions.includeDLCs, toggleIncludeDLCs] = useSwitch(false);
-  [searchOptions.includeEditions, toggleIncludeEditions] = useSwitch(false);
+  [initialSearchOptions.includeNoCoverGames, toggleIncludeNoCoverGames] = useSwitch(false);
+  [initialSearchOptions.includeDLCs, toggleIncludeDLCs] = useSwitch(false);
+  [initialSearchOptions.includeEditions, toggleIncludeEditions] = useSwitch(false);
 
   return (
     <Grid component="section" className="section-search" container>
@@ -35,14 +37,14 @@ export function SearchGameSection({
             event.preventDefault();
             setLoading(true);
             setGameTitleToSearch(gameTitle);
-            setOptionsToSearch(searchOptions);
+            setOptionsToSearch(initialSearchOptions);
           }}
           sx={{ mt: 1, display: 'flex', flexDirection: 'row' }}
         >
           <TextField
             required
             fullWidth
-            label="Search The Game to Import"
+            label={searchLabel}
             id="game_name"
             name="game_name"
             onChange={event => {
@@ -68,7 +70,7 @@ export function SearchGameSection({
         <FormControlLabel
           control={
             <Switch
-              checked={searchOptions.includeEditions}
+              checked={initialSearchOptions.includeEditions}
               onChange={() => {
                 toggleIncludeEditions();
               }}
@@ -81,7 +83,7 @@ export function SearchGameSection({
         <FormControlLabel
           control={
             <Switch
-              checked={searchOptions.includeDLCs}
+              checked={initialSearchOptions.includeDLCs}
               onChange={() => {
                 toggleIncludeDLCs();
               }}
@@ -94,7 +96,7 @@ export function SearchGameSection({
         <FormControlLabel
           control={
             <Switch
-              checked={searchOptions.includeNoCoverGames}
+              checked={initialSearchOptions.includeNoCoverGames}
               onChange={() => {
                 toggleIncludeNoCoverGames();
               }}

@@ -51,7 +51,9 @@ export default function RootLayout({
         <body>
           <AppRouterCacheProvider options={{ key: 'css' }}>
             <ThemeProvider theme={darkTheme}>
-              <LayoutClient>{children}</LayoutClient>
+              <div className="wrapper">
+                <LayoutClient>{children}</LayoutClient>
+              </div>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </body>

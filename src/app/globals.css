@@ -89,7 +89,7 @@ body {
   font-weight: normal;
   font-style: normal;
   font-size: 16px;
-  background-color: var(--gray-0);
+  background-color: var(--white);
 }
 /*-------------------------------------------------------*/
 
@@ -172,6 +172,10 @@ a:active {
 
 .section-title__chips {
   margin-top: 8px;
+}
+
+.wrapper {
+  background-color: var(--gray-0);
 }
 
 /*-------------------------------------------------------*/

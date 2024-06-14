@@ -1,32 +1,12 @@
 import type { games_to_import } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
+import { searchGameServer } from 'src/lib/actions';
 import { getAuthUser } from 'src/lib/auth';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 import { GameModel } from 'src/models/GameModel';
-import { gameService } from 'src/services/GameService';
 import { ImportGames } from './ImportGames';
 
 export default async function searchPage() {
-  async function searchGameServer(
-    keyword: string,
-    searchOptions: SearchOptions
-  ): Promise<{ games: any; errorMessage: string | null }> {
-    'use server';
-    let games;
-    try {
-      // is a string of numbers?
-      if (/^\d+$/.test(keyword)) {
-        const game = await gameService.getGame(Number(keyword));
-        games = [game.data];
-      } else {
-        games = await gameService.searchGame(keyword, searchOptions);
-      }
-    } catch (error: any) {
-      return { games: [], errorMessage: error?.message };
-    }
-    return { games, errorMessage: null };
-  }
-
   async function importGame(gameToImport: games_to_import, game: IgdbSearchedGame) {
     'use server';
     try {

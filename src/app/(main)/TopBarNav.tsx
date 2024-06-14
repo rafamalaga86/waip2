@@ -2,6 +2,7 @@
 import {
   AppBar,
   Box,
+  Button,
   Container,
   Drawer,
   IconButton,
@@ -63,7 +64,13 @@ export function TopBarNav({
                 </Link>
               </Box>
 
-              <form style={{ marginLeft: 'auto' }} onSubmit={submitSearch}>
+              <Box sx={{ ml: 'auto', mr: 3 }}>
+                <Link href="/games/search">
+                  <Button variant="contained">Add Game</Button>
+                </Link>
+              </Box>
+
+              <form onSubmit={submitSearch}>
                 <OutlinedInput
                   sx={{ width: '300px' }}
                   // onSubmit={() => router.push('/search/?s=')}

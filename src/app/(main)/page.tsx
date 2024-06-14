@@ -1,3 +1,4 @@
+import { Fab } from '@mui/material';
 import { PageTitle } from 'src/components/PageTitle';
 import { getAuthUserVisible } from 'src/lib/auth';
 import { GameModel } from 'src/models/GameModel';

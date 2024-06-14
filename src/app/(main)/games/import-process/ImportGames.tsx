@@ -19,7 +19,7 @@ export function ImportGames({
   gameToImports: games_to_import[];
   searchGameServer: (
     title: string,
-    searchOptions: SearchOptions
+    initialSearchOptions: SearchOptions
   ) => Promise<{ games: any; errorMessage: string | null }>;
   importGame: (
     gameToImport: games_to_import,
@@ -28,14 +28,14 @@ export function ImportGames({
   discardGame: (gameToImport: games_to_import) => void;
 }) {
   const gameToImport = gameToImports[0];
-  const searchOptions = {
+  const initialSearchOptions = {
     includeNoCoverGames: false,
     includeDLCs: false,
     includeEditions: false,
   };
   const [loading, setLoading] = useState(true);
   const [gameTitleToSearch, setGameTitleToSearch] = useState(gameToImport.name);
-  const [optionsToSearch, setOptionsToSearch] = useState(searchOptions);
+  const [optionsToSearch, setOptionsToSearch] = useState(initialSearchOptions);
   const [searchedGames, setSearchedGames] = useState<any>([]);
 
   useEffect(() => {
@@ -85,10 +85,11 @@ export function ImportGames({
       </section>
 
       <SearchGameSection
-        searchOptions={searchOptions}
+        initialSearchOptions={initialSearchOptions}
         initialGameTitle={gameToImport.name}
         setGameTitleToSearch={setGameTitleToSearch}
         setOptionsToSearch={setOptionsToSearch}
+        searchLabel="Search The Game to Import"
         setLoading={setLoading}
       />
 

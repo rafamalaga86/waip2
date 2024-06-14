@@ -73,6 +73,7 @@ class IGDBService {
       }
       if (!searchOptions.includeEditions) {
         whereArray.push('version_parent = null');
+        whereArray.push('category != 3');
       }
 
       where = 'where: ' + whereArray.join(' & ') + ';';

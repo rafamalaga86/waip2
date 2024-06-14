@@ -1,9 +1,12 @@
-import { notFound } from 'next/navigation';
-import { gameService } from 'src/services/GameService';
+import { PageTitle } from 'src/components/PageTitle';
+import { searchGameServer } from 'src/lib/actions';
 import { SearchPage } from './SearchPage';
 
 export default async function search({ searchParams }: { searchParams?: any }) {
-  const keyword = searchParams.keyword;
-
-  return <SearchPage keyword={keyword} />;
+  return (
+    <>
+      <PageTitle>Add a game</PageTitle>
+      <SearchPage />
+    </>
+  );
 }

@@ -1,7 +1,7 @@
 'use server';
-
 import { users } from '@prisma/client';
 import { PlayedModel } from 'src/models/PlayedModel';
+import { gameService } from 'src/services/GameService';
 import { getAuthUser } from './auth';
 
 export async function getAuthUserServer(): Promise<users> {
@@ -17,4 +17,24 @@ export async function beatPlayed(gameId: number) {
 export async function abandonPlayed(gameId: number) {
   'use server';
   return await PlayedModel.finishByGameId(gameId, false);
+}
+
+export async function searchGameServer(
+  keyword: string,
+  searchOptions: SearchOptions
+): Promise<{ games: any; errorMessage: string | null }> {
+  'use server';
+  let games;
+  try {
+    // is a string of numbers?
+    if (/^\d+$/.test(keyword)) {
+      const game = await gameService.getGame(Number(keyword));
+      games = [game.data];
+    } else {
+      games = await gameService.searchGame(keyword, searchOptions);
+    }
+  } catch (error: any) {
+    return { games: [], errorMessage: error?.message };
+  }
+  return { games, errorMessage: null };
 }
