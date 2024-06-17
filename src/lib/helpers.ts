@@ -1,3 +1,5 @@
+import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
+
 export function titleAdjustment(
   title: string,
   proportion: number = 1
@@ -28,6 +30,23 @@ export function getLongestWord(phrase: string): string {
     }
   });
   return longestWord;
+}
+
+export async function preloadImages(imageSrcs: string[]) {
+  return Promise.all(
+    imageSrcs.map((src: string) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => resolve(src);
+        img.onerror = err => reject(err);
+      });
+    })
+  );
+}
+
+export function shapeIGDBCoverUrl(size: CoverSize, stringId: string) {
+  return `https://images.igdb.com/igdb/image/upload/t_${size}/${stringId}.webp`;
 }
 
 export function unslug(slug: string): string {

@@ -36,7 +36,7 @@ export function TopBarNav({
 
   function submitSearch(event: any) {
     event.preventDefault();
-    router.push('/games/search?keyword=' + event.target.searchKeyword.value);
+    router.push('/games/add?keyword=' + event.target.searchKeyword.value);
   }
 
   return (
@@ -65,7 +65,7 @@ export function TopBarNav({
               </Box>
 
               <Box sx={{ ml: 'auto', mr: 3 }}>
-                <Link href="/games/search">
+                <Link href="/games/add">
                   <Button variant="contained">Add Game</Button>
                 </Link>
               </Box>

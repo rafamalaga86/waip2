@@ -6,7 +6,7 @@ import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 import { GameModel } from 'src/models/GameModel';
 import { ImportGames } from './ImportGames';
 
-export default async function searchPage() {
+export default async function SearchGameInIGDB() {
   async function importGame(gameToImport: games_to_import, game: IgdbSearchedGame) {
     'use server';
     try {

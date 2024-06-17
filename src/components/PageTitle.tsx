@@ -13,6 +13,7 @@ export function PageTitle({ children, alignCenter }: Props) {
       component="h4"
       variant="h4"
       className={'title-font ' + (alignCenter ? 'text-align-center' : '')}
+      sx={{ mb: 3 }}
     >
       {children}
     </Typography>

@@ -89,11 +89,13 @@ class IGDBService {
       throw new Error('There was an error fetching the data.');
     }
 
+    // Add Category Names to IDs
     games = games.map((item: any) => {
       let newItem = { ...item };
       newItem.category = { id: item.category, name: unslug(GameCategory[item.category]) };
       return newItem;
     });
+
     if (sort) {
       games = new GameSorter(games).sortByRelevance();
     }

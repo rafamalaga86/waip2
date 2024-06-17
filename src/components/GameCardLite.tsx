@@ -13,7 +13,7 @@ export function GameCardLite({
   className: string;
 }) {
   return (
-    <Card key={game.id} className={'game-card game-card-xs ' + className}>
+    <Card key={game.id} className={'game-card ' + className}>
       {imgElement}
       {children}
     </Card>

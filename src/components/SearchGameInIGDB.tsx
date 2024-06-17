@@ -1,68 +1,36 @@
 'use client';
 import { Masonry } from '@mui/lab';
-import { Box, Button, Divider, Skeleton, Tooltip, Typography } from '@mui/material';
-import { ReactNode, useEffect, useState } from 'react';
+import { Box, Divider, Skeleton, Tooltip } from '@mui/material';
+import { ReactNode } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
+import { SearchFeedback } from 'src/components/SearchFeedback';
 import { SearchGameSection } from 'src/components/SearchGameSection';
-import { QuestionIcon } from 'src/components/icons/QuestionIcon';
+import { InfoIcon } from 'src/components/icons/InfoIcon';
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
-import { searchGameServer } from 'src/lib/actions';
 import { titleAdjustment } from 'src/lib/helpers';
 
 type Props = {
-  keyword?: string;
+  Actions: ({ gameId }: { gameId: number }) => ReactNode;
+  initialSearchOptions: any;
+  loading: boolean;
+  searchedGames: any;
+  setLoading: Function;
+  setGameTitleToSearch: Function;
+  setOptionsToSearch: Function;
+  IGDB_COVER_SIZE: CoverSize;
 };
 
-export function SearchPage({ keyword }: Props) {
-  const initialSearchOptions = {
-    includeNoCoverGames: false,
-    includeDLCs: false,
-    includeEditions: false,
-  };
-  const [loading, setLoading] = useState(!!keyword);
-  const [gameTitleToSearch, setGameTitleToSearch] = useState(keyword);
-  const [optionsToSearch, setOptionsToSearch] = useState(initialSearchOptions);
-  const [searchedGames, setSearchedGames] = useState<any>({ games: null, errorMessage: false });
-
-  function SearchFeedback({ searchedGames }: { searchedGames: any }): ReactNode {
-    let message;
-    if (loading) {
-      message = 'Searching for games...';
-    } else if (searchedGames.errorMessage) {
-      message = searchedGames.errorMessage;
-    } else if (searchedGames.games !== null && !searchedGames.games?.length) {
-      message = 'No games found';
-    } else if (!!searchedGames.games?.length) {
-      message = (
-        <>
-          Found <strong>{searchedGames.games.length}</strong> games
-        </>
-      );
-    }
-
-    return (
-      <>
-        <Typography component="h5" variant="h5" sx={{ mb: 3 }}>
-          {message}
-        </Typography>
-      </>
-    );
-  }
-
-  useEffect(() => {
-    (async () => {
-      if (!gameTitleToSearch || gameTitleToSearch === '') {
-        return;
-      }
-      const searchedGames = await searchGameServer(gameTitleToSearch, optionsToSearch);
-      console.log('Escupe: ', searchedGames);
-
-      setSearchedGames(searchedGames);
-      setLoading(false);
-    })();
-  }, [gameTitleToSearch, optionsToSearch, searchGameServer]);
-
+export function SearchGameInIGDB({
+  Actions,
+  initialSearchOptions,
+  loading,
+  searchedGames,
+  setLoading,
+  setGameTitleToSearch,
+  setOptionsToSearch,
+  IGDB_COVER_SIZE,
+}: Props) {
   return (
     <>
       <SearchGameSection
@@ -73,13 +41,13 @@ export function SearchPage({ keyword }: Props) {
         setLoading={setLoading}
       />
       <Divider sx={{ mt: 3, mb: 3 }} />
-      <SearchFeedback searchedGames={searchedGames} />
+      <SearchFeedback loading={loading} searchedGames={searchedGames} />
 
-      <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} sx={{ width: 'auto', mt: 1 }} spacing={2}>
-        {/* <Masonry direction="row" spacing={2} useFlexGap flexWrap="wrap"> */}
+      <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5 }} sx={{ width: 'auto', mt: 1 }} spacing={2}>
+        {/* <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap"> */}
         {loading &&
-          Array.from({ length: 6 }).map((_, index) => (
-            <Skeleton key={index} variant="rounded" width={178} height={300} />
+          Array.from({ length: 8 }).map((_, index) => (
+            <Skeleton key={index} variant="rounded" height={450} />
           ))}
         {!loading &&
           !!searchedGames.games?.length &&
@@ -87,7 +55,7 @@ export function SearchPage({ keyword }: Props) {
             const unixDate = game.first_release_date;
             const year = unixDate ? '(' + new Date(unixDate * 1000).getFullYear() + ')' : '';
 
-            const [fontSize, extraClasses] = titleAdjustment(game.name);
+            const [fontSize, extraClasses] = titleAdjustment(game.name, 1.2);
             const titleStyles = { p: 1, mt: 1, mb: 'auto', textAlign: 'center', fontSize };
             const isMainGame = game.category.id === 0;
 
@@ -98,7 +66,7 @@ export function SearchPage({ keyword }: Props) {
                 className="GameCardLite"
                 imgElement={
                   <IGDBImage
-                    size={CoverSize.medium}
+                    size={IGDB_COVER_SIZE}
                     stringId={game.cover?.image_id}
                     description={game.name + ' cover'}
                   />
@@ -117,7 +85,7 @@ export function SearchPage({ keyword }: Props) {
                 </Box>
                 {game.platforms && (
                   <Box className="GameCardLite__Question">
-                    <QuestionIcon tooltip={game.platforms.map(item => item.name).join(', ')} />
+                    <InfoIcon tooltip={game.platforms.map(item => item.name).join(', ')} />
                   </Box>
                 )}
                 <Box sx={{ my: 2 }} className="text-align-center">
@@ -125,9 +93,7 @@ export function SearchPage({ keyword }: Props) {
                     <span className={'mini-chip game-category-not-0'}>{game.category.name}</span>
                   )}
                 </Box>
-                <Box sx={{ my: 2 }} className="text-align-center">
-                  <Button variant="contained">Add</Button>
-                </Box>
+                <Actions gameId={game.id} />
 
                 {/* <ImportGamesCardActions
                     game={game}

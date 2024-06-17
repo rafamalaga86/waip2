@@ -1,4 +1,5 @@
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
+import { shapeIGDBCoverUrl } from 'src/lib/helpers';
 
 export function IGDBImage({
   stringId,
@@ -13,7 +14,7 @@ export function IGDBImage({
 }) {
   let src;
   if (stringId) {
-    src = `https://images.igdb.com/igdb/image/upload/t_${size}/${stringId}.webp`;
+    src = shapeIGDBCoverUrl(size, stringId);
   } else {
     src = '/images/undefined.png';
   }

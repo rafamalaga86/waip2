@@ -1,8 +1,8 @@
+import { Box, Button } from '@mui/material';
 import { PageTitle } from 'src/components/PageTitle';
-import { searchGameServer } from 'src/lib/actions';
 import { SearchPage } from './SearchPage';
 
-export default async function search({ searchParams }: { searchParams?: any }) {
+export default async function search() {
   return (
     <>
       <PageTitle>Add a game</PageTitle>

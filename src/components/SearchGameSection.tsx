@@ -18,7 +18,7 @@ export function SearchGameSection({
   searchLabel: string;
   initialGameTitle?: string;
 }) {
-  const [gameTitle, setGameTitle] = useState(initialGameTitle);
+  const [gameTitle, setGameTitle] = useState(initialGameTitle ?? '');
 
   // Switches initialization
   let toggleIncludeNoCoverGames, toggleIncludeDLCs, toggleIncludeEditions;
@@ -30,11 +30,15 @@ export function SearchGameSection({
     <Grid component="section" className="section-search" container>
       <Grid xs={12} md={4}>
         <Box
+          className="section-search__form"
           component="form"
           noValidate
           id="search-form"
           onSubmit={async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
+            if (gameTitle === '') {
+              return;
+            }
             setLoading(true);
             setGameTitleToSearch(gameTitle);
             setOptionsToSearch(initialSearchOptions);
@@ -52,52 +56,56 @@ export function SearchGameSection({
               setGameTitle(event.target.value);
             }}
             value={gameTitle}
-            // InputProps={}
           />
 
-          <QuestionIcon tooltip="If you enter a IGDB ID, it will search by id" />
+          <Box className="section-search__question">
+            <QuestionIcon tooltip="If you enter a IGDB ID, it will search by id" />
+          </Box>
         </Box>
       </Grid>
-      <Grid
-        xs={12}
-        md={8}
+      <Box
         sx={{
           display: 'flex',
-          justifyContent: 'flex-end',
+          width: { xs: '100%', md: 'auto' },
+          ml: { md: 'auto' },
           alignItems: 'center',
           mt: { xs: 3, md: 0 },
+          // justifyContent: 'flex-end',
         }}
       >
         <FormControlLabel
           control={
             <Switch
               checked={initialSearchOptions.includeEditions}
+              sx={{ position: 'relative', left: '3px' }}
               onChange={() => {
                 toggleIncludeEditions();
               }}
               name="include-editions"
             />
           }
-          label="With Editions"
+          label="Editions"
         />
         <Divider orientation="vertical" variant="middle" flexItem />
         <FormControlLabel
           control={
             <Switch
               checked={initialSearchOptions.includeDLCs}
+              sx={{ position: 'relative', left: '3px' }}
               onChange={() => {
                 toggleIncludeDLCs();
               }}
               name="include-dlcs"
             />
           }
-          label="With DLCs"
+          label="DLCs"
         />
         <Divider orientation="vertical" variant="middle" flexItem />
         <FormControlLabel
           control={
             <Switch
               checked={initialSearchOptions.includeNoCoverGames}
+              sx={{ position: 'relative', left: '3px' }}
               onChange={() => {
                 toggleIncludeNoCoverGames();
               }}
@@ -106,10 +114,10 @@ export function SearchGameSection({
           }
           label="Without Covers"
         />
-        <Button form="search-form" type="submit" variant="contained">
+        <Button sx={{ ml: 'auto' }} form="search-form" type="submit" variant="contained">
           Search
         </Button>
-      </Grid>
+      </Box>
     </Grid>
   );
 }

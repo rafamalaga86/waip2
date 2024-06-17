@@ -190,6 +190,16 @@ a:active {
   margin-right: 16px;
 }
 
+.section-search__form {
+  position: relative;
+}
+
+.section-search__question {
+  position: absolute;
+  top: -15px;
+  right: -8px;
+}
+
 /*-------------------------------------------------------*/
 
 /* PLAYED COMPONENT -------------------------------------*/
