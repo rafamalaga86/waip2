@@ -11,8 +11,7 @@ export function Footer() {
           Made with <FaHeart /> by{' '}
           <Link href="//rafaelgarciadoblas.com">
             <strong>Rafael García Doblas</strong>
-          </Link>{' '}
-          @ {new Date().getFullYear()}
+          </Link>
         </Typography>
         <Box sx={{ ml: 'auto' }}>
           <Link href="#very-top">

@@ -1,6 +1,7 @@
 'use client';
-import { Box, Button, Divider, Stack, Tooltip, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Masonry } from '@mui/lab';
+import { Box, Button, Divider, Skeleton, Tooltip, Typography } from '@mui/material';
+import { ReactNode, useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { SearchGameSection } from 'src/components/SearchGameSection';
@@ -24,12 +25,39 @@ export function SearchPage({ keyword }: Props) {
   const [optionsToSearch, setOptionsToSearch] = useState(initialSearchOptions);
   const [searchedGames, setSearchedGames] = useState<any>({ games: null, errorMessage: false });
 
+  function SearchFeedback({ searchedGames }: { searchedGames: any }): ReactNode {
+    let message;
+    if (loading) {
+      message = 'Searching for games...';
+    } else if (searchedGames.errorMessage) {
+      message = searchedGames.errorMessage;
+    } else if (searchedGames.games !== null && !searchedGames.games?.length) {
+      message = 'No games found';
+    } else if (!!searchedGames.games?.length) {
+      message = (
+        <>
+          Found <strong>{searchedGames.games.length}</strong> games
+        </>
+      );
+    }
+
+    return (
+      <>
+        <Typography component="h5" variant="h5" sx={{ mb: 3 }}>
+          {message}
+        </Typography>
+      </>
+    );
+  }
+
   useEffect(() => {
     (async () => {
       if (!gameTitleToSearch || gameTitleToSearch === '') {
         return;
       }
       const searchedGames = await searchGameServer(gameTitleToSearch, optionsToSearch);
+      console.log('Escupe: ', searchedGames);
+
       setSearchedGames(searchedGames);
       setLoading(false);
     })();
@@ -45,74 +73,71 @@ export function SearchPage({ keyword }: Props) {
         setLoading={setLoading}
       />
       <Divider sx={{ mt: 3, mb: 3 }} />
+      <SearchFeedback searchedGames={searchedGames} />
 
-      {loading && <h5>Cargando</h5>}
-      {!loading && (
-        <>
-          {searchedGames.games === null && <h5>Search for a game!</h5>}
-          {searchedGames.errorMessage && <h5>{searchedGames.errorMessage}</h5>}
-          {searchedGames.games !== null &&
-            !searchedGames.games?.length &&
-            !searchedGames.errorMessage && <h5>No games found</h5>}
-          {!!searchedGames.games?.length && (
-            <>
-              <h5 className="mb-3">
-                Found <strong>{searchedGames.games.length}</strong> games
-              </h5>
+      <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} sx={{ width: 'auto', mt: 1 }} spacing={2}>
+        {/* <Masonry direction="row" spacing={2} useFlexGap flexWrap="wrap"> */}
+        {loading &&
+          Array.from({ length: 6 }).map((_, index) => (
+            <Skeleton key={index} variant="rounded" width={178} height={300} />
+          ))}
+        {!loading &&
+          !!searchedGames.games?.length &&
+          searchedGames.games.map((game: IgdbSearchedGame) => {
+            const unixDate = game.first_release_date;
+            const year = unixDate ? '(' + new Date(unixDate * 1000).getFullYear() + ')' : '';
 
-              <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
-                {searchedGames.games.map((game: IgdbSearchedGame) => {
-                  const unixDate = game.first_release_date;
-                  const year = unixDate ? '(' + new Date(unixDate * 1000).getFullYear() + ')' : '';
+            const [fontSize, extraClasses] = titleAdjustment(game.name);
+            const titleStyles = { p: 1, mt: 1, mb: 'auto', textAlign: 'center', fontSize };
+            const isMainGame = game.category.id === 0;
 
-                  const [fontSize, extraClasses] = titleAdjustment(game.name);
-                  const titleStyles = { p: 1, mt: 1, mb: 'auto', textAlign: 'center', fontSize };
+            return (
+              <GameCardLite
+                game={game}
+                key={game.id}
+                className="GameCardLite"
+                imgElement={
+                  <IGDBImage
+                    size={CoverSize.medium}
+                    stringId={game.cover?.image_id}
+                    description={game.name + ' cover'}
+                  />
+                }
+              >
+                <Box sx={titleStyles} className={extraClasses + ' title-font'}>
+                  {game.name}
+                </Box>
+                <Box sx={{ my: 1 }} className="text-align-center">
+                  {!!year && <>{year} - </>}
+                  <a className="color-white" href={game.url}>
+                    <Tooltip title="IGDB ID">
+                      <span className="mini-chip igdb-background-color">{game.id}</span>
+                    </Tooltip>
+                  </a>
+                </Box>
+                {game.platforms && (
+                  <Box className="GameCardLite__Question">
+                    <QuestionIcon tooltip={game.platforms.map(item => item.name).join(', ')} />
+                  </Box>
+                )}
+                <Box sx={{ my: 2 }} className="text-align-center">
+                  {!isMainGame && (
+                    <span className={'mini-chip game-category-not-0'}>{game.category.name}</span>
+                  )}
+                </Box>
+                <Box sx={{ my: 2 }} className="text-align-center">
+                  <Button variant="contained">Add</Button>
+                </Box>
 
-                  return (
-                    <GameCardLite
-                      game={game}
-                      key={game.id}
-                      className="GameCardLite"
-                      imgElement={
-                        <IGDBImage
-                          size={CoverSize.medium}
-                          stringId={game.cover?.image_id}
-                          description={game.name + ' cover'}
-                        />
-                      }
-                    >
-                      <Box sx={titleStyles} className={extraClasses + ' title-font'}>
-                        {game.name}
-                      </Box>
-                      <small className="text-align-center">
-                        {!!year && <>{year} - </>}
-                        <a className="color-white" href={game.url}>
-                          <Tooltip title="IGDB ID">
-                            <span className="mini-chip igdb-background-color">{game.id}</span>
-                          </Tooltip>
-                        </a>
-                      </small>
-                      {game.platforms && (
-                        <Box className="GameCardLite__Question">
-                          <QuestionIcon
-                            tooltip={game.platforms.map(item => item.name).join(', ')}
-                          />
-                        </Box>
-                      )}
-                      <Button variant="contained"> Add as Playing Now</Button>
-                      {/* <ImportGamesCardActions
+                {/* <ImportGamesCardActions
                     game={game}
                     gameToImport={gameToImport}
                     importGame={importGame}
                   /> */}
-                    </GameCardLite>
-                  );
-                })}
-              </Stack>
-            </>
-          )}
-        </>
-      )}
+              </GameCardLite>
+            );
+          })}
+      </Masonry>
     </>
   );
 }

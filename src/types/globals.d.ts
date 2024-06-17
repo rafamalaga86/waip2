@@ -15,6 +15,7 @@ declare global {
     collections?: number[];
     cover?: { image_id: string };
     dlcs?: number[];
+    category: { id: number; name: string };
     expansions?: number[];
     franchises?: number[];
     game_localizations?: number[];

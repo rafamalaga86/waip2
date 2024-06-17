@@ -23,7 +23,7 @@ body {
 
   /* Old Colours */
   --red: #ee6352;
-  --blue: #416cde;
+  /* --blue: #416cde; */
   --cyan: #46b1c9;
   --pink: #f16571;
   --pink-bright: #ee4266;
@@ -153,6 +153,11 @@ a:active {
   text-decoration: none;
 }
 
+.game-category-not-0,
+.mini-chip.game-category-not-0 {
+  background-color: var(--red);
+}
+
 /* TOP APP BAR ------------------------------------------*/
 .menu-button {
   position: relative;
@@ -262,10 +267,10 @@ a:active {
   color: white !important;
 }
 
-.MuiCard-root.MuiPaper-root p {
+/* .MuiCard-root.MuiPaper-root p {
   color: var(--white);
   filter: brightness(0.9);
-}
+} */
 
 .MuiCard-root.game-card {
   /* background-color: var(--primary-color); */
@@ -273,6 +278,7 @@ a:active {
 }
 .GameCardLite {
   position: relative;
+  font-size: 14px;
 }
 .GameCardLite__Question {
   position: absolute;
@@ -316,6 +322,11 @@ a:active {
   color: var(--danger-color);
   margin-left: 14px;
   min-height: 20px;
+}
+
+/* MAIN   -----------------------------------------------*/
+main {
+  min-height: calc(100vh - 105px);
 }
 
 /* FOOTER -----------------------------------------------*/

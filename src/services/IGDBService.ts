@@ -1,4 +1,6 @@
+import { GameCategory } from 'src/enums/business/IGDBEnums/gameEnums';
 import { getConnector } from 'src/lib/IGDBConnector';
+import { unslug } from 'src/lib/helpers';
 import { GameSorter } from './GameSorter';
 
 class IGDBService {
@@ -18,6 +20,7 @@ class IGDBService {
     game_localizations,
     parent_game,
     platforms.name,
+    category,
     ports,
     remakes,
     remasters,
@@ -51,7 +54,6 @@ class IGDBService {
     searchOptions: SearchOptions,
     sort: boolean = true
   ): Promise<object[]> {
-    // const unescaped = keyword.replace(/\\'/g, "'");
     const connector = await getConnector();
     let query = `
       search ${JSON.stringify(keyword)};
@@ -86,12 +88,16 @@ class IGDBService {
     if (games[0]?.status) {
       throw new Error('There was an error fetching the data.');
     }
+
+    games = games.map((item: any) => {
+      let newItem = { ...item };
+      newItem.category = { id: item.category, name: unslug(GameCategory[item.category]) };
+      return newItem;
+    });
     if (sort) {
       games = new GameSorter(games).sortByRelevance();
     }
     return games;
-    // const sorter = new GameSorter(games);
-    // return sorter.sortByRelevance();
   }
 
   async getGames(igdbGameIds: number[]): Promise<IgdbGame[]> {

@@ -30,6 +30,13 @@ export function getLongestWord(phrase: string): string {
   return longestWord;
 }
 
+export function unslug(slug: string): string {
+  return slug
+    .split(/[-_]/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 export function formatUnix(unixDate: number): string {
   const date = new Date(unixDate * 1000);
   return toLocale(date);

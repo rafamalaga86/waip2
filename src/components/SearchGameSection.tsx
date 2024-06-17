@@ -44,6 +44,7 @@ export function SearchGameSection({
           <TextField
             required
             fullWidth
+            autoComplete="off"
             label={searchLabel}
             id="game_name"
             name="game_name"
