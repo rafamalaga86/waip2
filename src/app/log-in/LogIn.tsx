@@ -81,10 +81,9 @@ export function LogIn({
             onSubmit={async (event: React.FormEvent<HTMLFormElement>) => {
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
-              try {
-                const user = await handleSubmit(formData);
-              } catch (error: any) {
-                setLoginError(error.message);
+              const message = await handleSubmit(formData);
+              if (message.length > 0) {
+                setLoginError(message);
               }
             }}
             sx={{ mt: 1 }}

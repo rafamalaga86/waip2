@@ -98,21 +98,21 @@ export async function getAuthUserVisible(): Promise<UserVisible | null> {
 export async function login(formData: FormData): Promise<boolean> {
   const email = formData.get('email');
   if (!email || typeof email !== 'string') {
-    throw new Error('That is not a valid email');
+    throw new ClientFeedbackError('That is not a valid email');
   }
   const genericError = 'The password is incorrect or email does not exists';
 
   const password = formData.get('password');
   if (!password || typeof password !== 'string') {
-    throw new Error(genericError);
+    throw new ClientFeedbackError(genericError);
   }
   // Verify credentials && get the user
   const user = await UserModel.getByEmail(email);
   if (!user) {
-    throw new Error(genericError);
+    throw new ClientFeedbackError(genericError);
   }
   if (!(await checkPassowrd(password, user.password))) {
-    throw new Error(genericError);
+    throw new ClientFeedbackError(genericError);
   }
   // Create the session
   await createSession(user);
