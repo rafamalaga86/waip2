@@ -78,7 +78,7 @@ export async function register(formData: FormData) {
   return user;
 }
 
-export async function getAuthUser() {
+export async function getAuthUser(): Promise<users | null> {
   const session = await getSession();
   if (!session) return null;
   return session.user;

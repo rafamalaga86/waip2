@@ -10,8 +10,7 @@ export default async function SearchGameInIGDB() {
   async function importGame(gameToImport: games_to_import, game: IgdbSearchedGame) {
     'use server';
     try {
-      const user = await getAuthUser();
-      await GameModel.importGame(gameToImport, game, user.id);
+      await GameModel.importGame(gameToImport, game);
       return { wasSuccessful: true, message: '' };
     } catch (error: any) {
       if (!(error instanceof ClientFeedbackError)) {
@@ -24,8 +23,7 @@ export default async function SearchGameInIGDB() {
 
   async function discardGame(gameToImport: games_to_import): Promise<number> {
     'use server';
-    const user = await getAuthUser();
-    return await GameModel.discardImportGame(gameToImport.name, user.id);
+    return await GameModel.discardImportGame(gameToImport.name);
   }
 
   console.time('primero');

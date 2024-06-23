@@ -1,24 +1,26 @@
 import type { PrismaClient, games, games_to_import } from '@prisma/client';
 import { Prisma } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
+import { getAuthUser } from 'src/lib/auth';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 
 class GameModel {
-  static async save(object: any) {
-    try {
-      prisma.games.create({ data: object });
-    } catch (error) {
-      console.error('Error: ', error);
+  static async #getAuthUser() {
+    const authUser = await getAuthUser();
+    if (!authUser) {
+      throw new ClientFeedbackError('To interact with playeds, you need to be logged in');
     }
+    return authUser;
   }
 
   static async create(details: Prisma.gamesUncheckedCreateInput) {
     try {
       return await prisma.games.create({ data: details });
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
         throw new ClientFeedbackError('You already have a game with that name', 409);
       }
+      throw new Error(error.message);
     }
   }
 
@@ -26,9 +28,10 @@ class GameModel {
     return await prisma.games.findFirst({ where: { igdb_id: igdbId, user_id: userId } });
   }
 
-  static async discardImportGame(name: string, user_id: number): Promise<number> {
+  static async discardImportGame(name: string): Promise<number> {
+    const authUser = await this.#getAuthUser();
     const deletedImportGamesNumber = await prisma.games_to_import.deleteMany({
-      where: { name: name, user_id: user_id },
+      where: { name: name, user_id: authUser.id },
     });
 
     return deletedImportGamesNumber.count;
@@ -38,23 +41,8 @@ class GameModel {
     return await prisma.games.findUniqueOrThrow({ where: { id: id } });
   }
 
-  static async findMany(limit: number, fields: string[] = []): Promise<games[]> {
-    // let prismaFields = {};
-    // fields.forEach(item => {
-    //   prismaFields[item] = true;
-    // });
-    // prismaFields = prismaFields === {} ?
-    return await prisma.games.findMany({
-      // select: prismaFields,
-      take: limit,
-    });
-  }
-
-  static async importGame(
-    gameToImport: games_to_import,
-    igdbGame: IgdbSearchedGame,
-    user_id: number
-  ) {
+  static async importGame(gameToImport: games_to_import, igdbGame: IgdbSearchedGame) {
+    const user_id = (await this.#getAuthUser()).id;
     const toImport = await prisma.games_to_import.findMany({
       where: {
         name: gameToImport.name,
