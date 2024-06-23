@@ -11,7 +11,7 @@ import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { titleAdjustment } from 'src/lib/helpers';
 
 type Props = {
-  Actions: ({ gameId }: { gameId: number }) => ReactNode;
+  Actions: ({ name, igdbId, igdbCoverId, beaten, date }: GameWithPlayedCreation) => ReactNode;
   initialSearchOptions: any;
   loading: boolean;
   searchedGames: any;
@@ -93,7 +93,13 @@ export function SearchGameInIGDB({
                     <span className={'mini-chip game-category-not-0'}>{game.category.name}</span>
                   )}
                 </Box>
-                <Actions gameId={game.id} />
+                <Actions
+                  name={game.name}
+                  igdbId={game.id}
+                  igdbCoverId={parseInt(game.cover?.image_id)}
+                  beaten={false}
+                  date={null}
+                />
 
                 {/* <ImportGamesCardActions
                     game={game}

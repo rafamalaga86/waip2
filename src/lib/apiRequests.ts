@@ -1,15 +1,13 @@
 import { Prisma } from '@prisma/client';
 
 const PLAYED_URL = `/playeds`;
-const BASED_URL = process.env.NEXT_PUBLIC_PRIVATE_API_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_PRIVATE_API_URL;
 
 export async function deletePlayedRequest(id: number) {
-  const url = BASED_URL + PLAYED_URL + '/' + id;
-  console.log(url);
+  const url = BASE_URL + PLAYED_URL + '/' + id;
   const response = await fetch(url, {
     method: 'DELETE',
   });
-  console.log('Escupe: ', response);
   let json = null;
   if (response.status !== 204) {
     json = await response.json();
@@ -18,7 +16,7 @@ export async function deletePlayedRequest(id: number) {
 }
 
 export async function upsertPlayedRequest(details: Prisma.playedsCreateManyInput, id?: number) {
-  const url = BASED_URL + PLAYED_URL + '/' + (id ? id : '');
+  const url = BASE_URL + PLAYED_URL + '/' + (id ? id : '');
   const response = await fetch(url, {
     method: id ? 'PATCH' : 'POST',
     headers: {

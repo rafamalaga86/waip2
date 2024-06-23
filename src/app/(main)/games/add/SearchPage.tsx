@@ -1,12 +1,14 @@
 'use client';
 import { Box, Button } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { SearchGameInIGDB } from 'src/components/SearchGameInIGDB';
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { useSearchIGDB } from 'src/hooks/useSearchIGDB';
 
 const IGDB_COVER_SIZE = CoverSize.medium;
 
-export function SearchPage({ keyword }: { keyword?: string }) {
+export function SearchPage({ keyword, addIGDBGame }: { keyword?: string; addIGDBGame: Function }) {
+  const router = useRouter();
   const initialSearchOptions = {
     includeNoCoverGames: false,
     includeDLCs: false,
@@ -15,17 +17,14 @@ export function SearchPage({ keyword }: { keyword?: string }) {
   const { loading, searchedGames, setLoading, setGameTitleToSearch, setOptionsToSearch } =
     useSearchIGDB(IGDB_COVER_SIZE, initialSearchOptions, keyword);
 
-  function addGame(gameId: number) {
-    console.log('Escupe: ', gameId);
-  }
-
-  function Actions({ gameId }: { gameId: number }) {
+  function Actions({ name, igdbId, igdbCoverId, beaten, date }: GameWithPlayedCreation) {
     return (
       <Box sx={{ my: 2 }} className="text-align-center">
         <Button
           variant="contained"
-          onClick={() => {
-            addGame(gameId);
+          onClick={async () => {
+            const gameId = await addIGDBGame(name, igdbId, igdbCoverId, beaten, date);
+            router.push(`/games/${gameId}?idgbId=${igdbId}`);
           }}
         >
           Add

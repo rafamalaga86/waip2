@@ -12,6 +12,20 @@ class GameModel {
     }
   }
 
+  static async create(details: Prisma.gamesUncheckedCreateInput) {
+    try {
+      return await prisma.games.create({ data: details });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+        throw new ClientFeedbackError('You already have a game with that name', 409);
+      }
+    }
+  }
+
+  static async findByIgdbId(igdbId: number, userId: number) {
+    return await prisma.games.findFirst({ where: { igdb_id: igdbId, user_id: userId } });
+  }
+
   static async discardImportGame(name: string, user_id: number): Promise<number> {
     const deletedImportGamesNumber = await prisma.games_to_import.deleteMany({
       where: { name: name, user_id: user_id },

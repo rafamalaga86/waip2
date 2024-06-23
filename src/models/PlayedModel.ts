@@ -1,4 +1,4 @@
-import type { playeds, Prisma } from '@prisma/client';
+import type { Prisma, games, playeds } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
 import { getAuthUser } from 'src/lib/auth';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
@@ -128,6 +128,36 @@ export class PlayedModel {
       );
     }
     return await prisma.playeds.update({ where: { id: id }, data: { ...details } });
+  }
+  //createWithGame(gameId, igdbCoverId, beaten, date)
+  static async createWithGame(details: GameWithPlayedCreation): Promise<number | null> {
+    const authUser = await getAuthUser();
+    let game: games | undefined | null;
+    game = await GameModel.findByIgdbId(details.igdbId, authUser.id);
+    //@ts-ignore
+    try {
+      return await prisma.$transaction(async () => {
+        if (!game) {
+          game = await GameModel.create({
+            name: details.name,
+            igdb_id: details.igdbId,
+            igdb_cover_id: details.igdbCoverId.toString(),
+            user_id: authUser.id,
+          });
+        }
+        if (!game) {
+          throw new Error("Game couldn't be created");
+        }
+        await PlayedModel.create({
+          beaten: details.beaten,
+          stopped_playing_at: details.date,
+          game_id: game.id,
+        });
+        return game.id;
+      });
+    } catch (error) {
+      return null;
+    }
   }
 
   static async create(details: Prisma.playedsCreateManyInput): Promise<playeds> {

@@ -28,6 +28,7 @@ class CacheService {
       { $set: { _id: game.id, updated_at: game.updated_at, data: game } },
       { upsert: true }
     );
+    return result;
   }
 
   setCollection(collection: string) {

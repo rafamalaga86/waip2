@@ -19,9 +19,14 @@ export async function abandonPlayed(gameId: number) {
   return await PlayedModel.finishByGameId(gameId, false);
 }
 
+export async function addIGDBGameServer(details: GameWithPlayedCreation): Promise<number | null> {
+  'use server';
+  return await PlayedModel.createWithGame({ ...details });
+}
+
 export async function searchGameServer(
   keyword: string,
-  searchOptions: SearchOptions
+  searchOptions?: SearchOptions
 ): Promise<{ games: any; errorMessage: string | null }> {
   'use server';
   let games;
@@ -30,6 +35,8 @@ export async function searchGameServer(
     if (/^\d+$/.test(keyword)) {
       const game = await gameService.getGame(Number(keyword));
       games = [game.data];
+    } else if (!searchOptions) {
+      throw new Error('Search options cannot be empty for a search by keyword');
     } else {
       games = await gameService.searchGame(keyword, searchOptions);
     }

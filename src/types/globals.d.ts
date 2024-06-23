@@ -79,6 +79,14 @@ declare global {
     includeEditions: boolean;
   }
 
+  interface GameWithPlayedCreation {
+    name: string;
+    igdbId: number;
+    igdbCoverId: number;
+    beaten: boolean;
+    date: Date | null;
+  }
+
   type CachedIgdbGame = {
     data: IgdbGame;
   };
