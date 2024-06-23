@@ -9,31 +9,23 @@ export interface ObjectOfYearsFinished {
 }
 
 export class PlayedModel {
+  static async #getAuthUser() {
+    const authUser = await getAuthUser();
+    if (!authUser) {
+      throw new ClientFeedbackError('To interact with playeds, you need to be logged in');
+    }
+    return authUser;
+  }
+
+  static async findById(id: number) {
+    return await prisma.playeds.findUniqueOrThrow({ where: { id: id } });
+  }
+
   static async findByGameId(id: number): Promise<playeds[]> {
     return await prisma.playeds.findMany({
       where: { game_id: id },
       orderBy: { stopped_playing_at: 'asc' },
     });
-  }
-
-  static async finishByGameId(gameId: number, beaten: boolean) {
-    const played = await prisma.playeds.findFirstOrThrow({
-      where: { game_id: gameId, stopped_playing_at: null },
-    });
-
-    return await prisma.playeds.update({
-      where: {
-        id: played.id,
-      },
-      data: {
-        beaten: beaten,
-        stopped_playing_at: new Date().toISOString(),
-      },
-    });
-  }
-
-  static async findById(id: number) {
-    return await prisma.playeds.findUniqueOrThrow({ where: { id: id } });
   }
 
   static async findPlayingNow(gameId: number) {
@@ -107,8 +99,32 @@ export class PlayedModel {
     return finishedByYear;
   }
 
+  static async finishByGameId(gameId: number, beaten: boolean) {
+    const authUser = await this.#getAuthUser();
+
+    const played = await prisma.playeds.findFirstOrThrow({
+      where: { game_id: gameId, stopped_playing_at: null },
+      include: {
+        game: true, // Esto incluye la información del juego relacionado
+      },
+    });
+
+    if (authUser.id !== played.game.user_id) {
+      throw new ClientFeedbackError('To finish a game, it has to be yours');
+    }
+    return await prisma.playeds.update({
+      where: {
+        id: played.id,
+      },
+      data: {
+        beaten: beaten,
+        stopped_playing_at: new Date().toISOString(),
+      },
+    });
+  }
+
   static async update(id: number, details: Prisma.playedsUpdateInput): Promise<playeds> {
-    const authUser = await getAuthUser();
+    const authUser = await this.#getAuthUser();
     let played;
     try {
       played = await prisma.playeds.findUniqueOrThrow({
@@ -131,7 +147,7 @@ export class PlayedModel {
   }
   //createWithGame(gameId, igdbCoverId, beaten, date)
   static async createWithGame(details: GameWithPlayedCreation): Promise<number | null> {
-    const authUser = await getAuthUser();
+    const authUser = await this.#getAuthUser();
     let game: games | undefined | null;
     game = await GameModel.findByIgdbId(details.igdbId, authUser.id);
     //@ts-ignore
@@ -141,7 +157,7 @@ export class PlayedModel {
           game = await GameModel.create({
             name: details.name,
             igdb_id: details.igdbId,
-            igdb_cover_id: details.igdbCoverId.toString(),
+            igdb_cover_id: details.igdbCoverId?.toString(),
             user_id: authUser.id,
           });
         }
@@ -156,12 +172,13 @@ export class PlayedModel {
         return game.id;
       });
     } catch (error) {
+      console.error('Error in createWithGame:', error);
       return null;
     }
   }
 
   static async create(details: Prisma.playedsCreateManyInput): Promise<playeds> {
-    const authUser = await getAuthUser();
+    const authUser = await this.#getAuthUser();
     const game = await GameModel.findById(details.game_id); // TODO: Control if doesnt find it
     if (authUser.id !== game.user_id) {
       throw new ClientFeedbackError(
@@ -177,7 +194,7 @@ export class PlayedModel {
     try {
       playedCreated = await prisma.playeds.create({ data: details });
     } catch (error) {
-      console.log('Escupe: ', error);
+      console.error('Escupe: ', error);
     }
     return playedCreated as playeds;
   }
@@ -196,8 +213,7 @@ export class PlayedModel {
       }
       throw error;
     }
-    const authUser = await getAuthUser();
-    console.log('Escupe: ', played.game.user_id, authUser.id);
+    const authUser = await this.#getAuthUser();
     if (played.game.user_id !== authUser.id) {
       throw new ClientFeedbackError('You are not authorised to delete that record', 401);
     }
