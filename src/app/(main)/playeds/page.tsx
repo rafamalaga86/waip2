@@ -33,12 +33,19 @@ export default async function playedsPage({ searchParams }: { searchParams: any 
   // else if (view === Views.table) {
   // }
 
+  let content;
+  if (playeds.length) {
+    content = playedsComponent;
+  } else {
+    content = <h4 className="text-align-center">You don't have any beaten games in {year}!</h4>;
+  }
+
   return (
     <>
       <PageTitle alignCenter={true}>
         {beaten ? 'Beaten' : 'Abandoned'} at <strong>{year}</strong>
       </PageTitle>
-      {playedsComponent}
+      {content}
     </>
   );
 }
