@@ -73,8 +73,8 @@ export function PlayedsList({
       return false;
     }
     if (playedId) {
-      console.log('Escupe: llega');
-      updatePlayedItem(res.response.data);
+      updatePlayedItem(res.response.data, playedId);
+      closeModal();
       return true;
     }
     makeNewPlayedItem(res.response.data);

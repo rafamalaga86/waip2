@@ -21,9 +21,7 @@ export function useItems(
 
   function updateItem(item: Object, id: number) {
     setItems(prevItems => {
-      const index = prevItems.findIndex(element => element.id === id);
-      prevItems[index] = { ...prevItems[index], ...item };
-      return prevItems;
+      return prevItems.map(element => (element.id === id ? { ...element, ...item } : element));
     });
   }
 

@@ -1,13 +1,5 @@
 'use client';
-import {
-  Box,
-  Button,
-  Divider,
-  TextField,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Divider, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { ModalSkeleton } from 'src/components/ModalSkeleton';
@@ -72,7 +64,6 @@ export function EditPlayedModal({
     if (!wasUpserted) {
       setMessageErrorToast("There was some problem and the played couldn't be updated or created");
       setOpenErrorToast(true);
-    } else {
     }
   }
 
