@@ -1,5 +1,5 @@
 import Masonry from '@mui/lab/Masonry';
-import GameCard from 'src/components/GameCard';
+import { GameCard } from 'src/components/GameCard';
 
 const games = [
   {
@@ -73,7 +73,7 @@ export default function page() {
         sx={{ marginTop: '70px' }}
       >
         {games.map((game, index) => (
-          <GameCard key={game.id} game={game} index={index} />
+          // <GameCard key={game.id} game={game} index={index} />
         ))}
       </Masonry>
     </>
