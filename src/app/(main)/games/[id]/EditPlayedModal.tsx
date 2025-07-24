@@ -57,9 +57,7 @@ export function EditPlayedModal({
   }
 
   async function savePlayed() {
-    console.log('Escupe: ', playingState);
     if (!playingState) {
-      console.log('Escupe: ', 'entra');
       setStatusError('You have to choose one of three status');
       return;
     }

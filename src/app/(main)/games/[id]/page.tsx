@@ -148,7 +148,7 @@ export default async function gameDetailsPage({
             <Typography component="h4" variant="h4" color="primary">
               <span className="title-font">{data.name}</span>
             </Typography>
-            {data.involved_companies ? getDevelopers(data.involved_companies) : ''}
+            {data.involved_companies ? getDevelopers(data.involved_companies).join(', ') : ''}
             {data.first_release_date && (
               <Typography component="h6" className="color-primary">
                 <Tooltip title="First release date">

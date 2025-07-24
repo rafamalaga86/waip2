@@ -18,7 +18,7 @@ export async function deletePlayedRequest(id: number) {
 export async function upsertPlayedRequest(details: Prisma.playedsCreateManyInput, id?: number) {
   const url = BASE_URL + PLAYED_URL + '/' + (id ? id : '');
   const response = await fetch(url, {
-    method: id ? 'PATCH' : 'POST',
+    method: id ? 'PUT' : 'POST',
     headers: {
       'Content-Type': 'application/json',
     },

@@ -126,6 +126,7 @@ export class PlayedModel {
   static async update(id: number, details: Prisma.playedsUpdateInput): Promise<playeds> {
     const authUser = await this.#getAuthUser();
     let played;
+
     try {
       played = await prisma.playeds.findUniqueOrThrow({
         where: { id: id },
@@ -138,6 +139,7 @@ export class PlayedModel {
       }
       throw error;
     }
+
     if (authUser.id !== played.game.user_id) {
       throw new ClientFeedbackError(
         'You cannot update a played for a game that belongs to another user'

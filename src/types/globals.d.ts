@@ -82,7 +82,7 @@ declare global {
   interface GameWithPlayedCreation {
     name: string;
     igdbId: number;
-    igdbCoverId: number;
+    igdbCoverId: string;
     beaten: boolean;
     date: Date | null;
   }
