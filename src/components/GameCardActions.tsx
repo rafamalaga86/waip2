@@ -95,7 +95,7 @@ export function GameCardActions({ game, removeGame }: { game: games; removeGame:
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleClose} disableRipple sx={{ p: 0 }}>
           <Link
-            href=""
+            href="#"
             className="line-height-1 h-w-100 d-flex"
             sx={{ p: 1 }}
             onClick={() => {

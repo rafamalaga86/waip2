@@ -291,6 +291,18 @@ export const bestGamesByYear = {
     'https://images.igdb.com/igdb/image/upload/t_cover_big/co6jar.webp', // Alan Wake
     'https://images.igdb.com/igdb/image/upload/t_cover_big/co6nnl.webp', // Super Mario Wonder
   ],
-  2024: ['https://images.igdb.com/igdb/image/upload/t_cover_big/co73ju.webp'], // FF7 Rebirth
-  2025: [],
+  2024: [
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co73ju.webp', // FF7 Rebirth
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co8hl0.webp', // Astro Bot
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co9f4g.webp', // Balatro
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co8d9t.webp', // Metaphor
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co501b.webp', // Slay the Princess
+  ],
+  2025: [
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co8qmv.webp', // Kingdom Come Deliverance 2
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co9mzd.webp', // Blue Prince
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co9ipx.webp', // Death Stranding 2
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co9gam.webp', // Expedition 33
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/co95gf.webp', // Split Fiction
+  ],
 };
