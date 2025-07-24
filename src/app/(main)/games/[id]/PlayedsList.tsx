@@ -73,12 +73,19 @@ export function PlayedsList({
       return false;
     }
     if (playedId) {
-      updatePlayedItem(res.response.data, playedId);
-      closeModal();
+      updateOldPlayedItem(res.response.data);
       return true;
     }
     makeNewPlayedItem(res.response.data);
     return true;
+  }
+
+  function updateOldPlayedItem(newPlayedData: Played) {
+    newPlayedData.stopped_playing_at = newPlayedData.stopped_playing_at
+      ? new Date(newPlayedData.stopped_playing_at)
+      : null;
+    updatePlayedItem(newPlayedData, playedId);
+    closeModal();
   }
 
   function makeNewPlayedItem(newPlayedData: Played) {
@@ -153,6 +160,9 @@ export function PlayedsList({
                 <IconButton
                   size="large"
                   onClick={() => {
+                    console.log('Escupe: ', played.stopped_playing_at);
+                    const isodate = toISO(played.stopped_playing_at);
+                    console.log('Escupe: ', isodate);
                     setPlayedDate(toISO(played.stopped_playing_at));
                     setPlayedBeaten(played.beaten);
                     setPlayedId(played.id);

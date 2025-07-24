@@ -1,4 +1,5 @@
 'use client';
+import { LoadingButton } from '@mui/lab';
 import { Box, Button, Divider, TextField, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
@@ -33,6 +34,7 @@ export function EditPlayedModal({
   const { setOpenErrorToast, setMessageErrorToast } = useContext(Context);
   const [dateError, setDateError] = useState<null | string>(null);
   const [statusError, setStatusError] = useState<null | string>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   function handlePlayingState(
     _: React.MouseEvent<HTMLElement>,
@@ -60,7 +62,10 @@ export function EditPlayedModal({
         return;
       }
     }
+    setLoading(true);
     const wasUpserted = await insertPlayed();
+    setLoading(false);
+
     if (!wasUpserted) {
       setMessageErrorToast("There was some problem and the played couldn't be updated or created");
       setOpenErrorToast(true);
@@ -136,9 +141,14 @@ export function EditPlayedModal({
             Delete
           </Button>
         )}
-        <Button sx={{ ml: 'auto' }} variant="contained" onClick={savePlayed}>
+        <LoadingButton
+          sx={{ ml: 'auto' }}
+          variant="contained"
+          onClick={savePlayed}
+          loading={loading}
+        >
           Save
-        </Button>
+        </LoadingButton>
       </Box>
     </ModalSkeleton>
   );
