@@ -58,6 +58,7 @@ export function SearchGameInIGDB({
             const [fontSize, extraClasses] = titleAdjustment(game.name, 1.2);
             const titleStyles = { p: 1, mt: 1, mb: 'auto', textAlign: 'center', fontSize };
             const isMainGame = game.category.id === 0;
+            const igdbCoverId = game.cover?.image_id ?? 'undefined';
 
             return (
               <GameCardLite
@@ -96,7 +97,7 @@ export function SearchGameInIGDB({
                 <Actions
                   name={game.name}
                   igdbId={game.id}
-                  igdbCoverId={parseInt(game.cover?.image_id)}
+                  igdbCoverId={igdbCoverId}
                   beaten={false}
                   date={null}
                 />

@@ -105,6 +105,10 @@ h6 {
   /* font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; */
   letter-spacing: 0;
   font-weight: normal;
+  caret-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 h1 strong,
@@ -356,6 +360,13 @@ footer {
 }
 
 /* REUSABLE ---------------------------------------------*/
+
+.no-caret {
+  caret-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
 
 .mb-1 {
   margin-bottom: 8px;

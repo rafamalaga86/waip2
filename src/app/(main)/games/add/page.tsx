@@ -13,6 +13,7 @@ export default async function search() {
     'use server';
     return await addIGDBGameServer({ name, igdbId, igdbCoverId, beaten, date });
   }
+
   return (
     <>
       <PageTitle>Add a game</PageTitle>

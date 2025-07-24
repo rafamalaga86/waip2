@@ -7,6 +7,8 @@ import { ObjectOfYearsFinished, PlayedModel } from 'src/models/PlayedModel';
 import { UserModel } from 'src/models/UserModel';
 import { BeatenChart } from './BeatenChart';
 
+const defaultImage = '/images/waip.png';
+
 export default async function allYearsGamePage() {
   const user = (await getAuthUserVisible()) || (await UserModel.getDemoUser());
   let allBeaten: ObjectOfYearsFinished, allAbandoned: ObjectOfYearsFinished;
@@ -78,8 +80,8 @@ export default async function allYearsGamePage() {
                 <CardMedia
                   component="img"
                   sx={{ width: 151, marginLeft: 'auto' }}
-                  image={imageUrl}
-                  alt="Live from space album cover"
+                  image={imageUrl ?? defaultImage}
+                  alt={'Cover of one of best games of year ' + year}
                 />
               </Card>
             );
