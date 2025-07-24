@@ -2,6 +2,7 @@
 import { Box, Divider, Link, List, ListItem, ListItemButton, Typography } from '@mui/material';
 import { FaUserPlus } from 'react-icons/fa6';
 import { IoGameController } from 'react-icons/io5';
+import { MdOutlineSubdirectoryArrowRight } from 'react-icons/md';
 import { TbLogin, TbLogout } from 'react-icons/tb';
 import { AbandonedIcon } from '../../components/icons/AbandonedIcon';
 import { BeatenIcon } from '../../components/icons/BeatenIcon';
@@ -13,6 +14,8 @@ export function SideNav({
   logOutServer: Function;
   authUser: UserVisible | null;
 }) {
+  const currentYear = new Date().getFullYear();
+
   async function logOut() {
     await logOutServer();
   }
@@ -47,6 +50,16 @@ export function SideNav({
                 <BeatenIcon />
               </Box>
               <Box>Beaten Games</Box>
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link className="color-white" href={`/playeds?year=${currentYear}&beaten=1`}>
+          <ListItem disablePadding className="side-menu">
+            <ListItemButton sx={{ pt: 1.7, pb: 1.7, pl: 5 }}>
+              <Box sx={{ mr: 1 }}>
+                <MdOutlineSubdirectoryArrowRight />
+              </Box>
+              <Box>{currentYear}</Box>
             </ListItemButton>
           </ListItem>
         </Link>
