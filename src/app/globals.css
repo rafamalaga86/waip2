@@ -343,6 +343,14 @@ a:active {
   color: white;
 }
 
+.game-card-chip-container {
+  margin-bottom: 8px;
+}
+
+.game-card-chip-container:last-child {
+  margin-bottom: 0;
+}
+
 .MuiTypography-root.error-feedback,
 .error-feedback {
   font-size: 13px;

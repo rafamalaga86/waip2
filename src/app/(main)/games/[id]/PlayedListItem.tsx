@@ -7,9 +7,9 @@ import {
   PlayedChipBeaten,
   PlayedChipPlaying,
 } from 'src/components/PlayedChip';
-import { AbandonedIcon } from 'src/components/icons/AbandonedIcon';
-import { BeatenIcon } from 'src/components/icons/BeatenIcon';
-import { PlayingIcon } from 'src/components/icons/PlayingIcon';
+import { AvatarAbandonedIcon } from 'src/components/icons/AvatarAbandonedIcon';
+import { AvatarBeatenIcon } from 'src/components/icons/AvatarBeatenIcon';
+import { AvatarPlayingIcon } from 'src/components/icons/AvatarPlayingIcon';
 import { PlayedStatus } from 'src/enums/business/playedEnums';
 import { formatDate, toISO } from 'src/lib/helpers';
 
@@ -39,19 +39,19 @@ export function PlayedListItem({
   const playing = !played.stopped_playing_at;
 
   function getIcon() {
-    if (beaten) return <BeatenIcon />;
-    if (abandoned) return <AbandonedIcon />;
-    if (playing) return <PlayingIcon />;
+    if (beaten) return <AvatarBeatenIcon />;
+    if (abandoned) return <AvatarAbandonedIcon />;
+    if (playing) return <AvatarPlayingIcon />;
   }
 
   function getChip() {
     let chip;
     if (playing) {
-      chip = <PlayedChipPlaying username={username} />;
+      chip = <PlayedChipPlaying label={`${username} is playing now`} />;
     } else if (beaten) {
-      chip = <PlayedChipBeaten username={username} />;
+      chip = <PlayedChipBeaten label={`${username} finished this game already`} />;
     } else if (abandoned) {
-      chip = <PlayedChipAbandoned username={username} />;
+      chip = <PlayedChipAbandoned label={`${username} abandoned this game already`} />;
     }
     return (
       <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', ml: 5 }}>{chip}</Box>

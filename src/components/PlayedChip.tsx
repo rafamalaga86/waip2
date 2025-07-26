@@ -1,13 +1,13 @@
 import { Chip } from '@mui/material';
 
-export function PlayedChipBeaten({ username }: { username: string }) {
-  return <Chip label={`${username} finished this game already`} className="success" />;
+export function PlayedChipBeaten({ label }: { label: string }) {
+  return <Chip label={label} className="success" />;
 }
 
-export function PlayedChipPlaying({ username }: { username: string }) {
-  return <Chip label={`${username} is playing now`} className="warning" />;
+export function PlayedChipPlaying({ label }: { label: string }) {
+  return <Chip label={label} className="warning" />;
 }
 
-export function PlayedChipAbandoned({ username }: { username: string }) {
-  return <Chip label={`${username} abandoned this game already`} className="danger" />;
+export function PlayedChipAbandoned({ label }: { label: string }) {
+  return <Chip label={label} className="danger" />;
 }

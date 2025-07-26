@@ -4,7 +4,7 @@ import { GameModel } from 'src/models/GameModel';
 import { UserModel } from 'src/models/UserModel';
 import { PlayingNowMasonry } from './PlayingNowMasonry';
 
-export default async function homePage() {
+export default async function HomePage() {
   const authUser = await getAuthUserVisible();
   const user = authUser || (await UserModel.getDemoUser());
   const initialGames = await GameModel.findGamesWithStoppedPlayingNull(user.id, 40);

@@ -41,6 +41,24 @@ class GameModel {
     return await prisma.games.findUniqueOrThrow({ where: { id: id } });
   }
 
+  static async search(query: string, userId: number) {
+    return await prisma.games.findMany({
+      where: {
+        user_id: userId,
+        name: {
+          contains: query,
+          mode: 'insensitive', // para que no sea case-sensitive
+        },
+      },
+      include: {
+        playeds: true, // Incluye todos los playeds relacionados
+      },
+      orderBy: {
+        name: 'asc',
+      },
+    });
+  }
+
   static async importGame(gameToImport: games_to_import, igdbGame: IgdbSearchedGame) {
     const user_id = (await this.#getAuthUser()).id;
     const toImport = await prisma.games_to_import.findMany({
