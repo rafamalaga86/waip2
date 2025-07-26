@@ -77,7 +77,10 @@ body {
   --primary-color: var(--aqua-green);
   --primary-color-darker: var(--aqua-green-darker);
   --secondary-color: var(--red);
-  --danger-color: #f44336;
+  /* --danger-color: #f44336; */
+  --danger-color: var(--red);
+  --success-color: var(--aqua-green);
+  --warning-color: var(--yellow);
   /*
   These are defined in the layout of main of nextjs
   --primary-font
@@ -209,7 +212,9 @@ a:active {
 /* PLAYED COMPONENT -------------------------------------*/
 .PlayedComponent,
 .PlayedComponent.MuiCard-root {
-  /* background-color: var(--gray-2); */
+  background-color: var(--white);
+  color: var(--gray-0);
+  height: 59px;
   /* font-family: var(--font-title); */
   /* flexDirection: 'row', mb: 2, justifyContent: 'flex-start' }} */
   display: flex;
@@ -262,6 +267,14 @@ a:active {
 }
 .MuiButtonBase-root.MuiIconButton-root.hid-aura {
   background-color: inherit;
+}
+.PlayedComponent .MuiButtonBase-root.MuiIconButton-root {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.PlayedComponent .MuiButtonBase-root.MuiIconButton-root:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  /* color: var(--white); */
 }
 
 .MuiTypography-root.brand {
@@ -509,6 +522,18 @@ footer {
 .chip:last-child {
   margin-right: 0;
 }
+.MuiChip-root.success {
+  background-color: var(--success-color);
+  color: white;
+}
+.MuiChip-root.danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+.MuiChip-root.warning {
+  background-color: var(--warning-color);
+  color: black;
+}
 .mini-chip {
   padding: 3px 5px;
   border-radius: 10px;
@@ -523,6 +548,18 @@ footer {
 }
 .color-primary {
   color: var(--primary-color);
+}
+.MuiAvatar-circular.success-background {
+  background-color: var(--success-color);
+}
+.MuiAvatar-circular.warning-background {
+  background-color: var(--warning-color);
+}
+.MuiAvatar-circular.danger-background {
+  background-color: var(--danger-color);
+}
+.MuiAvatar-circular.color-white {
+  color: white;
 }
 .no-padding {
   padding: 0 !important;

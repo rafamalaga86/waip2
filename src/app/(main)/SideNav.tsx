@@ -106,7 +106,7 @@ export function SideNav({
         )}
         {/* Finished Log In */}
         {/* Register */}
-        {!authUser && (
+        {/* {!authUser && (
           <Link className="color-white" href="/register">
             <ListItem disablePadding className="side-menu">
               <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
@@ -117,7 +117,7 @@ export function SideNav({
               </ListItemButton>
             </ListItem>
           </Link>
-        )}
+        )} */}
         {/* Finished Register */}
       </List>
       {/* <Divider /> */}

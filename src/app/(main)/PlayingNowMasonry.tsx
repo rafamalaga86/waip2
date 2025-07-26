@@ -7,7 +7,13 @@ import { GameCardActions } from 'src/components/GameCardActions';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { titleAdjustment } from 'src/lib/helpers';
 
-export function PlayingNowMasonry({ initialItems }: { initialItems: any[] }) {
+export function PlayingNowMasonry({
+  initialItems,
+  authUser,
+}: {
+  initialItems: any[];
+  authUser: UserVisible | null;
+}) {
   const [items, setGames] = useState(initialItems);
 
   function removeGame(gameId: number) {
@@ -42,7 +48,7 @@ export function PlayingNowMasonry({ initialItems }: { initialItems: any[] }) {
             <CardActions
               sx={{ display: 'flex', justifyContent: 'center', marginTop: 1, paddingBottom: 0 }}
             >
-              <GameCardActions game={item} removeGame={removeGame} />
+              <GameCardActions game={item} removeGame={removeGame} authUser={authUser} />
             </CardActions>
           </GameCard>
         );

@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { LuMenuSquare } from 'react-icons/lu';
+import { getAuthUserVisible } from 'src/lib/auth';
 import { lightTheme } from '../theme';
 import { SideNav } from './SideNav';
 
@@ -65,9 +66,16 @@ export function TopBarNav({
               </Box>
 
               <Box sx={{ ml: 'auto', mr: 3 }}>
-                <Link href="/games/add">
-                  <Button variant="contained">Add Game</Button>
-                </Link>
+                {authUser && (
+                  <Link href="/games/add">
+                    <Button variant="contained">Add Game</Button>
+                  </Link>
+                )}
+                {!authUser && (
+                  <Link href="/log-in">
+                    <Button variant="contained">Log In</Button>
+                  </Link>
+                )}
               </Box>
 
               <form onSubmit={submitSearch}>

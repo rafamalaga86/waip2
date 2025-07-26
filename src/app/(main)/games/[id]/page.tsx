@@ -41,7 +41,8 @@ export default async function gameDetailsPage({
     igdbId = Number(preFetchedGame.igdb_id);
   }
 
-  const user = (await getAuthUserVisible()) || (await UserModel.getDemoUser());
+  const auth_user = await getAuthUserVisible();
+  const user = auth_user || (await UserModel.getDemoUser());
 
   // console.time('primero');
   // await GameModel.findById(id);
@@ -213,7 +214,12 @@ export default async function gameDetailsPage({
               <Typography sx={{ mb: 1 }} component="h5" variant="h5">
                 Playeds History
               </Typography>
-              <PlayedsList initialPlayeds={playeds} username={user.username} gameId={id} />
+              <PlayedsList
+                has_auth={!!auth_user}
+                initialPlayeds={playeds}
+                username={user.username}
+                gameId={id}
+              />
             </Box>
           </Grid>
           <Grid item xs={12} md={5} sx={{ mt: { xs: 7, md: 0 } }}>

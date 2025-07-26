@@ -7,7 +7,15 @@ import { abandonPlayed, beatPlayed } from 'src/lib/actions';
 import { AbandonedIcon } from './icons/AbandonedIcon';
 import { BeatenIcon } from './icons/BeatenIcon';
 
-export function GameCardActions({ game, removeGame }: { game: games; removeGame: Function }) {
+export function GameCardActions({
+  game,
+  removeGame,
+  authUser,
+}: {
+  game: games;
+  removeGame: Function;
+  authUser: UserVisible | null;
+}) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const detailsLink = `/games/${game.id}?idgbId=${game.igdb_id}`;
@@ -40,17 +48,19 @@ export function GameCardActions({ game, removeGame }: { game: games; removeGame:
         >
           Details
         </Button>
-        <Button
-          aria-controls={open ? 'demo-customized-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          variant="contained"
-          disableElevation
-          onClick={handleClick}
-          sx={{ px: 1 }}
-        >
-          <MdKeyboardArrowDown style={{ fontSize: 25 }} />
-        </Button>
+        {authUser && (
+          <Button
+            aria-controls={open ? 'demo-customized-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            variant="contained"
+            disableElevation
+            onClick={handleClick}
+            sx={{ px: 1 }}
+          >
+            <MdKeyboardArrowDown style={{ fontSize: 25 }} />
+          </Button>
+        )}
       </ButtonGroup>
       <Menu
         id="card-actions"

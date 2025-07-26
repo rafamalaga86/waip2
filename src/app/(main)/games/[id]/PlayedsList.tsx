@@ -1,18 +1,14 @@
 'use client';
-import { Avatar, Box, Button, Card, Collapse, IconButton, Typography } from '@mui/material';
+import { Button, Collapse } from '@mui/material';
 import type { playeds } from '@prisma/client';
 import { useContext, useState } from 'react';
-import { IoGameController } from 'react-icons/io5';
-import { MdEdit } from 'react-icons/md';
 import { Context } from 'src/components/contexts/Context';
-import { AbandonedIcon } from 'src/components/icons/AbandonedIcon';
-import { BeatenIcon } from 'src/components/icons/BeatenIcon';
 import { PlayedStatus } from 'src/enums/business/playedEnums';
 import { useItems } from 'src/hooks/useItems';
 import { useModal } from 'src/hooks/useModal';
 import { deletePlayedRequest, upsertPlayedRequest } from 'src/lib/apiRequests';
-import { formatDate, toISO } from 'src/lib/helpers';
 import { EditPlayedModal } from './EditPlayedModal';
+import { PlayedListItem } from './PlayedListItem';
 
 interface Played extends playeds {
   collapsed: boolean;
@@ -21,10 +17,12 @@ interface Played extends playeds {
 export function PlayedsList({
   initialPlayeds,
   username,
+  has_auth,
   gameId,
 }: {
   initialPlayeds: playeds[];
   username: string;
+  has_auth: boolean;
   gameId: number;
 }) {
   initialPlayeds = initialPlayeds.map(item => {
@@ -124,62 +122,16 @@ export function PlayedsList({
       {playedsSorted.map(played => {
         return (
           <Collapse key={played.id} in={!played.collapsed} timeout={500}>
-            <Card className="PlayedComponent" key={played.id}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
-                <Avatar>
-                  {played.beaten && played.stopped_playing_at && <BeatenIcon />}
-                  {!played.beaten && played.stopped_playing_at && <AbandonedIcon />}
-                  {!played.stopped_playing_at && <IoGameController />}
-                </Avatar>
-              </Box>
-              {played.stopped_playing_at && (
-                <Box>
-                  <Typography component="div" variant="h5">
-                    {played.beaten ? 'Beaten!' : 'Abandoned'}
-                  </Typography>
-                  <Typography variant="subtitle1" color="text.secondary" component="div">
-                    <Box className="font-size-15">at {formatDate(played.stopped_playing_at)}</Box>
-                  </Typography>
-                </Box>
-              )}
-              {!played.stopped_playing_at && (
-                <Box className="d-flex">
-                  <Typography component="div" variant="h5">
-                    Playing it Now
-                  </Typography>
-                </Box>
-              )}
-              <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', ml: 5 }}>
-                {played.stopped_playing_at && (
-                  <>
-                    {username} {played.beaten ? 'did beat' : 'abandoned'} this game already
-                  </>
-                )}
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto' }}>
-                <IconButton
-                  size="large"
-                  onClick={() => {
-                    console.log('Escupe: ', played.stopped_playing_at);
-                    const isodate = toISO(played.stopped_playing_at);
-                    console.log('Escupe: ', isodate);
-                    setPlayedDate(toISO(played.stopped_playing_at));
-                    setPlayedBeaten(played.beaten);
-                    setPlayedId(played.id);
-                    setPlayingState(
-                      !played.stopped_playing_at
-                        ? PlayedStatus.playing
-                        : played.beaten
-                        ? PlayedStatus.beaten
-                        : PlayedStatus.abandoned
-                    );
-                    openModal();
-                  }}
-                >
-                  <MdEdit size={25} />
-                </IconButton>
-              </Box>
-            </Card>
+            <PlayedListItem
+              has_auth={has_auth}
+              played={played}
+              username={username}
+              setPlayedDate={setPlayedDate}
+              setPlayedBeaten={setPlayedBeaten}
+              setPlayedId={setPlayedId}
+              setPlayingState={setPlayingState}
+              openModal={openModal}
+            />
           </Collapse>
         );
       })}
