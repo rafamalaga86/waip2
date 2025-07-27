@@ -11,8 +11,6 @@ export function GameCard({
   imgElement: ReactNode;
   children: ReactNode;
 }) {
-  const fontSize = titleAdjustment(game.name);
-
   return (
     <Card className="game-card" key={game.id} component="div">
       {imgElement}

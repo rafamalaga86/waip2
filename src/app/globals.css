@@ -317,8 +317,13 @@ a:active {
   text-transform: uppercase;
 }
 
+.game-card {
+  container-type: inline-size;
+}
+
 .game-card .title-font {
   color: white;
+  font-size: clamp(14px, 6cqw, 40px);
 }
 
 .game-card img {
@@ -527,6 +532,22 @@ footer {
   margin: 5px 3px 0 0;
   background-color: var(--secondary-color);
 }
+.MuiChip-root.rounded {
+  border-radius: 5px;
+}
+.MuiChip-root.hasIcon {
+  padding-left: 8px;
+}
+.MuiChip-root.success .MuiChip-icon {
+  color: white;
+}
+.MuiChip-root.danger .MuiChip-icon {
+  color: white;
+}
+.MuiChip-root.warning .MuiChip-icon {
+  color: black;
+}
+
 .chip:last-child {
   margin-right: 0;
 }

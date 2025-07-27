@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import type { games } from '@prisma/client';
+import type { games, playeds } from '@prisma/client';
 import Link from 'next/link';
 import { CardsMasonry } from 'src/components/CardsMasonry';
 import { GameCard } from 'src/components/GameCard';
@@ -11,10 +11,14 @@ import {
 } from 'src/components/PlayedChip';
 import { titleAdjustment } from 'src/lib/helpers';
 
-export function GamesMasonry({ games }: { games: games[] }) {
+export interface GameWithPlayeds extends games {
+  playeds: playeds[];
+}
+
+export function GamesMasonry({ games }: { games: GameWithPlayeds[] }) {
   return (
     <CardsMasonry>
-      {games.map((game, index: number) => {
+      {games.map(game => {
         const [fontSize, extraClasses] = titleAdjustment(game.name, 1.2);
         return (
           <GameCard
@@ -32,23 +36,18 @@ export function GamesMasonry({ games }: { games: games[] }) {
                 {game.name}
               </Link>
             </Box>
-            <Typography component="p" className="text-align-center" sx={{ mt: 2 }}>
+            <Typography component="div" className="text-align-center" sx={{ mt: 2 }}>
               {game.playeds.map(played => {
+                const year = played.stopped_playing_at
+                  ? played.stopped_playing_at.getFullYear()
+                  : null;
                 let chip;
                 if (!played.stopped_playing_at) {
-                  chip = <PlayedChipPlaying label="Playing it now!" />;
+                  chip = <PlayedChipPlaying hasIcon={true} label="Playing it now!" />;
                 } else if (played.beaten) {
-                  chip = (
-                    <PlayedChipBeaten
-                      label={`Beaten on ${played.stopped_playing_at.getFullYear()}`}
-                    />
-                  );
+                  chip = <PlayedChipBeaten hasIcon={true} label={`Beaten on ${year}`} />;
                 } else if (played.beaten) {
-                  chip = (
-                    <PlayedChipAbandoned
-                      label={`Abandoned on ${played.stopped_playing_at.getFullYear()}`}
-                    />
-                  );
+                  chip = <PlayedChipAbandoned hasIcon={true} label={`Abandoned on ${year}`} />;
                 }
 
                 return (
@@ -58,9 +57,6 @@ export function GamesMasonry({ games }: { games: games[] }) {
                 );
               })}
             </Typography>
-            {/* <CardActions
-              sx={{ display: 'flex', justifyContent: 'center', marginTop: 1, paddingBottom: 0 }}
-            ></CardActions> */}
           </GameCard>
         );
       })}
