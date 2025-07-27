@@ -46,7 +46,7 @@ export function GamesMasonry({ games }: { games: GameWithPlayeds[] }) {
                   chip = <PlayedChipPlaying hasIcon={true} label="Playing it now!" />;
                 } else if (played.beaten) {
                   chip = <PlayedChipBeaten hasIcon={true} label={`Beaten on ${year}`} />;
-                } else if (played.beaten) {
+                } else if (!played.beaten) {
                   chip = <PlayedChipAbandoned hasIcon={true} label={`Abandoned on ${year}`} />;
                 }
 

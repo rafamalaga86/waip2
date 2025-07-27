@@ -5,8 +5,8 @@ import { PlayingIcon } from './icons/PlayingIcon';
 
 interface Props {
   label: string;
-  className: string;
-  hasIcon: boolean;
+  className?: string;
+  hasIcon?: boolean;
 }
 
 export function PlayedChipBeaten({ label, className, hasIcon }: Props) {
@@ -14,7 +14,7 @@ export function PlayedChipBeaten({ label, className, hasIcon }: Props) {
     <Chip
       label={label}
       className={`${className} ${hasIcon ? 'hasIcon' : ''} success`}
-      icon={<BeatenIcon />}
+      icon={hasIcon ? <BeatenIcon /> : undefined}
     />
   );
 }
@@ -24,7 +24,7 @@ export function PlayedChipPlaying({ label, className, hasIcon }: Props) {
     <Chip
       label={label}
       className={`${className} ${hasIcon ? 'hasIcon' : ''}  warning`}
-      icon={<PlayingIcon />}
+      icon={hasIcon ? <PlayingIcon /> : undefined}
     />
   );
 }
@@ -34,7 +34,7 @@ export function PlayedChipAbandoned({ label, className, hasIcon }: Props) {
     <Chip
       label={label}
       className={`${className} ${hasIcon ? 'hasIcon' : ''} danger`}
-      icon={<AbandonedIcon />}
+      icon={hasIcon ? <AbandonedIcon /> : undefined}
     />
   );
 }

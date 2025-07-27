@@ -23,9 +23,11 @@ import { SideNav } from './SideNav';
 export function TopBarNav({
   logOutServer,
   authUser,
+  user,
 }: {
   logOutServer: Function;
   authUser: UserVisible | null;
+  user: UserVisible;
 }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -36,7 +38,7 @@ export function TopBarNav({
 
   function submitSearch(event: any) {
     event.preventDefault();
-    router.push('/games/add?keyword=' + event.target.searchKeyword.value);
+    router.push('/games/search?q=' + event.target.searchKeyword.value);
   }
 
   return (
@@ -80,11 +82,8 @@ export function TopBarNav({
               <form onSubmit={submitSearch}>
                 <OutlinedInput
                   sx={{ width: '300px' }}
-                  // onSubmit={() => router.push('/search/?s=')}
-                  // onSubmit={submitSearch}
-
                   autoComplete="off"
-                  placeholder="Search in the Database"
+                  placeholder={`Search in ${user.username}'s database`}
                   id="searchKeyword"
                   name="searchKeyword"
                   endAdornment={

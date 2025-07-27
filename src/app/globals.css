@@ -323,7 +323,7 @@ a:active {
 
 .game-card .title-font {
   color: white;
-  font-size: clamp(14px, 6cqw, 40px);
+  font-size: clamp(20px, 6cqw, 40px);
 }
 
 .game-card img {

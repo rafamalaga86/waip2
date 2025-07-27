@@ -135,18 +135,20 @@ export function PlayedsList({
           </Collapse>
         );
       })}
-      <Button
-        variant="contained"
-        onClick={() => {
-          setPlayedDate(null);
-          setPlayedBeaten(false);
-          setPlayingState(PlayedStatus.playing);
-          setPlayedId(undefined);
-          openModal();
-        }}
-      >
-        Add Played
-      </Button>
+      {has_auth && (
+        <Button
+          variant="contained"
+          onClick={() => {
+            setPlayedDate(null);
+            setPlayedBeaten(false);
+            setPlayingState(PlayedStatus.playing);
+            setPlayedId(undefined);
+            openModal();
+          }}
+        >
+          Add Played
+        </Button>
+      )}
     </>
   );
 }
