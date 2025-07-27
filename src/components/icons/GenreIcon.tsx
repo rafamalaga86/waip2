@@ -1,4 +1,3 @@
-import { Card } from '@mui/material';
 import { BsFillAirplaneFill } from 'react-icons/bs';
 import { FaFistRaised, FaMousePointer } from 'react-icons/fa';
 import { FaBook, FaChess, FaDiceD20, FaGun, FaLightbulb, FaMap, FaMusic } from 'react-icons/fa6';

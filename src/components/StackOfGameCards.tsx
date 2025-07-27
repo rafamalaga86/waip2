@@ -1,6 +1,5 @@
 'use client';
-import Masonry from '@mui/lab/Masonry';
-import { Card, CardContent, CardMedia, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { ReactNode, useEffect, useState } from 'react';
 import { GameCardLite } from 'src/components/GameCardLite';
 import { IGDBImage } from 'src/components/IGDBImage';

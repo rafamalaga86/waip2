@@ -1,4 +1,3 @@
-'use client';
 import Masonry from '@mui/lab/Masonry';
 import { ReactNode } from 'react';
 

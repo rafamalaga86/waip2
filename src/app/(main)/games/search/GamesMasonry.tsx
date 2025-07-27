@@ -1,5 +1,4 @@
-'use client';
-import { Box, CardActions, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import type { games } from '@prisma/client';
 import Link from 'next/link';
 import { CardsMasonry } from 'src/components/CardsMasonry';
@@ -21,7 +20,6 @@ export function GamesMasonry({ games }: { games: games[] }) {
           <GameCard
             key={game.id}
             game={game}
-            index={index}
             imgElement={
               <IGDBImage stringId={game.igdb_cover_id} description={game.name + ' cover'} />
             }

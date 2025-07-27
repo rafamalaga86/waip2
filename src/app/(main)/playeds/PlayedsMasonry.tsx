@@ -1,5 +1,5 @@
 'use client';
-import { Box, CardActions, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import type { games, playeds } from '@prisma/client';
 import Link from 'next/link';
 import { CardsMasonry } from 'src/components/CardsMasonry';

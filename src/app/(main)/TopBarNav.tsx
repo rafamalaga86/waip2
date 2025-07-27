@@ -17,7 +17,6 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { LuMenuSquare } from 'react-icons/lu';
-import { getAuthUserVisible } from 'src/lib/auth';
 import { lightTheme } from '../theme';
 import { SideNav } from './SideNav';
 

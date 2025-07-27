@@ -1,10 +1,8 @@
 'use_client';
 import { Box, Divider, Link, List, ListItem, ListItemButton, Typography } from '@mui/material';
-import { FaUserPlus } from 'react-icons/fa6';
 import { IoGameController } from 'react-icons/io5';
 import { MdOutlineSubdirectoryArrowRight } from 'react-icons/md';
 import { TbLogin, TbLogout } from 'react-icons/tb';
-import { AbandonedIcon } from '../../components/icons/AbandonedIcon';
 import { BeatenIcon } from '../../components/icons/BeatenIcon';
 
 export function SideNav({
