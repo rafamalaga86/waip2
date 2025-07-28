@@ -10,24 +10,31 @@ import {
 } from '@mui/material';
 import type { games } from '@prisma/client';
 import { notFound } from 'next/navigation';
+import { cache } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import { IGDBImage } from 'src/components/IGDBImage';
 import { GenreIcon } from 'src/components/icons/GenreIcon';
+import { IGDBImage } from 'src/components/IGDBImage';
+import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { getAuthUserVisible } from 'src/lib/auth';
-import { formatUnix } from 'src/lib/helpers';
+import { formatUnix, shapeIGDBCoverUrl } from 'src/lib/helpers';
 import { GameModel } from 'src/models/GameModel';
 import { PlayedModel } from 'src/models/PlayedModel';
 import { UserModel } from 'src/models/UserModel';
 import { gameService } from 'src/services/GameService';
 import { PlayedsList } from './PlayedsList';
 
-export default async function gameDetailsPage({
-  params,
-  searchParams,
-}: {
+interface Props {
   params: { id: string };
   searchParams: any;
-}) {
+}
+
+async function getUserCached() {
+  const authUser = await getAuthUserVisible();
+  const user = authUser || (await UserModel.getDemoUser());
+  return { user, authUser };
+}
+
+async function getPrefetchedGame(params: { id: string }, searchParams: any) {
   const id = Number(params.id);
   let igdbId = Number(searchParams.igdbId);
 
@@ -41,39 +48,68 @@ export default async function gameDetailsPage({
     igdbId = Number(preFetchedGame.igdb_id);
   }
 
-  const auth_user = await getAuthUserVisible();
-  const user = auth_user || (await UserModel.getDemoUser());
+  return { id, preFetchedGame, igdbId };
+}
 
-  // console.time('primero');
-  // await GameModel.findById(id);
-  // console.timeEnd('primero');
-
-  // console.time('segundo');
-  // await gameService.getGame(igdbId);
-  // console.timeEnd('segundo');
-
-  // console.time('tercero');
-  // await PlayedModel.findByGameId(id);
-  // console.timeEnd('tercero');
-
-  async function fetchAllData(preFetchedGame: games | undefined, igdbId: number) {
-    try {
-      const [game, playeds, igdbGame] = await Promise.all([
-        (async () => {
-          return preFetchedGame ?? GameModel.findById(id);
-        })(),
-        PlayedModel.findByGameId(id),
-        gameService.getGame(igdbId),
-      ]);
-      return { game, playeds, igdbGame };
-    } catch (error) {
-      throw error;
-    }
+async function fetchAllData(id: number, preFetchedGame: games | undefined, igdbId: number) {
+  try {
+    const [game, playeds, igdbGame] = await Promise.all([
+      (async () => {
+        return preFetchedGame ?? GameModel.findById(id);
+      })(),
+      PlayedModel.findByGameId(id),
+      gameService.getGame(igdbId),
+    ]);
+    return { game, playeds, igdbGame };
+  } catch (error) {
+    throw error;
   }
+}
+
+async function getAllData(params: Props['params'], searchParams: Props['searchParams']) {
+  const { user, authUser } = await cache(getUserCached)();
+  const { id, preFetchedGame, igdbId } = await cache(getPrefetchedGame)(params, searchParams);
 
   console.time('main_page');
-  const { game, playeds, igdbGame } = await fetchAllData(preFetchedGame, igdbId);
+  const { game, playeds, igdbGame } = await cache(fetchAllData)(id, preFetchedGame, igdbId);
   console.timeEnd('main_page');
+
+  return { game, playeds, igdbGame, user, authUser };
+}
+
+export async function generateMetadata({ params, searchParams }: Props) {
+  const { game, user } = await cache(getAllData)(params, searchParams);
+
+  const title = `${user.username} is playing ${game.name}`;
+  const description = `Check what ${user.username} is playing`;
+  const coverUrl = shapeIGDBCoverUrl(CoverSize.big, 'co2hjk');
+
+  return {
+    title: title,
+    description: description,
+    openGraph: {
+      title: title,
+      description: description,
+      images: [
+        {
+          url: coverUrl,
+          // width: 1200,
+          // height: 630,
+          // alt: `Cover image of videogame ${game.name}`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+      images: [coverUrl],
+    },
+  };
+}
+
+export default async function gameDetailsPage({ params, searchParams }: Props) {
+  const { game, user, igdbGame, authUser, playeds } = await cache(getAllData)(params, searchParams);
 
   if (!igdbGame) {
     notFound();
@@ -215,10 +251,10 @@ export default async function gameDetailsPage({
                 Playeds History
               </Typography>
               <PlayedsList
-                has_auth={!!auth_user}
+                has_auth={!!authUser}
                 initialPlayeds={playeds}
                 username={user.username}
-                gameId={id}
+                gameId={game.id}
               />
             </Box>
           </Grid>
