@@ -83,6 +83,7 @@ export async function getAuthUser(): Promise<users | null> {
   if (!session) return null;
   return session.user;
 }
+
 export async function getAuthUserVisible(): Promise<UserVisible | null> {
   const user = await getAuthUser();
   if (!user) return null;

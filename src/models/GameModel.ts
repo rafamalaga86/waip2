@@ -4,7 +4,7 @@ import { prisma } from 'src/database/prismaClient';
 import { getAuthUser } from 'src/lib/auth';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 
-class GameModel {
+export class GameModel {
   static async #getAuthUser() {
     const authUser = await getAuthUser();
     if (!authUser) {
@@ -143,5 +143,3 @@ class GameModel {
     return await prisma.games.findMany(query);
   }
 }
-
-export { GameModel };

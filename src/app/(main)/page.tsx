@@ -15,8 +15,6 @@ export default async function HomePage() {
       <strong>{user.username}</strong> is playing
     </>
   );
-  // const initialGames = await prisma.games.findMany({ take: 20 });
-  // const initialGames = await GameModel.findMany(20);
   return (
     <>
       {!initialGames.length && (
