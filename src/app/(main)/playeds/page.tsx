@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import { PageTitle } from 'src/components/PageTitle';
 import { Views } from 'src/enums/nonBusiness/styleEnums';
 import { getAuthUserVisible } from 'src/lib/auth';
-import { PlayedModel } from 'src/models/PlayedModel';
-import { UserModel } from 'src/models/UserModel';
+import { PlayedModelCached } from 'src/models/cached/PlayedModelCached';
+import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { PlayedsMasonry } from './PlayedsMasonry';
 
 export default async function playedsPage({ searchParams }: { searchParams: any }) {
@@ -19,9 +19,9 @@ export default async function playedsPage({ searchParams }: { searchParams: any 
     view = Views.masonry;
   }
 
-  const user = (await getAuthUserVisible()) || (await UserModel.getDemoUser());
+  const user = (await getAuthUserVisible()) || (await UserModelCached.getDemoUser());
 
-  const playeds = await PlayedModel.findMany(user.id, year, beaten);
+  const playeds = await PlayedModelCached.findMany(user.id, year, beaten);
 
   let playedsComponent;
   if (view === Views.masonry) {
@@ -37,7 +37,11 @@ export default async function playedsPage({ searchParams }: { searchParams: any 
   if (playeds.length) {
     content = playedsComponent;
   } else {
-    content = <h4 className="text-align-center">You don't have any beaten games in {year}!</h4>;
+    content = (
+      <h4 className="text-align-center">
+        You don{"'"}t have any beaten games in {year}!
+      </h4>
+    );
   }
 
   return (

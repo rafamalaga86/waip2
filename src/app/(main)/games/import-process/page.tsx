@@ -1,7 +1,6 @@
 import type { games_to_import } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
 import { searchGameServer } from 'src/lib/actions';
-import { getAuthUser } from 'src/lib/auth';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 import { GameModel } from 'src/models/GameModel';
 import { ImportGames } from './ImportGames';

@@ -39,18 +39,6 @@ export function StackOfGameCards({ games, buttonBar }: { games: any; buttonBar?:
           {gamesElements}
         </Stack>
       }
-      {/* {!isLoading && (
-        <Masonry
-          columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 4 }}
-          spacing={2}
-          sx={{ marginTop: '70px' }}
-          defaultHeight={450}
-          defaultColumns={4}
-          defaultSpacing={2}
-        >
-          {gamesElements}
-        </Masonry>
-      )} */}
     </>
   );
 }

@@ -17,9 +17,9 @@ import { IGDBImage } from 'src/components/IGDBImage';
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { getAuthUserVisible } from 'src/lib/auth';
 import { formatUnix, shapeIGDBCoverUrl } from 'src/lib/helpers';
-import { GameModel } from 'src/models/GameModel';
-import { PlayedModel } from 'src/models/PlayedModel';
-import { UserModel } from 'src/models/UserModel';
+import { GameModelCached } from 'src/models/cached/GameModelCached';
+import { PlayedModelCached } from 'src/models/cached/PlayedModelCached';
+import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { gameService } from 'src/services/GameService';
 import { PlayedsList } from './PlayedsList';
 
@@ -30,7 +30,7 @@ interface Props {
 
 async function getUserCached() {
   const authUser = await getAuthUserVisible();
-  const user = authUser || (await UserModel.getDemoUser());
+  const user = authUser || (await UserModelCached.getDemoUser());
   return { user, authUser };
 }
 
@@ -44,7 +44,7 @@ async function getPrefetchedGame(params: { id: string }, searchParams: any) {
 
   let preFetchedGame;
   if (isNaN(igdbId)) {
-    preFetchedGame = await GameModel.findById(id);
+    preFetchedGame = await GameModelCached.findById(id);
     igdbId = Number(preFetchedGame.igdb_id);
   }
 
@@ -55,9 +55,9 @@ async function fetchAllData(id: number, preFetchedGame: games | undefined, igdbI
   try {
     const [game, playeds, igdbGame] = await Promise.all([
       (async () => {
-        return preFetchedGame ?? GameModel.findById(id);
+        return preFetchedGame ?? GameModelCached.findById(id);
       })(),
-      PlayedModel.findByGameId(id),
+      PlayedModelCached.findByGameId(id),
       gameService.getGame(igdbId),
     ]);
     return { game, playeds, igdbGame };

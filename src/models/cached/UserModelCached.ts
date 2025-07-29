@@ -2,7 +2,7 @@ import { cache } from 'react';
 import { UserModel } from 'src/models/UserModel';
 
 export class UserModelCached {
-  static async getDemoUserCached() {
+  static async getDemoUser() {
     return await cache(UserModel.getDemoUser)();
   }
 

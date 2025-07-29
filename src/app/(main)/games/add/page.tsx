@@ -6,7 +6,7 @@ export default async function search() {
   async function addIGDBGame(
     name: string,
     igdbId: number,
-    igdbCoverId: number,
+    igdbCoverId: string,
     beaten: boolean,
     date: Date
   ) {

@@ -20,7 +20,6 @@ export function PlayedsMasonry({ playeds }: { playeds: PlayedsWithGame[] }) {
           <GameCard
             key={played.id}
             game={played.game}
-            index={index}
             imgElement={
               <IGDBImage
                 stringId={played.game.igdb_cover_id}

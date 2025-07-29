@@ -1,4 +1,3 @@
-import { JsonObject } from '@prisma/client/runtime/library';
 import { getClient } from 'src/lib/mongoClient';
 
 class CacheService {

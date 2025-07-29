@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getAuthUserVisible, logout } from 'src/lib/auth';
-import { UserModel } from 'src/models/UserModel';
+import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { Footer } from './Footer';
 import { Main } from './Main';
 import { TopBarNav } from './TopBarNav';
@@ -22,7 +22,7 @@ export default async function MainLayout({
     redirect('/');
   }
   const authUser = await getAuthUserVisible();
-  const user = authUser || (await UserModel.getDemoUser());
+  const user = authUser || (await UserModelCached.getDemoUser());
 
   return (
     <>

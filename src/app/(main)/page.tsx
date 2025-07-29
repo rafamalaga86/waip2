@@ -1,13 +1,13 @@
 import { PageTitle } from 'src/components/PageTitle';
 import { getAuthUserVisible } from 'src/lib/auth';
-import { GameModel } from 'src/models/GameModel';
-import { UserModel } from 'src/models/UserModel';
+import { GameModelCached } from 'src/models/cached/GameModelCached';
+import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { PlayingNowMasonry } from './PlayingNowMasonry';
 
 export default async function HomePage() {
   const authUser = await getAuthUserVisible();
-  const user = authUser || (await UserModel.getDemoUser());
-  const initialGames = await GameModel.findGamesWithStoppedPlayingNull(user.id, 40);
+  const user = authUser || (await UserModelCached.getDemoUser());
+  const initialGames = await GameModelCached.findGamesWithStoppedPlayingNull(user.id, 40);
   const title = authUser ? (
     <>Currently Playing</>
   ) : (

@@ -3,19 +3,20 @@ import { FaCalendarCheck } from 'react-icons/fa6';
 import { bestGameByYearType, bestGamesByYear } from 'src/bestGamesByYear';
 import { PageTitle } from 'src/components/PageTitle';
 import { getAuthUserVisible } from 'src/lib/auth';
-import { ObjectOfYearsFinished, PlayedModel } from 'src/models/PlayedModel';
-import { UserModel } from 'src/models/UserModel';
+import { ObjectOfYearsFinished } from 'src/models/PlayedModel';
+import { PlayedModelCached } from 'src/models/cached/PlayedModelCached';
+import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { BeatenChart } from './BeatenChart';
 
 const defaultImage = '/images/waip.png';
 
 export default async function allYearsGamePage() {
-  const user = (await getAuthUserVisible()) || (await UserModel.getDemoUser());
+  const user = (await getAuthUserVisible()) || (await UserModelCached.getDemoUser());
   let allBeaten: ObjectOfYearsFinished, allAbandoned: ObjectOfYearsFinished;
   try {
     [allBeaten, allAbandoned] = await Promise.all([
-      PlayedModel.getAllPlayedsByYear(user.id, true),
-      PlayedModel.getAllPlayedsByYear(user.id, false),
+      PlayedModelCached.getAllPlayedsByYear(user.id, true),
+      PlayedModelCached.getAllPlayedsByYear(user.id, false),
     ]);
   } catch (error) {
     console.error('Error fetching data:', error);

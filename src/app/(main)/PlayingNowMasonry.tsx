@@ -32,7 +32,6 @@ export function PlayingNowMasonry({
           <GameCard
             key={item.id}
             game={item}
-            index={index}
             imgElement={
               <IGDBImage stringId={item.igdb_cover_id} description={item.name + ' cover'} />
             }
