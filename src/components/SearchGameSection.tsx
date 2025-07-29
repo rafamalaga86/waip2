@@ -22,13 +22,13 @@ export function SearchGameSection({
 
   // Switches initialization
   let toggleIncludeNoCoverGames, toggleIncludeDLCs, toggleIncludeEditions;
-  [initialSearchOptions.includeNoCoverGames, toggleIncludeNoCoverGames] = useSwitch(false);
   [initialSearchOptions.includeDLCs, toggleIncludeDLCs] = useSwitch(false);
+  [initialSearchOptions.includeNoCoverGames, toggleIncludeNoCoverGames] = useSwitch(false);
   [initialSearchOptions.includeEditions, toggleIncludeEditions] = useSwitch(false);
 
   return (
     <Grid component="section" className="section-search" container>
-      <Grid xs={12} md={4}>
+      <Grid xs={12} lg={4}>
         <Box
           className="section-search__form"
           component="form"
@@ -66,13 +66,27 @@ export function SearchGameSection({
       <Box
         sx={{
           display: 'flex',
-          width: { xs: '100%', md: 'auto' },
-          ml: { md: 'auto' },
+          width: { xs: '100%', lg: 'auto' },
+          ml: { lg: 'auto' },
           alignItems: 'center',
-          mt: { xs: 3, md: 0 },
+          mt: { xs: 3, lg: 0 },
           // justifyContent: 'flex-end',
         }}
       >
+        <FormControlLabel
+          control={
+            <Switch
+              checked={initialSearchOptions.includeDLCs}
+              sx={{ position: 'relative', left: '3px' }}
+              onChange={() => {
+                toggleIncludeDLCs();
+              }}
+              name="include-dlcs"
+            />
+          }
+          label="Ports and DLCs"
+        />
+        <Divider orientation="vertical" variant="middle" flexItem />
         <FormControlLabel
           control={
             <Switch
@@ -85,20 +99,6 @@ export function SearchGameSection({
             />
           }
           label="Editions"
-        />
-        <Divider orientation="vertical" variant="middle" flexItem />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={initialSearchOptions.includeDLCs}
-              sx={{ position: 'relative', left: '3px' }}
-              onChange={() => {
-                toggleIncludeDLCs();
-              }}
-              name="include-dlcs"
-            />
-          }
-          label="DLCs"
         />
         <Divider orientation="vertical" variant="middle" flexItem />
         <FormControlLabel
