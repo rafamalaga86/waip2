@@ -47,7 +47,7 @@ export async function preloadImages(imageSrcs: string[]) {
 
 export function shapeIGDBCoverUrl(size: CoverSize, stringId?: string | null) {
   if (!stringId) {
-    return '/images/waip.png';
+    return '/images/waip_smaller.jpg';
   }
   return `https://images.igdb.com/igdb/image/upload/t_${size}/${stringId}.webp`;
 }

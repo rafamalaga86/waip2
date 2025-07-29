@@ -79,7 +79,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
   const { game, user } = await cache(getAllData)(params, searchParams);
 
   const title = `${user.username} is playing ${game.name}`;
-  const description = `Check what ${user.username} is playing`;
+  const description = `${user.username} está jugando a ${game.name}`;
   const coverUrl = shapeIGDBCoverUrl(CoverSize.big, game.igdb_cover_id);
 
   return {

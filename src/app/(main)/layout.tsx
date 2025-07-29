@@ -1,15 +1,9 @@
-import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { getAuthUserVisible, logout } from 'src/lib/auth';
 import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { Footer } from './Footer';
 import { Main } from './Main';
 import { TopBarNav } from './TopBarNav';
-
-export const metadata: Metadata = {
-  title: 'Waip2',
-  description: 'What I am playing?',
-};
 
 export default async function MainLayout({
   children,

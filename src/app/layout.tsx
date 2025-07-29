@@ -3,14 +3,47 @@ import { ThemeProvider } from '@mui/material/styles';
 import type { Metadata } from 'next';
 import { Bungee_Inline } from 'next/font/google';
 import localFont from 'next/font/local';
+import { headers } from 'next/headers';
 import 'src/app/globals.css';
 import { darkTheme } from 'src/app/theme';
+import { getAuthUserVisible } from 'src/lib/auth';
+import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { LayoutClient } from './LayoutClient';
 
-export const metadata: Metadata = {
-  title: 'Waip2',
-  description: 'New version of waip',
-};
+export async function generateMetadata() {
+  const authUser = await getAuthUserVisible();
+  const user = authUser || (await UserModelCached.getDemoUser());
+
+  const host = headers().get('host') ?? 'waip.app';
+  const protocol = host.startsWith('localhost') ? 'http' : 'https';
+  const waipImage = `${protocol}://${host}/images/waip_smaller.jpg`;
+
+  const metaTitle = 'What is ' + user.username + ' Playing';
+  const metaDescription = 'Descubre a qué estoy jugando';
+
+  return {
+    title: metaTitle,
+    description: metaDescription,
+    openGraph: {
+      title: metaTitle,
+      description: metaDescription,
+      images: [
+        {
+          url: waipImage,
+          // width: 1200,
+          // height: 630,
+          // alt: `Cover image of videogame ${game.name}`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: metaTitle,
+      description: metaDescription,
+      images: [waipImage],
+    },
+  };
+}
 
 const proximaNova = localFont({
   src: [
