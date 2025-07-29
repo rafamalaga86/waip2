@@ -8,7 +8,7 @@ const OLD_USER_ID = 1;
 const USER_ID = 1;
 
 // Mysql Config
-let mysqlClient: any;
+let mysqlClient;
 const mysqlConfig = {
   host: 'localhost',
   user: 'root',
@@ -133,7 +133,7 @@ async function compareTitles() {
   console.log('Remaining games in oldGames2: ', Object.values(oldGames2).length, oldGames2);
 }
 
-async function getOldIdToKey(newGames: object[]) {
+async function getOldIdToKey(newGames) {
   const result = {};
   console.log('primero:', newGames.length);
   newGames.forEach(item => {
@@ -141,7 +141,9 @@ async function getOldIdToKey(newGames: object[]) {
     // if (result[item.extra.old_game_properties.id]) {
     //   throw new Error('already exists');
     // }
-    result[item.extra.old_game_properties.id] = item;
+    if (item.extra?.old_game_properties?.id) {
+      result[item.extra.old_game_properties.id] = item;
+    }
   });
   console.log('segundo:', Object.keys(result).length);
   return result;

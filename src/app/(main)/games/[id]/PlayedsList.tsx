@@ -25,12 +25,12 @@ export function PlayedsList({
   has_auth: boolean;
   gameId: number;
 }) {
-  initialPlayeds = initialPlayeds.map(item => {
+  const initialPlayedsWithCollapsed = initialPlayeds.map(item => {
     return { ...item, collapsed: false };
   });
   const { setOpenErrorToast, setMessageErrorToast } = useContext(Context);
   const [playeds, addPlayedItem, updatePlayedItem, removePlayedItem, collapseItem, uncollapseItem] =
-    useItems(initialPlayeds);
+    useItems<Played>(initialPlayedsWithCollapsed);
   const [isOpened, openModal, closeModal] = useModal(false);
   const [playedDate, setPlayedDate] = useState<string | null>(null);
   const [playedBeaten, setPlayedBeaten] = useState(false);
@@ -114,7 +114,9 @@ export function PlayedsList({
   };
 
   let playedsSorted = [...playeds];
-  playedsSorted.sort((a, b) => (a.stopped_playing_at > b.stopped_playing_at ? -1 : 1));
+  playedsSorted.sort(
+    (a, b) => (b.stopped_playing_at?.getTime() ?? 0) - (a.stopped_playing_at?.getTime() ?? 0)
+  );
 
   return (
     <>

@@ -123,7 +123,7 @@ export class PlayedModel {
     });
   }
 
-  static async update(id: number, details: Prisma.playedsUpdateInput): Promise<playeds> {
+  static async update(id: number, details: Prisma.playedsUncheckedUpdateInput): Promise<playeds> {
     const authUser = await this.#getAuthUser();
     let played;
 

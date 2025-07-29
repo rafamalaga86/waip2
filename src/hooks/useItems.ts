@@ -1,4 +1,3 @@
-// import { playeds } from "@prisma/client";
 import { useState } from 'react';
 
 export interface Item {
@@ -6,16 +5,16 @@ export interface Item {
   [key: string]: any;
 }
 
-export function useItems(
-  initialItems: Item[]
-): [Item[], Function, Function, Function, Function, Function] {
-  const [items, setItems] = useState<Item[]>(initialItems);
+export function useItems<T extends { id: number }>(
+  initialItems: T[]
+): [T[], Function, Function, Function, Function, Function] {
+  const [items, setItems] = useState<T[]>(initialItems);
 
   function removeItem(id: number) {
     setItems(prevItems => prevItems.filter(item => item.id !== id));
   }
 
-  function addItem(item: Item) {
+  function addItem(item: T) {
     setItems(prevItems => [...prevItems, item]);
   }
 

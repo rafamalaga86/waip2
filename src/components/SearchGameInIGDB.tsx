@@ -64,7 +64,6 @@ export function SearchGameInIGDB({
               <GameCardLite
                 game={game}
                 key={game.id}
-                className="GameCardLite"
                 imgElement={
                   <IGDBImage
                     size={IGDB_COVER_SIZE}

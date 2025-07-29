@@ -116,7 +116,6 @@ export function ImportGames({
                 <GameCardLite
                   game={game}
                   key={game.id}
-                  className="GameCardLite"
                   imgElement={
                     <IGDBImage
                       size={CoverSize.medium}

@@ -4,7 +4,7 @@ import { PlayedModel } from 'src/models/PlayedModel';
 import { gameService } from 'src/services/GameService';
 import { getAuthUser } from './auth';
 
-export async function getAuthUserServer(): Promise<users> {
+export async function getAuthUserServer(): Promise<users | null> {
   'use server';
   return await getAuthUser();
 }

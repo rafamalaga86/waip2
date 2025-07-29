@@ -67,7 +67,7 @@ export function PlayedListItem({
             {played.beaten ? 'Beaten!' : 'Abandoned'}
           </Typography>
           <Typography variant="subtitle1" component="div">
-            <Box className="font-size-15">on {formatDate(played.stopped_playing_at)}</Box>
+            <Box className="font-size-15">on {formatDate(played.stopped_playing_at!)}</Box>
           </Typography>
         </Box>
       )}

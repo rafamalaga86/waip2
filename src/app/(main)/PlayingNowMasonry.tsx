@@ -27,7 +27,7 @@ export function PlayingNowMasonry({
   return (
     <NoSsr defer>
       <CardsMasonry>
-        {items.map((item: any, index: number) => {
+        {items.map((item: any) => {
           const [fontSize, extraClasses] = titleAdjustment(item.name, 1.2);
           return (
             <GameCard
