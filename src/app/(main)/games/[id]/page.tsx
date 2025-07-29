@@ -70,9 +70,7 @@ async function getAllData(params: Props['params'], searchParams: Props['searchPa
   const { user, authUser } = await cache(getUserCached)();
   const { id, preFetchedGame, igdbId } = await cache(getPrefetchedGame)(params, searchParams);
 
-  console.time('main_page');
   const { game, playeds, igdbGame } = await cache(fetchAllData)(id, preFetchedGame, igdbId);
-  console.timeEnd('main_page');
 
   return { game, playeds, igdbGame, user, authUser };
 }
@@ -82,7 +80,7 @@ export async function generateMetadata({ params, searchParams }: Props) {
 
   const title = `${user.username} is playing ${game.name}`;
   const description = `Check what ${user.username} is playing`;
-  const coverUrl = shapeIGDBCoverUrl(CoverSize.big, 'co2hjk');
+  const coverUrl = shapeIGDBCoverUrl(CoverSize.big, game.igdb_cover_id);
 
   return {
     title: title,

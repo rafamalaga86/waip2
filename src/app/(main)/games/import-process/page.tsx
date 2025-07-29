@@ -13,7 +13,7 @@ export default async function SearchGameInIGDB() {
       return { wasSuccessful: true, message: '' };
     } catch (error: any) {
       if (!(error instanceof ClientFeedbackError)) {
-        console.log('Escupe: error', error);
+        console.error(error);
         throw new Error(error);
       }
       return { wasSuccessful: false, message: error.message };

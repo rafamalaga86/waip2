@@ -33,7 +33,7 @@ export function useItems<T extends { id: number }>(
   }
 
   function uncollapseItem(id: number) {
-    console.log('Escupe: ', items, id);
+    console.error(items, id);
     setItems(prevItems =>
       prevItems.map(item => {
         return item.id === id ? { ...item, collapsed: false } : item;

@@ -100,9 +100,9 @@ export class GameModel {
           },
         });
       } catch (error) {
-        console.log('Escupe: ', error);
+        console.error(error);
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
-          console.log('Escupe: ', error);
+          console.error(error);
           throw new ClientFeedbackError('You already have a game with that name', 409);
         }
       }

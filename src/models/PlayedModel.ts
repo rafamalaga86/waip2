@@ -196,7 +196,7 @@ export class PlayedModel {
     try {
       playedCreated = await prisma.playeds.create({ data: details });
     } catch (error) {
-      console.error('Escupe: ', error);
+      console.error(error);
     }
     return playedCreated as playeds;
   }
@@ -227,7 +227,7 @@ export class PlayedModel {
     }
 
     if (numberOfPlayeds < 2) {
-      console.log('Escupe: ', numberOfPlayeds);
+      console.error(numberOfPlayeds);
       throw new ClientFeedbackError("It's not possible to delete the last played of a game", 409);
     }
 

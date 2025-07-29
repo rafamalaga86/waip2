@@ -8,6 +8,7 @@ export default async function HomePage() {
   const authUser = await getAuthUserVisible();
   const user = authUser || (await UserModelCached.getDemoUser());
   const initialGames = await GameModelCached.findGamesWithStoppedPlayingNull(user.id, 40);
+
   const title = authUser ? (
     <>Currently Playing</>
   ) : (
