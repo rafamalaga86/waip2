@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 import { PlayedModel } from 'src/models/PlayedModel';
 
@@ -17,6 +18,10 @@ export async function PUT(request: Request, context: { params: { id: string } })
     throw error;
   }
 
+  revalidatePath('/');
+  revalidatePath(`/games/${game_id}`);
+  revalidatePath('/playeds');
+
   return Response.json({ data: played }, { status: 200 });
 }
 
@@ -33,5 +38,10 @@ export async function DELETE(_: Request, context: { params: { id: number } }) {
   if (!result) {
     return Response.json({ message: 'There was a problem deleting the record' }, { status: 400 });
   }
+
+  revalidatePath('/');
+  revalidatePath('/games/[id]', 'page');
+  revalidatePath('/playeds');
+
   return new Response(null, { status: 204 });
 }

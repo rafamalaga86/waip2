@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 import { PlayedModel } from 'src/models/PlayedModel';
 
@@ -16,5 +17,10 @@ export async function POST(request: Request) {
     }
     throw error;
   }
+
+  revalidatePath('/');
+  revalidatePath(`/games/${game_id}`);
+  revalidatePath('/playeds');
+
   return Response.json({ data: played }, { status: 200 });
 }
