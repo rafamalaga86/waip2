@@ -233,13 +233,6 @@ export default async function gameDetailsPage({ params, searchParams }: Props) {
               )}
             </Box>
 
-            {authUser && (
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 2 }}>
-                <DeleteGameButton gameId={game.id} />
-                <OrderInput gameId={game.id} initialOrder={game.order} />
-              </Box>
-            )}
-
             <Box sx={{ mt: 3 }}>
               {data.storyline && (
                 <Accordion>
@@ -254,6 +247,20 @@ export default async function gameDetailsPage({ params, searchParams }: Props) {
                 </Accordion>
               )}
             </Box>
+
+            {authUser && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  mt: 2,
+                }}
+              >
+                <DeleteGameButton gameId={game.id} />
+                <OrderInput gameId={game.id} initialOrder={game.order} />
+              </Box>
+            )}
             <Box sx={{ mt: 8 }}>
               <Typography sx={{ mb: 1 }} component="h5" variant="h5">
                 Playeds History

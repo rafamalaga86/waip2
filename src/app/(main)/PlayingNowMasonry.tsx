@@ -1,7 +1,6 @@
 'use client';
 
 import { Backdrop, Box, CardActions, Link, NoSsr, Typography } from '@mui/material';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Confetti from 'react-confetti';
 import { CardsMasonry } from 'src/components/CardsMasonry';
@@ -51,55 +50,53 @@ export function PlayingNowMasonry({
       </Backdrop>
 
       {/* -------- Masonry -------- */}
-      <motion.div layout>
-        {celebrating && (
-          <Confetti
-            recycle={false}
-            numberOfPieces={3000}
-            height={4000}
-            style={{ pointerEvents: 'none' }}
-          />
-        )}
+      {celebrating && (
+        <Confetti
+          recycle={false}
+          numberOfPieces={3000}
+          height={4000}
+          style={{ pointerEvents: 'none' }}
+        />
+      )}
 
-        <CardsMasonry>
-          {items.map((item: any, index: number) => {
-            const [fontSize, extraClasses] = titleAdjustment(item.name, 1.2);
+      <CardsMasonry>
+        {items.map((item: any, index: number) => {
+          const [fontSize, extraClasses] = titleAdjustment(item.name, 1.2);
 
-            return (
-              <GameCard
-                key={item.id}
-                game={item}
-                index={index}
-                imgElement={
-                  <IGDBImage stringId={item.igdb_cover_id} description={`${item.name} cover`} />
-                }
+          return (
+            <GameCard
+              key={item.id}
+              game={item}
+              index={index}
+              imgElement={
+                <IGDBImage stringId={item.igdb_cover_id} description={`${item.name} cover`} />
+              }
+            >
+              <Box sx={{ fontSize }} className={`text-align-center title-font ${extraClasses}`}>
+                <Link className="color-white" href={`/games/${item.id}?idgbId=${item.igdb_id}`}>
+                  {item.name}
+                </Link>
+              </Box>
+
+              <CardActions
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: 1,
+                  paddingBottom: 0,
+                }}
               >
-                <Box sx={{ fontSize }} className={`text-align-center title-font ${extraClasses}`}>
-                  <Link className="color-white" href={`/games/${item.id}?idgbId=${item.igdb_id}`}>
-                    {item.name}
-                  </Link>
-                </Box>
-
-                <CardActions
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    marginTop: 1,
-                    paddingBottom: 0,
-                  }}
-                >
-                  <GameCardActions
-                    game={item}
-                    removeGame={removeGame}
-                    authUser={authUser}
-                    showCelebration={showCelebration}
-                  />
-                </CardActions>
-              </GameCard>
-            );
-          })}
-        </CardsMasonry>
-      </motion.div>
+                <GameCardActions
+                  game={item}
+                  removeGame={removeGame}
+                  authUser={authUser}
+                  showCelebration={showCelebration}
+                />
+              </CardActions>
+            </GameCard>
+          );
+        })}
+      </CardsMasonry>
     </NoSsr>
   );
 }

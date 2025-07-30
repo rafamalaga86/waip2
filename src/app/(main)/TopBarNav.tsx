@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { LuMenuSquare } from 'react-icons/lu';
+import { IoMenu } from 'react-icons/io5';
 import { lightTheme } from '../theme';
 import { SideNav } from './SideNav';
 
@@ -54,7 +54,7 @@ export function TopBarNav({
               </Button> */}
 
               <IconButton edge="end" className="menu-button" onClick={toggleDrawer(true)}>
-                <LuMenuSquare size={40} className="cursor-pointer" />
+                <IoMenu size={40} className="cursor-pointer" />
               </IconButton>
 
               <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
