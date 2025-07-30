@@ -1,6 +1,5 @@
 import { Card, CardContent } from '@mui/material';
 import { ReactNode } from 'react';
-import { titleAdjustment } from 'src/lib/helpers';
 
 export function GameCard({
   game,

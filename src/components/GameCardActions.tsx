@@ -11,10 +11,12 @@ export function GameCardActions({
   game,
   removeGame,
   authUser,
+  showCelebration,
 }: {
   game: games;
   removeGame: Function;
   authUser: UserVisible | null;
+  showCelebration: Function;
 }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -81,6 +83,7 @@ export function GameCardActions({
             const successful = await beatPlayedServer(game.id);
             if (successful) {
               removeGame(game.id);
+              showCelebration();
             }
           }}
         >
