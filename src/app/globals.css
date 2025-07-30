@@ -111,7 +111,6 @@ h6 {
   /* font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; */
   letter-spacing: 0;
   font-weight: normal;
-  caret-color: transparent;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -390,13 +389,6 @@ footer {
 
 /* REUSABLE ---------------------------------------------*/
 
-.no-caret {
-  caret-color: transparent;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-}
-
 .mb-1 {
   margin-bottom: 8px;
 }
@@ -638,3 +630,21 @@ footer {
 }
 
 /*-------------------------------------------------------*/
+@keyframes shrinkAndFade {
+  from {
+    transform: scale(1);
+    opacity: 1;
+    height: auto;
+    margin-bottom: 16px; /* Adjust to match your masonry gap */
+  }
+  to {
+    transform: scale(0.8);
+    opacity: 0;
+    height: 0;
+    margin-bottom: 0;
+  }
+}
+
+.game-card-disappearing {
+  animation: shrinkAndFade 0.5s forwards;
+}
