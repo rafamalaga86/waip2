@@ -68,7 +68,7 @@ model playeds {
   stopped_playing_at DateTime?
 
   game_id Int
-  game games @relation (fields: [game_id], references: [id])
+  game games @relation(fields: [game_id], references: [id])
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

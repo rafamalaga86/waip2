@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "igdb_tokens" (
+CREATE TABLE "public"."igdb_tokens" (
     "id" SERIAL NOT NULL,
     "token" TEXT NOT NULL,
     "expire_at" TIMESTAMP(3) NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE "igdb_tokens" (
 );
 
 -- CreateTable
-CREATE TABLE "users" (
+CREATE TABLE "public"."users" (
     "id" SERIAL NOT NULL,
     "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE "users" (
 );
 
 -- CreateTable
-CREATE TABLE "games" (
+CREATE TABLE "public"."games" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "igdb_id" INTEGER NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE "games" (
 );
 
 -- CreateTable
-CREATE TABLE "playeds" (
+CREATE TABLE "public"."playeds" (
     "id" SERIAL NOT NULL,
     "beaten" BOOLEAN NOT NULL,
     "stopped_playing_at" TIMESTAMP(3),
@@ -53,7 +53,7 @@ CREATE TABLE "playeds" (
 );
 
 -- CreateTable
-CREATE TABLE "games_to_import" (
+CREATE TABLE "public"."games_to_import" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "beaten" BOOLEAN NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE "games_to_import" (
 );
 
 -- CreateTable
-CREATE TABLE "games_import_history" (
+CREATE TABLE "public"."games_import_history" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
     "igdb_id" INTEGER NOT NULL,
@@ -79,19 +79,19 @@ CREATE TABLE "games_import_history" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
+CREATE UNIQUE INDEX "users_username_key" ON "public"."users"("username");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+CREATE UNIQUE INDEX "users_email_key" ON "public"."users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "games_user_id_igdb_id_key" ON "games"("user_id", "igdb_id");
+CREATE UNIQUE INDEX "games_user_id_igdb_id_key" ON "public"."games"("user_id", "igdb_id");
 
 -- AddForeignKey
-ALTER TABLE "games" ADD CONSTRAINT "games_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."games" ADD CONSTRAINT "games_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "playeds" ADD CONSTRAINT "playeds_game_id_fkey" FOREIGN KEY ("game_id") REFERENCES "games"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."playeds" ADD CONSTRAINT "playeds_game_id_fkey" FOREIGN KEY ("game_id") REFERENCES "public"."games"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "games_to_import" ADD CONSTRAINT "games_to_import_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."games_to_import" ADD CONSTRAINT "games_to_import_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
