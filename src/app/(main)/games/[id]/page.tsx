@@ -22,6 +22,7 @@ import { PlayedModelCached } from 'src/models/cached/PlayedModelCached';
 import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { gameService } from 'src/services/GameService';
 import { DeleteGameButton } from './DeleteGameButton';
+import { OrderInput } from './OrderInput';
 import { PlayedsList } from './PlayedsList';
 
 interface Props {
@@ -231,11 +232,14 @@ export default async function gameDetailsPage({ params, searchParams }: Props) {
                 </Accordion>
               )}
             </Box>
+
             {authUser && (
-              <Box sx={{ mt: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 2 }}>
                 <DeleteGameButton gameId={game.id} />
+                <OrderInput gameId={game.id} initialOrder={game.order} />
               </Box>
             )}
+
             <Box sx={{ mt: 3 }}>
               {data.storyline && (
                 <Accordion>

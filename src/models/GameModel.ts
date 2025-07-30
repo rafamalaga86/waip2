@@ -149,4 +149,11 @@ export class GameModel {
     });
     return !!result;
   }
+
+  static async update(gameId: number, data: Prisma.gamesUpdateInput): Promise<games> {
+    return await prisma.games.update({
+      where: { id: gameId },
+      data,
+    });
+  }
 }
