@@ -1,13 +1,25 @@
-import { NextResponse } from 'next/server';
+import { getAuthUser } from 'src/lib/auth';
+import { GameModel } from 'src/models/GameModel';
 
-export async function GET(request: Request) {
-  const imageUrl = 'https://cdn.pixabay.com/photo/2023/08/18/15/02/cat-8198720_960_720.jpg';
+export async function DELETE(_: Request, context: { params: { id: string } }) {
+  const id = Number(context.params.id);
+  const authUser = await getAuthUser();
 
-  const res = await fetch(imageUrl);
-  const blob = await res.arrayBuffer();
+  if (!authUser) {
+    return Response.json({ message: 'You must be logged in to delete a game' }, { status: 401 });
+  }
 
-  const headers = new Headers();
-  headers.set('Content-Type', 'image/jpg');
+  try {
+    const game = await GameModel.findById(id);
 
-  return new NextResponse(blob, { status: 200, statusText: 'OK', headers });
+    if (game.user_id !== authUser.id) {
+      return Response.json({ message: 'You do not have permission to delete this game' }, { status: 403 });
+    }
+
+    await GameModel.delete(id);
+  } catch (error) {
+    return Response.json({ message: 'There was a problem deleting the record' }, { status: 400 });
+  }
+
+  return new Response(null, { status: 204 });
 }

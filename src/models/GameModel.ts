@@ -142,4 +142,11 @@ export class GameModel {
     }
     return await prisma.games.findMany(query);
   }
+
+  static async delete(gameId: number): Promise<boolean> {
+    const result = await prisma.games.delete({
+      where: { id: gameId },
+    });
+    return !!result;
+  }
 }

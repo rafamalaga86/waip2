@@ -40,6 +40,8 @@ body {
   --blue: #6699cc;
   --yellow: #f2cd5d;
 
+  --red-darker: #c94e3f;
+
   /*--hltb-color: #287fc2;*/ /* Old blue  */
   --hltb-color: #ec9444; /* New Yellow  */
   /*--metacritic-color: #6c3;*/ /* Old Green */
@@ -79,6 +81,7 @@ body {
   --secondary-color: var(--red);
   /* --danger-color: #f44336; */
   --danger-color: var(--red);
+  --danger-color-darker: var(--red-darker);
   --success-color: var(--aqua-green);
   --warning-color: var(--yellow);
   /*
