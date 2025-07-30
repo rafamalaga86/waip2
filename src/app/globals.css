@@ -648,3 +648,11 @@ footer {
 .game-card-disappearing {
   animation: shrinkAndFade 0.5s forwards;
 }
+
+.MuiTypography-root.congratulations {
+  font-size: 7vw;
+  color: '#fff';
+  text-align: 'center';
+  font-family: var(--font-congrats);
+  font-weight: 900;
+}

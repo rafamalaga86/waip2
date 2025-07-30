@@ -20,8 +20,8 @@ export function GameCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.35,
-        layout: { duration: 0.35, ease: 'easeOut' },
         delay: index * 0.05,
+        layout: { duration: 0.35, ease: 'easeOut' },
       }}
     >
       <Card className="game-card" component="div">

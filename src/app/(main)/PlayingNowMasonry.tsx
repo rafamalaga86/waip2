@@ -1,6 +1,7 @@
 'use client';
 
-import { Box, CardActions, Link, NoSsr } from '@mui/material';
+import { Backdrop, Box, CardActions, Link, NoSsr, Typography } from '@mui/material';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Confetti from 'react-confetti';
 import { CardsMasonry } from 'src/components/CardsMasonry';
@@ -18,57 +19,87 @@ export function PlayingNowMasonry({
 }) {
   const [items, setGames] = useState(initialItems);
   const [celebrating, setCelebrating] = useState(false);
-
-  function removeGame(gameId: number) {
-    setGames(prev => prev.filter(el => el.id !== gameId));
-  }
+  const [congrating, setCongrating] = useState(false);
 
   function showCelebration() {
     setCelebrating(true);
+    setCongrating(true);
+    setTimeout(() => setCongrating(false), 1000);
+  }
+
+  function removeGame(gameId: number) {
+    setTimeout(() => setGames(prev => prev.filter(el => el.id !== gameId)), 300);
   }
 
   return (
     <NoSsr defer>
-      {celebrating && <Confetti recycle={false} numberOfPieces={3000} height={4000} />}
+      {/* -------- Overlay “CONGRATULATIONS!!” -------- */}
+      <Backdrop
+        open={congrating}
+        transitionDuration={300}
+        sx={{
+          zIndex: theme => theme.zIndex.modal + 1,
+          backgroundColor: 'var(--primary-color)', // ← color primario, opaco
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="h2" component="div" className="congratulations">
+          CONGRATULATIONS!!
+        </Typography>
+      </Backdrop>
 
-      <CardsMasonry>
-        {items.map((item: any, index: number) => {
-          const [fontSize, extraClasses] = titleAdjustment(item.name, 1.2);
+      {/* -------- Masonry -------- */}
+      <motion.div layout>
+        {celebrating && (
+          <Confetti
+            recycle={false}
+            numberOfPieces={3000}
+            height={4000}
+            style={{ pointerEvents: 'none' }}
+          />
+        )}
 
-          return (
-            <GameCard
-              key={item.id}
-              game={item}
-              index={index}
-              imgElement={
-                <IGDBImage stringId={item.igdb_cover_id} description={item.name + ' cover'} />
-              }
-            >
-              <Box sx={{ fontSize }} className={`text-align-center title-font ${extraClasses}`}>
-                <Link className="color-white" href={`/games/${item.id}?idgbId=${item.igdb_id}`}>
-                  {item.name}
-                </Link>
-              </Box>
+        <CardsMasonry>
+          {items.map((item: any, index: number) => {
+            const [fontSize, extraClasses] = titleAdjustment(item.name, 1.2);
 
-              <CardActions
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginTop: 1,
-                  paddingBottom: 0,
-                }}
+            return (
+              <GameCard
+                key={item.id}
+                game={item}
+                index={index}
+                imgElement={
+                  <IGDBImage stringId={item.igdb_cover_id} description={`${item.name} cover`} />
+                }
               >
-                <GameCardActions
-                  game={item}
-                  removeGame={removeGame}
-                  authUser={authUser}
-                  showCelebration={showCelebration}
-                />
-              </CardActions>
-            </GameCard>
-          );
-        })}
-      </CardsMasonry>
+                <Box sx={{ fontSize }} className={`text-align-center title-font ${extraClasses}`}>
+                  <Link className="color-white" href={`/games/${item.id}?idgbId=${item.igdb_id}`}>
+                    {item.name}
+                  </Link>
+                </Box>
+
+                <CardActions
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: 1,
+                    paddingBottom: 0,
+                  }}
+                >
+                  <GameCardActions
+                    game={item}
+                    removeGame={removeGame}
+                    authUser={authUser}
+                    showCelebration={showCelebration}
+                  />
+                </CardActions>
+              </GameCard>
+            );
+          })}
+        </CardsMasonry>
+      </motion.div>
     </NoSsr>
   );
 }

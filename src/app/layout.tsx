@@ -1,7 +1,6 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
-import type { Metadata } from 'next';
-import { Bungee_Inline } from 'next/font/google';
+import { Bungee_Inline, Orbitron } from 'next/font/google';
 import localFont from 'next/font/local';
 import { headers } from 'next/headers';
 import 'src/app/globals.css';
@@ -64,6 +63,13 @@ const bungeeInline = Bungee_Inline({
   display: 'swap',
 });
 
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-congrats',
+  display: 'swap',
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -71,7 +77,10 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en" className={`${bungeeInline.variable} ${proximaNova.className}`}>
+      <html
+        lang="en"
+        className={`${bungeeInline.variable} ${proximaNova.className} ${orbitron.variable}`}
+      >
         <head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
 
