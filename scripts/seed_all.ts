@@ -1,12 +1,43 @@
 import { config } from 'dotenv';
-import { games } from '../prisma/seed_data/games';
-import { playeds } from '../prisma/seed_data/playeds';
-import { users } from '../prisma/seed_data/users';
-import { prisma } from '../src/database/prismaClient';
+import { readFileSync, readdirSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { users } from '../prisma/seed_data/original/users';
+import { prisma } from '../src/database/prismaClient.js';
 
-config(); // Load env file
+config(); // Load .env
 
-async function run() {
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const SEED_DIR = join(__dirname, '../prisma/seed_data');
+
+function pickLatestJson(prefix: 'games' | 'playeds' | 'users'): any[] {
+  const regex = new RegExp(`^${prefix}_(\\d{4}-\\d{2}-\\d{2})\\.json$`);
+  const latest = readdirSync(SEED_DIR)
+    .filter(f => regex.test(f))
+    .sort((a, b) => {
+      // Comparar la parte de fecha YYYY-MM-DD
+      const dA = regex.exec(a)![1];
+      const dB = regex.exec(b)![1];
+      return dA.localeCompare(dB);
+    })
+    .pop(); // el último tras ordenar asc => más reciente
+
+  if (!latest)
+    throw new Error(`❌  No se encontró ningún ${prefix}_YYYY-MM-DD.json en ${SEED_DIR}`);
+
+  return JSON.parse(readFileSync(join(SEED_DIR, latest), 'utf8')) as any[];
+}
+
+// ────────────────────────────────────────────────────────────
+// Cargar los datos más actuales
+// ────────────────────────────────────────────────────────────
+const games = pickLatestJson('games'); // games_YYYY-MM-DD.json
+const playeds = pickLatestJson('playeds'); // playeds_YYYY-MM-DD.json
+
+// ────────────────────────────────────────────────────────────
+// Seed routine (igual que antes)
+// ────────────────────────────────────────────────────────────
+export async function run() {
   try {
     await prisma.$transaction(
       async () => {

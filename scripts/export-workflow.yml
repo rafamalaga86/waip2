@@ -1,0 +1,42 @@
+# .github/workflows/export-games.yml   ← mandatory path for GitHub workflows
+
+name: Export WAIP games # Name shown in the “Actions” tab
+
+on: # Triggers
+  schedule: # ❶ Auto-run via cron (UTC)
+    - cron: '0 3 * * 0' #    Sunday 03:00 UTC  (≈ 05:00 CET summer, 04:00 CET winter)
+  workflow_dispatch: # ❷ Manual “Run workflow” button in the UI
+
+jobs:
+  export: # Job identifier
+    runs-on: ubuntu-latest # Runner that GitHub will provision
+
+    steps:
+      - uses: actions/checkout@v4 # Step 1 – check out your repo into the runner
+
+      # ---------- 2a. Fetch GAMES ----------
+      - name: Fetch games JSON
+        run: |
+          curl -sS 'https://waip.app/api/v1/users/1/export/games' \
+               -H 'Accept: application/json' --fail               \
+               -o "prisma/seed_data/game_$(date '+%Y-%m-%d').json"
+
+      # ---------- 2b. Fetch PLAYEDS ----------
+      - name: Fetch playeds JSON
+        run: |
+          curl -sS 'https://waip.app/api/v1/users/1/export/playeds' \
+               -H 'Accept: application/json' --fail                 \
+               -o "prisma/seed_data/played_$(date '+%Y-%m-%d').json"
+
+      - name: Commit & push if changed # Step 3 – commit only when something changed
+        run: |
+          git config user.name  'waip-export-bot'
+          git config user.email 'bot@users.noreply.github.com'
+
+          git add prisma/seed_data/*.json
+          if ! git diff --cached --quiet; then   # Were there changes?
+            git commit -m "chore(data): weekly games export"
+            git push https://waip:${{ secrets.WAIP_EXPORT_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
+          else
+            echo "🟢 No changes – nothing to commit"
+          fi
