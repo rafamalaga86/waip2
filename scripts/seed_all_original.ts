@@ -7,11 +7,6 @@ import { prisma } from '../src/database/prismaClient';
 config(); // Load env file
 
 async function run() {
-  console.log('Escupe: ', playeds.length);
-  console.log('Escupe: ', games.length);
-}
-
-async function run2() {
   try {
     await prisma.$transaction(
       async () => {
