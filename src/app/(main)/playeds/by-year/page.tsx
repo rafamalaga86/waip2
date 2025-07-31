@@ -11,7 +11,8 @@ import { BeatenChart } from './BeatenChart';
 const defaultImage = '/images/waip.png';
 
 export default async function allYearsGamePage() {
-  const user = (await getAuthUserVisible()) || (await UserModelCached.getDemoUser());
+  const authUser = await getAuthUserVisible();
+  const user = authUser || (await UserModelCached.getDemoUser());
   let allBeaten: ObjectOfYearsFinished, allAbandoned: ObjectOfYearsFinished;
   try {
     [allBeaten, allAbandoned] = await Promise.all([
@@ -23,9 +24,18 @@ export default async function allYearsGamePage() {
     throw error;
   }
 
+  const title = authUser ? (
+    'Your'
+  ) : (
+    <>
+      <strong>{user.username}</strong>
+      {"'"}s
+    </>
+  );
+
   return (
     <>
-      <PageTitle alignCenter={true}>Your Games</PageTitle>
+      <PageTitle alignCenter={true}>{title} Gaming History</PageTitle>
       <Box
         component="section"
         sx={{

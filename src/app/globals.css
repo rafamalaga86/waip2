@@ -527,6 +527,11 @@ footer {
   margin: 5px 3px 0 0;
   background-color: var(--secondary-color);
 }
+.MuiChip-root.success .MuiChip-icon {
+  position: relative;
+  top: 2px;
+}
+
 .MuiChip-root.rounded {
   border-radius: 5px;
 }

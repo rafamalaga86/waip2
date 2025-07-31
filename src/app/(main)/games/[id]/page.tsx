@@ -8,7 +8,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import type { games } from '@prisma/client';
+import type { games, playeds, users } from '@prisma/client';
 import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
@@ -77,12 +77,57 @@ async function getAllData(params: Props['params'], searchParams: Props['searchPa
   return { game, playeds, igdbGame, user, authUser };
 }
 
-export async function generateMetadata({ params, searchParams }: Props) {
-  const { game, user } = await cache(getAllData)(params, searchParams);
+function selectPlayedForMeta(playeds: playeds[]) {
+  let result = null;
+  let list = playeds;
 
-  const title = `${user.username} is playing ${game.name}`;
-  const description = `${user.username} está jugando a ${game.name}`;
+  // If game is being played now, return that
+  result = playeds.find(played => played.stopped_playing_at === null);
+  if (result) return result;
+
+  // If game have been beaten, return the biggest date
+  let beatenPlayeds = playeds.filter(played => played.beaten);
+  if (beatenPlayeds.length) {
+    list = beatenPlayeds; // There are beatens, so do it with them
+  }
+
+  list = list.sort((a, b) => {
+    const date1 = new Date(a.stopped_playing_at!).getTime();
+    const date2 = new Date(b.stopped_playing_at!).getTime();
+    return date2 - date1;
+  });
+  return list[0];
+}
+
+function shapeMetaData(played: playeds, game: games, user: any) {
+  let title, description;
   const coverUrl = shapeIGDBCoverUrl(CoverSize.big, game.igdb_cover_id);
+
+  if (!played.stopped_playing_at) {
+    title = `${user.username} is playing ${game.name}`;
+    description = `${user.username} está jugando a ${game.name}`;
+
+    return { title, description, coverUrl };
+  }
+
+  if (played.beaten) {
+    const year = new Date(played.stopped_playing_at).getFullYear();
+    title = `${user.username} finished ${game.name} in ${year}`;
+    description = `${user.username} se pasó ${game.name} en ${year}`;
+
+    return { title, description, coverUrl };
+  }
+
+  title = `${user.username} never finished ${game.name}`;
+  description = `${user.username} no terminó ${game.name}`;
+
+  return { title, description, coverUrl };
+}
+
+export async function generateMetadata({ params, searchParams }: Props) {
+  const { game, user, playeds } = await cache(getAllData)(params, searchParams);
+  const played = selectPlayedForMeta(playeds);
+  const { title, description, coverUrl } = shapeMetaData(played, game, user);
 
   return {
     title: title,
