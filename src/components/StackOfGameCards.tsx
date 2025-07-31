@@ -15,7 +15,6 @@ export function StackOfGameCards({ games, buttonBar }: { games: any; buttonBar?:
     (game: { id: number; name: string; score: number; cover?: { image_id: string } }) => {
       return (
         <GameCardLite
-          game={game}
           key={game.id}
           imgElement={
             game.cover ? (

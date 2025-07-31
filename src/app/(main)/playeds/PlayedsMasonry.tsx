@@ -15,12 +15,12 @@ export function PlayedsMasonry({ playeds }: { playeds: PlayedsWithGame[] }) {
   return (
     <NoSsr>
       <CardsMasonry>
-        {playeds.map((played, index: number) => {
+        {playeds.map(played => {
           const [fontSize, extraClasses] = titleAdjustment(played.game.name, 1.2);
+          const verb = played.beaten ? 'Beaten' : 'Abandoned';
           return (
             <GameCard
               key={played.id}
-              game={played.game}
               imgElement={
                 <IGDBImage
                   stringId={played.game.igdb_cover_id}
@@ -40,11 +40,8 @@ export function PlayedsMasonry({ playeds }: { playeds: PlayedsWithGame[] }) {
                 </Link>
               </Box>
               <Typography component="p" className="text-align-center" sx={{ mt: 2 }}>
-                Beaten at {formatDate(played.stopped_playing_at as Date)}
+                {verb} at {formatDate(played.stopped_playing_at as Date)}
               </Typography>
-              {/* <CardActions
-              sx={{ display: 'flex', justifyContent: 'center', marginTop: 1, paddingBottom: 0 }}
-            ></CardActions> */}
             </GameCard>
           );
         })}

@@ -24,7 +24,6 @@ export function GamesMasonry({ games }: { games: GameWithPlayeds[] }) {
           return (
             <GameCard
               key={game.id}
-              game={game}
               imgElement={
                 <IGDBImage stringId={game.igdb_cover_id} description={game.name + ' cover'} />
               }

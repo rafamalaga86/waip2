@@ -1,17 +1,12 @@
 import { Card, CardContent } from '@mui/material';
 import { ReactNode } from 'react';
 
-export function GameCard({
-  game,
-  imgElement,
-  index,
-  children,
-}: {
-  game: { id: number; name: string };
+interface Props {
   imgElement: ReactNode;
   children: ReactNode;
-  index: number;
-}) {
+}
+
+export function GameCard({ imgElement, children }: Props) {
   return (
     <Card className="game-card" component="div">
       {imgElement}
