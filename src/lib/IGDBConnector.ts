@@ -37,7 +37,6 @@ class IGDBConnector {
       this.#access_token = await this.#getNewToken();
     }
     this.#is_initialised = true;
-    console.log('Pasa por initalize y la propiedad #access_token es: ', this.#access_token);
   }
 
   #isInitiliased(): boolean {

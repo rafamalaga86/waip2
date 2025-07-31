@@ -89,12 +89,7 @@ class IGDBService {
       throw new Error('There was an error fetching the data.');
     }
 
-    // Add Category Names to IDs
-    games = games.map((item: any) => {
-      let newItem = { ...item };
-      newItem.category = { id: item.category, name: unslug(GameCategory[item.category]) };
-      return newItem;
-    });
+    games = this.#addCategoryNames(games);
 
     if (sort) {
       games = new GameSorter(games).sortByRelevance();
@@ -106,7 +101,7 @@ class IGDBService {
     igdbGameIds = typeof igdbGameIds === 'number' ? [igdbGameIds] : igdbGameIds;
     const ids = igdbGameIds.join(',');
     const connector = await getConnector();
-    const games = await connector.gameFetch(`
+    let games = await connector.gameFetch(`
       fields:
         *,
         alternative_names.name,
@@ -129,6 +124,7 @@ class IGDBService {
         platforms.name,
         player_perspectives.name,
         ports.name,
+        category,
         remakes.name,
         remasters.name,
         release_dates.date,
@@ -166,6 +162,8 @@ class IGDBService {
         id=(${ids})
       ;
     `);
+
+    games = this.#addCategoryNames(games);
     return games;
   }
 
@@ -173,6 +171,15 @@ class IGDBService {
     const arrayOfGames = await this.getGames([igdbGameId]);
     const game = arrayOfGames[0];
     return game;
+  }
+
+  // Add Category Names to IDs
+  #addCategoryNames(games: [IgdbGame]) {
+    return games.map((item: any) => {
+      let newItem = { ...item };
+      newItem.category = { id: item.category, name: unslug(GameCategory[item.category]) };
+      return newItem;
+    });
   }
 }
 

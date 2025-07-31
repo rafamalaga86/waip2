@@ -1,7 +1,8 @@
+import { config } from 'dotenv';
 import { getCacheService } from './CacheService';
 import { igdbService } from './IGDBService';
 
-const CACHE_KEY = 'games';
+config(); // Load env file
 
 class GameService {
   async searchGame(
@@ -13,7 +14,7 @@ class GameService {
   }
 
   async getGame(igdbGameId: number): Promise<CachedIgdbGame> {
-    const cacheService = await getCacheService(CACHE_KEY);
+    const cacheService = await getCacheService(process.env.CACHE_KEY || 'games');
     let game = await cacheService.findById(igdbGameId);
     if (!game) {
       // I don't have the game in cache
