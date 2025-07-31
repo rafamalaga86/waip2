@@ -11,7 +11,7 @@ export function GameCardLite({
   imgElement: ReactNode;
 }) {
   return (
-    <Card key={game.id} className={'game-card'}>
+    <Card key={game.id} className={'game-card GameCardLite'}>
       {imgElement}
       {children}
     </Card>

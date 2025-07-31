@@ -7,7 +7,13 @@ import { useSearchIGDB } from 'src/hooks/useSearchIGDB';
 
 const IGDB_COVER_SIZE = CoverSize.medium;
 
-export function SearchPage({ keyword, addIGDBGame }: { keyword?: string; addIGDBGame: Function }) {
+export function AddGamesPage({
+  keyword,
+  addIGDBGame,
+}: {
+  keyword?: string;
+  addIGDBGame: Function;
+}) {
   const router = useRouter();
   const initialSearchOptions = {
     includeNoCoverGames: false,

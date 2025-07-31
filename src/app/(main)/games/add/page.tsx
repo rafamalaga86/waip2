@@ -1,6 +1,6 @@
 import { PageTitle } from 'src/components/PageTitle';
 import { addIGDBGameServer } from 'src/lib/actions';
-import { SearchPage } from './SearchPage';
+import { AddGamesPage } from './AddGamesPage';
 
 export default async function search() {
   async function addIGDBGame(
@@ -17,7 +17,7 @@ export default async function search() {
   return (
     <>
       <PageTitle>Add a game</PageTitle>
-      <SearchPage addIGDBGame={addIGDBGame} />
+      <AddGamesPage addIGDBGame={addIGDBGame} />
     </>
   );
 }

@@ -100,12 +100,6 @@ export function SearchGameInIGDB({
                   beaten={false}
                   date={null}
                 />
-
-                {/* <ImportGamesCardActions
-                    game={game}
-                    gameToImport={gameToImport}
-                    importGame={importGame}
-                  /> */}
               </GameCardLite>
             );
           })}
