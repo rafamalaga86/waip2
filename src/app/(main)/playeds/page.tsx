@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { PageTitle } from 'src/components/PageTitle';
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { Views } from 'src/enums/nonBusiness/styleEnums';
-import { getAuthUserVisible } from 'src/lib/auth';
+import { getAuthUserVisible } from 'src/lib/auth.server';
 import { shapeIGDBCoverUrl } from 'src/lib/helpers';
 import { PlayedModelCached } from 'src/models/cached/PlayedModelCached';
 import { UserModelCached } from 'src/models/cached/UserModelCached';

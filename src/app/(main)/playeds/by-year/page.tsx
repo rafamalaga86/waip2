@@ -2,7 +2,7 @@ import { Box, Button, Card, CardContent, CardMedia, Link, Typography } from '@mu
 import { FaCalendarCheck } from 'react-icons/fa6';
 import { bestGameByYearType, bestGamesByYear } from 'src/bestGamesByYear';
 import { PageTitle } from 'src/components/PageTitle';
-import { getAuthUserVisible } from 'src/lib/auth';
+import { getAuthUserVisible } from 'src/lib/auth.server';
 import { ObjectOfYearsFinished } from 'src/models/PlayedModel';
 import { PlayedModelCached } from 'src/models/cached/PlayedModelCached';
 import { UserModelCached } from 'src/models/cached/UserModelCached';

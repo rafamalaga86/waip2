@@ -1,4 +1,4 @@
-import { register } from 'src/lib/auth';
+import { register } from 'src/lib/auth.server';
 import { Register } from './Register';
 
 export default async function RegisterPage() {

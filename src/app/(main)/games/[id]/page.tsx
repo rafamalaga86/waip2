@@ -15,7 +15,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import { GenreIcon } from 'src/components/icons/GenreIcon';
 import { IGDBImage } from 'src/components/IGDBImage';
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
-import { getAuthUserVisible } from 'src/lib/auth';
+import { getAuthUserVisible } from 'src/lib/auth.server';
 import { formatUnix, shapeIGDBCoverUrl } from 'src/lib/helpers';
 import { GameModelCached } from 'src/models/cached/GameModelCached';
 import { PlayedModelCached } from 'src/models/cached/PlayedModelCached';

@@ -1,11 +1,11 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
-import { Bungee_Inline, Orbitron } from 'next/font/google';
+import { Baloo_2, Bungee_Inline, Orbitron } from 'next/font/google';
 import localFont from 'next/font/local';
 import { headers } from 'next/headers';
 import 'src/app/globals.css';
 import { darkTheme } from 'src/app/theme';
-import { getAuthUserVisible } from 'src/lib/auth';
+import { getAuthUserVisible } from 'src/lib/auth.server';
 import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { LayoutClient } from './LayoutClient';
 
@@ -65,8 +65,15 @@ const bungeeInline = Bungee_Inline({
 
 const orbitron = Orbitron({
   subsets: ['latin'],
-  weight: '400',
+  weight: '900',
   variable: '--font-congrats',
+  display: 'swap',
+});
+
+const baloo = Baloo_2({
+  subsets: ['latin'],
+  weight: '700',
+  variable: '--font-brand',
   display: 'swap',
 });
 
@@ -79,18 +86,14 @@ export default function RootLayout({
     <>
       <html
         lang="en"
-        className={`${bungeeInline.variable} ${proximaNova.className} ${orbitron.variable}`}
+        className={`${bungeeInline.variable} ${proximaNova.className} ${orbitron.variable} ${baloo.variable}`}
       >
         <head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
 
           {/* Google Fonts */}
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Baloo&display=swap"
-            rel="stylesheet"
-          />
+          {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" /> */}
 
           {/* Favicon */}
           <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />

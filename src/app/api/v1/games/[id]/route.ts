@@ -1,4 +1,4 @@
-import { getAuthUser } from 'src/lib/auth';
+import { getAuthUser } from 'src/lib/auth.server';
 import { GameModel } from 'src/models/GameModel';
 
 export async function PATCH(request: Request, context: { params: { id: string } }) {
@@ -11,14 +11,17 @@ export async function PATCH(request: Request, context: { params: { id: string } 
 
   const game = await GameModel.findById(id);
   if (game.user_id !== authUser.id) {
-    return Response.json({ message: 'You do not have permission to update this game' }, { status: 403 });
+    return Response.json(
+      { message: 'You do not have permission to update this game' },
+      { status: 403 }
+    );
   }
 
   const body = await request.json();
   const { order } = body;
 
   if (typeof order !== 'number') {
-    return Response.json({ message: 'Invalid \'order\' value' }, { status: 400 });
+    return Response.json({ message: "Invalid 'order' value" }, { status: 400 });
   }
 
   try {
@@ -41,7 +44,10 @@ export async function DELETE(_: Request, context: { params: { id: string } }) {
     const game = await GameModel.findById(id);
 
     if (game.user_id !== authUser.id) {
-      return Response.json({ message: 'You do not have permission to delete this game' }, { status: 403 });
+      return Response.json(
+        { message: 'You do not have permission to delete this game' },
+        { status: 403 }
+      );
     }
 
     await GameModel.delete(id);

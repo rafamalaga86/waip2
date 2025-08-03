@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAuthUser, updateSession } from './lib/auth';
+import { getAuthUser, updateSession } from './lib/auth.server';
 
 // Routes that stars with that will be protected with login
 const nonAuthRoutesStarts: string[] = ['/api/v1/games/'];

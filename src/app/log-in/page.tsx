@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import 'src/app/globals.css';
-import { getAuthUser, login } from 'src/lib/auth';
+import { getAuthUser, login } from 'src/lib/auth.server';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 import { LogIn } from './LogIn';
 

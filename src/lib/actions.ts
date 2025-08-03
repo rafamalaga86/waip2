@@ -2,7 +2,7 @@
 import { users } from '@prisma/client';
 import { PlayedModel } from 'src/models/PlayedModel';
 import { gameService } from 'src/services/GameService';
-import { getAuthUser } from './auth';
+import { getAuthUser } from './auth.server';
 
 export async function getAuthUserServer(): Promise<users | null> {
   'use server';

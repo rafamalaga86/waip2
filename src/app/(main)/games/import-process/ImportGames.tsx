@@ -114,7 +114,6 @@ export function ImportGames({
 
               return (
                 <GameCardLite
-                  game={game}
                   key={game.id}
                   imgElement={
                     <IGDBImage

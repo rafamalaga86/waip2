@@ -1,5 +1,5 @@
 import { PageTitle } from 'src/components/PageTitle';
-import { getAuthUserVisible } from 'src/lib/auth';
+import { getAuthUserVisible } from 'src/lib/auth.server';
 import { GameModelCached } from 'src/models/cached/GameModelCached';
 import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { PlayingNowMasonry } from './PlayingNowMasonry';

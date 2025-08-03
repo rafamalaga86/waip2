@@ -1,7 +1,10 @@
+'use server';
+
 import { Prisma, users } from '@prisma/client';
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import 'server-only';
 import { userValidator } from 'src/lib/validators';
 import { UserModel } from 'src/models/UserModel';
 import { UserModelCached } from 'src/models/cached/UserModelCached';
@@ -109,7 +112,7 @@ export async function login(formData: FormData): Promise<boolean> {
     throw new ClientFeedbackError(genericError);
   }
   // Verify credentials && get the user
-  const user = await UserModelCached.getByEmail(email);
+  const user = await UserModel.getByEmail(email);
   if (!user) {
     throw new ClientFeedbackError(genericError);
   }

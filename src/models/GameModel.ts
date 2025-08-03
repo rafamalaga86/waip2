@@ -1,7 +1,7 @@
 import type { PrismaClient, games, games_to_import } from '@prisma/client';
 import { Prisma } from '@prisma/client';
 import { prisma } from 'src/database/prismaClient';
-import { getAuthUser } from 'src/lib/auth';
+import { getAuthUser } from 'src/lib/auth.server';
 import { ClientFeedbackError } from 'src/lib/errors/ClientFeedbackError';
 
 export class GameModel {

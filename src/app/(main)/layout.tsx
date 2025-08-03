@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { getAuthUserVisible, logout } from 'src/lib/auth';
+import { getAuthUserVisible, logout } from 'src/lib/auth.server';
 import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { Footer } from './Footer';
 import { Main } from './Main';
