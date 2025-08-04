@@ -57,9 +57,8 @@ export function TopBarNav({
                 <IoMenu size={40} className="cursor-pointer" />
               </IconButton>
 
-              <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
+              <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
                 <Link href="/" className="navbar-brand">
-                  {/* <h1 className="brand">What Am I Playing</h1> */}
                   <Typography component="h1" className="brand">
                     What Am I Playing
                   </Typography>
@@ -74,14 +73,16 @@ export function TopBarNav({
                 )}
                 {!authUser && (
                   <Link href="/log-in">
-                    <Button variant="contained">Log In</Button>
+                    <Button variant="contained" sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                      Log In
+                    </Button>
                   </Link>
                 )}
               </Box>
 
               <form onSubmit={submitSearch}>
                 <OutlinedInput
-                  sx={{ width: '300px' }}
+                  sx={{ width: 260 }}
                   autoComplete="off"
                   placeholder={`Search in ${user.username}'s database`}
                   id="searchKeyword"
@@ -101,7 +102,6 @@ export function TopBarNav({
               </form>
             </Container>
           </Toolbar>
-          {/* <GlobalLoading /> */}
         </AppBar>
       </ThemeProvider>
     </>
