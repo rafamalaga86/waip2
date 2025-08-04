@@ -32,7 +32,12 @@ export class PlayedModel {
     return await prisma.playeds.findMany({ where: { game_id: gameId, stopped_playing_at: null } });
   }
 
-  static async findMany(userId: number, year?: number, beaten?: boolean) {
+  static async findMany(
+    userId: number,
+    year?: number,
+    beaten?: boolean,
+    orderByAsc: boolean = true
+  ) {
     let where: any = { game: { user_id: userId } };
     if (year) {
       where = {
@@ -54,13 +59,16 @@ export class PlayedModel {
       include: {
         game: true,
       },
-      orderBy: { stopped_playing_at: 'asc' },
+      orderBy: {
+        stopped_playing_at: orderByAsc ? 'asc' : 'desc',
+      },
     });
   }
 
   static async getAllPlayedsByYear(
     userId: number,
-    beaten: boolean
+    beaten: boolean,
+    orderByAsc: boolean = true
   ): Promise<ObjectOfYearsFinished> {
     const playeds = await prisma.playeds.findMany({
       select: {
@@ -77,7 +85,7 @@ export class PlayedModel {
       },
       distinct: ['stopped_playing_at'],
       orderBy: {
-        stopped_playing_at: 'asc',
+        stopped_playing_at: orderByAsc ? 'asc' : 'desc',
       },
     });
 

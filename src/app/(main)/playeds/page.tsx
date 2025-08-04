@@ -33,7 +33,7 @@ export async function generateMetadata({ searchParams }: Props) {
   const year = Number(searchParams.year);
   const beaten = Boolean(Number(searchParams.beaten));
   const user = (await getAuthUserVisible()) || (await UserModelCached.getDemoUser());
-  const playeds = await PlayedModelCached.findMany(user.id, year, beaten);
+  const playeds = await PlayedModelCached.findMany(user.id, year, beaten, false);
 
   const { title, description, coverUrl } = shapeMetaData(playeds, user, year, beaten);
 
@@ -76,7 +76,7 @@ export default async function playedsPage({ searchParams }: Props) {
 
   const user = (await getAuthUserVisible()) || (await UserModelCached.getDemoUser());
 
-  const playeds = await PlayedModelCached.findMany(user.id, year, beaten);
+  const playeds = await PlayedModelCached.findMany(user.id, year, beaten, false);
 
   let playedsComponent;
   if (view === Views.masonry) {

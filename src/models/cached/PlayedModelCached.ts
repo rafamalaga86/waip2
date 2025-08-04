@@ -15,11 +15,11 @@ export class PlayedModelCached {
     return await cache(PlayedModel.findPlayingNow)(gameId);
   }
 
-  static async findMany(userId: number, year?: number, beaten?: boolean) {
-    return await cache(PlayedModel.findMany)(userId, year, beaten);
+  static async findMany(userId: number, year?: number, beaten?: boolean, orderByAsc: boolean = true) {
+    return await cache(PlayedModel.findMany)(userId, year, beaten, orderByAsc);
   }
 
-  static async getAllPlayedsByYear(userId: number, beaten: boolean) {
-    return await cache(PlayedModel.getAllPlayedsByYear)(userId, beaten);
+  static async getAllPlayedsByYear(userId: number, beaten: boolean, orderByAsc: boolean = true) {
+    return await cache(PlayedModel.getAllPlayedsByYear)(userId, beaten, orderByAsc);
   }
 }
