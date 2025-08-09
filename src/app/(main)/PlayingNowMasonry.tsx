@@ -71,7 +71,7 @@ export function PlayingNowMasonry({
               }
             >
               <Box sx={{ fontSize }} className={`text-align-center title-font ${extraClasses}`}>
-                <Link className="color-white" href={`/games/${item.id}?idgbId=${item.igdb_id}`}>
+                <Link className="color-white" href={`/games/${item.id}?igdbId=${item.igdb_id}`}>
                   {item.name}
                 </Link>
               </Box>

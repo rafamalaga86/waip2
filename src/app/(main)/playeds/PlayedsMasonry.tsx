@@ -34,7 +34,7 @@ export function PlayedsMasonry({ playeds }: { playeds: PlayedsWithGame[] }) {
               >
                 <Link
                   className="color-white"
-                  href={`/games/${played.game.id}?idgbId=${played.game.igdb_id}`}
+                  href={`/games/${played.game.id}?igdbId=${played.game.igdb_id}`}
                 >
                   {played.game.name}
                 </Link>

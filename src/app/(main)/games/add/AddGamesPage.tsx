@@ -30,7 +30,7 @@ export function AddGamesPage({
           variant="contained"
           onClick={async () => {
             const gameId = await addIGDBGame(name, igdbId, igdbCoverId, beaten, date);
-            router.push(`/games/${gameId}?idgbId=${igdbId}`);
+            router.push(`/games/${gameId}?igdbId=${igdbId}`);
           }}
         >
           Add

@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 
 const PLAYED_URL = `/playeds`;
-const BASE_URL = process.env.API_VERSIONED_PATH;
+const BASE_URL = process.env.NEXT_PUBLIC_API_VERSIONED_PATH || '/api/v1';
 
 export async function deletePlayedRequest(id: number) {
   const url = BASE_URL + PLAYED_URL + '/' + id;

@@ -20,7 +20,7 @@ export function GameCardActions({
 }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const detailsLink = `/games/${game.id}?idgbId=${game.igdb_id}`;
+  const detailsLink = `/games/${game.id}?igdbId=${game.igdb_id}`;
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -112,9 +112,8 @@ export function GameCardActions({
             className="line-height-1 h-w-100 d-flex"
             sx={{ p: 1 }}
             onClick={() => {
-              // navigator.clipboard.writeText(`/games/${game.id}?idgbId=${game.igdb_id}`);
               navigator.clipboard.writeText(
-                `${window.location.origin}/games/${game.id}?idgbId=${game.igdb_id}`
+                `${window.location.origin}/games/${game.id}?igdbId=${game.igdb_id}`
               );
             }}
           >

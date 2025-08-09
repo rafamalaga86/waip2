@@ -32,7 +32,7 @@ export function GamesMasonry({ games }: { games: GameWithPlayeds[] }) {
                 sx={{ fontSize: fontSize }}
                 className={'text-align-center title-font ' + extraClasses}
               >
-                <Link className="color-white" href={`/games/${game.id}?idgbId=${game.igdb_id}`}>
+                <Link className="color-white" href={`/games/${game.id}?igdbId=${game.igdb_id}`}>
                   {game.name}
                 </Link>
               </Box>
