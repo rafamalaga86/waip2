@@ -1,4 +1,14 @@
-import { Box, Button, ButtonGroup, Divider, Link, Menu, MenuItem } from '@mui/material/';
+import { LoadingButton } from '@mui/lab';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Divider,
+  Link,
+  Menu,
+  MenuItem,
+  Typography,
+} from '@mui/material/';
 import { games } from '@prisma/client';
 import { useState } from 'react';
 import { BsShareFill } from 'react-icons/bs';
@@ -20,6 +30,7 @@ export function GameCardActions({
 }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [loading, setLoading] = useState(false);
   const detailsLink = `/games/${game.id}?igdbId=${game.igdb_id}`;
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -38,8 +49,12 @@ export function GameCardActions({
 
   return (
     <>
-      <ButtonGroup variant="contained" aria-label="Disabled button group">
-        <Button
+      <ButtonGroup variant="contained" aria-label="card actions">
+        <LoadingButton
+          className="details-loading-button"
+          loading={loading}
+          loadingPosition="center"
+          onClick={() => setLoading(true)}
           component={Link}
           href={detailsLink}
           aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -47,9 +62,17 @@ export function GameCardActions({
           aria-expanded={open ? 'true' : undefined}
           variant="contained"
           disableElevation
+          sx={{
+            // Mantén los colores aunque MUI lo marque como disabled
+            '&.Mui-disabled': {
+              backgroundColor: 'primary.main',
+              color: 'primary.contrastText',
+              opacity: 1, // evita que se vea apagado
+            },
+          }}
         >
-          Details
-        </Button>
+          <span className={loading ? 'color-transparent' : ''}>Details</span>
+        </LoadingButton>
         {authUser && (
           <Button
             aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -123,14 +146,6 @@ export function GameCardActions({
             Copy Link To Share
           </Link>
         </MenuItem>
-        {/* <MenuItem onClick={handleClose} disableRipple sx={{ p: 0 }}>
-          <Link href={detailsLink} sx={{ p: 1 }} className="line-height-1 h-w-100 d-flex">
-            <Box sx={{ mr: 2, ml: 1 }} className="d-flex">
-              <TbListDetails />
-            </Box>
-            See Details
-          </Link>
-        </MenuItem> */}
       </Menu>
     </>
   );

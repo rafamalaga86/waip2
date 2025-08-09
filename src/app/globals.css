@@ -351,6 +351,10 @@ a:active {
   color: white;
 }
 
+.details-loading-button .css-1iy19e2-MuiLoadingButton-loadingIndicator {
+  color: rgba(255, 255, 255, 1);
+}
+
 .game-card-chip-container {
   margin-bottom: 8px;
 }
@@ -578,6 +582,9 @@ footer {
 }
 .color-primary {
   color: var(--primary-color);
+}
+.color-transparent {
+  color: transparent;
 }
 .MuiAvatar-circular.success-background {
   background-color: var(--success-color);
