@@ -67,7 +67,9 @@ export function PlayingNowMasonry({
             <GameCard
               key={item.id}
               imgElement={
-                <IGDBImage stringId={item.igdb_cover_id} description={`${item.name} cover`} />
+                <Box className="igdb-image-wrapper">
+                  <IGDBImage stringId={item.igdb_cover_id} description={`${item.name} cover`} />
+                </Box>
               }
             >
               <Box sx={{ fontSize }} className={`text-align-center title-font ${extraClasses}`}>
