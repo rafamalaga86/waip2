@@ -11,14 +11,16 @@ import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { ClientFeedbackError } from './errors/ClientFeedbackError';
 
 const KEY = new TextEncoder().encode(process.env.SECRET_KEY);
-const EXPIRE_TIME = 60 * 60 * 1000; // 1 hour
+// Session duration in days (sliding window). Default: 30 days.
+const SESSION_EXPIRE_DAYS = Number(process.env.SESSION_EXPIRE_DAYS || 30);
+const EXPIRE_TIME = SESSION_EXPIRE_DAYS * 24 * 60 * 60 * 1000;
 const SALT_ROUNDS = 10;
 
 export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('1 hour from now')
+    .setExpirationTime(`${SESSION_EXPIRE_DAYS}d`)
     .sign(KEY);
 }
 
