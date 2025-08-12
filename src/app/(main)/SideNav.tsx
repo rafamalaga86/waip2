@@ -2,7 +2,7 @@
 import { Box, Divider, Link, List, ListItem, ListItemButton, Typography } from '@mui/material';
 import { IoGameController } from 'react-icons/io5';
 import { MdOutlineSubdirectoryArrowRight } from 'react-icons/md';
-import { TbLogin, TbLogout } from 'react-icons/tb';
+import { TbLogin, TbLogout, TbPlus } from 'react-icons/tb';
 import { BeatenIcon } from '../../components/icons/BeatenIcon';
 
 export function SideNav({
@@ -51,6 +51,7 @@ export function SideNav({
             </ListItemButton>
           </ListItem>
         </Link>
+        {/* Beaten Games Current Year */}
         <Link className="color-white" href={`/playeds?year=${currentYear}&beaten=1`}>
           <ListItem disablePadding className="side-menu">
             <ListItemButton sx={{ pt: 1.7, pb: 1.7, pl: 5 }}>
@@ -61,6 +62,20 @@ export function SideNav({
             </ListItemButton>
           </ListItem>
         </Link>
+        {/* Add Game */}
+        {authUser && (
+          <Link className="color-white" href="/games/add">
+            <ListItem disablePadding className="side-menu">
+              <ListItemButton sx={{ pt: 1.7, pb: 1.7 }}>
+                <Box sx={{ mr: 1 }}>
+                  <TbPlus />
+                </Box>
+                <Box>Add Game</Box>
+              </ListItemButton>
+            </ListItem>
+          </Link>
+        )}
+        {/* Finished Add Game */}
         {/* Finished Beaten Games */}
         {/* Abandoned Games */}
         {/* <Link className="color-white" href="/abandoned-at">
