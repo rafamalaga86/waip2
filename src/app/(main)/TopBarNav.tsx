@@ -68,7 +68,9 @@ export function TopBarNav({
               <Box sx={{ ml: 'auto', mr: 3 }}>
                 {authUser && (
                   <Link href="/games/add">
-                    <Button variant="contained">Add Game</Button>
+                    <Button variant="contained" sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                      Add Game
+                    </Button>
                   </Link>
                 )}
                 {!authUser && (
