@@ -12,6 +12,7 @@
     "seed:reset": "tsx scripts/empty_db.ts",
     "seed:all:original": "tsx scripts/seed_all_original.ts",
     "seed:all": "tsx scripts/seed_all.ts",
+    "seed:export": "tsx scripts/export_seed.ts",
     "cache:flush": "tsx scripts/flush_mongo.ts"
   },
   "type": "module",
