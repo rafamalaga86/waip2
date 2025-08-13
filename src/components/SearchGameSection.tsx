@@ -27,8 +27,14 @@ export function SearchGameSection({
   [initialSearchOptions.includeEditions, toggleIncludeEditions] = useSwitch(false);
 
   return (
-    <Grid component="section" className="section-search" container>
-      <Grid xs={12} lg={4}>
+    <Grid
+      component="section"
+      className="section-search"
+      container
+      alignItems="center"
+      columnSpacing={{ xs: 0, md: 2 }}
+    >
+      <Grid item xs={12} lg={4}>
         <Box
           className="section-search__form"
           component="form"
@@ -43,7 +49,7 @@ export function SearchGameSection({
             setGameTitleToSearch(gameTitle);
             setOptionsToSearch(initialSearchOptions);
           }}
-          sx={{ mt: 1, display: 'flex', flexDirection: 'row' }}
+          sx={{ mt: { xs: 1, md: 0 }, display: 'flex', flexDirection: 'row' }}
         >
           <TextField
             required
@@ -63,61 +69,80 @@ export function SearchGameSection({
           </Box>
         </Box>
       </Grid>
-      <Box
-        sx={{
-          display: 'flex',
-          width: { xs: '100%', lg: 'auto' },
-          ml: { lg: 'auto' },
-          alignItems: 'center',
-          mt: { xs: 3, lg: 0 },
-          // justifyContent: 'flex-end',
-        }}
-      >
-        <FormControlLabel
-          control={
-            <Switch
-              checked={initialSearchOptions.includeDLCs}
-              sx={{ position: 'relative', left: '3px' }}
-              onChange={() => {
-                toggleIncludeDLCs();
-              }}
-              name="include-dlcs"
-            />
-          }
-          label="Ports and DLCs"
-        />
-        <Divider orientation="vertical" variant="middle" flexItem />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={initialSearchOptions.includeEditions}
-              sx={{ position: 'relative', left: '3px' }}
-              onChange={() => {
-                toggleIncludeEditions();
-              }}
-              name="include-editions"
-            />
-          }
-          label="Editions"
-        />
-        <Divider orientation="vertical" variant="middle" flexItem />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={initialSearchOptions.includeNoCoverGames}
-              sx={{ position: 'relative', left: '3px' }}
-              onChange={() => {
-                toggleIncludeNoCoverGames();
-              }}
-              name="include-games-with-covers"
-            />
-          }
-          label="Without Covers"
-        />
-        <Button sx={{ ml: 'auto' }} form="search-form" type="submit" variant="contained">
-          Search
-        </Button>
-      </Box>
+      <Grid item xs={12} lg={8} sx={{ alignSelf: { xs: 'stretch', md: 'center' } }}>
+        <Box
+          className="search-options"
+          sx={{
+            display: 'flex',
+            flexWrap: { xs: 'wrap', md: 'nowrap' },
+            gap: 1,
+            width: '100%',
+            ml: { lg: 'auto' },
+            alignItems: 'center',
+            mt: { xs: 2, lg: 0 },
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Switch
+                checked={initialSearchOptions.includeDLCs}
+                sx={{ position: 'relative', left: '3px' }}
+                onChange={() => {
+                  toggleIncludeDLCs();
+                }}
+                name="include-dlcs"
+              />
+            }
+            label="Ports and DLCs"
+          />
+          <Divider
+            orientation="vertical"
+            variant="middle"
+            flexItem
+            sx={{ display: { xs: 'none', md: 'block' } }}
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={initialSearchOptions.includeEditions}
+                sx={{ position: 'relative', left: '3px' }}
+                onChange={() => {
+                  toggleIncludeEditions();
+                }}
+                name="include-editions"
+              />
+            }
+            label="Editions"
+          />
+          <Divider
+            orientation="vertical"
+            variant="middle"
+            flexItem
+            sx={{ display: { xs: 'none', md: 'block' } }}
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={initialSearchOptions.includeNoCoverGames}
+                sx={{ position: 'relative', left: '3px' }}
+                onChange={() => {
+                  toggleIncludeNoCoverGames();
+                }}
+                name="include-games-with-covers"
+              />
+            }
+            label="Without Covers"
+          />
+          <Button
+            sx={{ ml: { xs: 0, md: 'auto' } }}
+            form="search-form"
+            type="submit"
+            variant="contained"
+          >
+            Search
+          </Button>
+        </Box>
+      </Grid>
     </Grid>
   );
 }
