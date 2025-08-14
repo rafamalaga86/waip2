@@ -9,7 +9,7 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "migrate:old": "tsx scripts/export_mysql_db_prisma.ts",
-    "seed:reset": "tsx scripts/empty_db.ts",
+    "seed:truncate": "tsx scripts/empty_db.ts",
     "seed:all:original": "tsx scripts/seed_all_original.ts",
     "seed:all": "tsx scripts/seed_all.ts",
     "seed:export": "tsx scripts/export_seed.ts",
