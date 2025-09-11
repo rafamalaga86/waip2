@@ -177,7 +177,12 @@ class IGDBService {
   #addCategoryNames(games: [IgdbGame]) {
     return games.map((item: any) => {
       let newItem = { ...item };
-      newItem.category = { id: item.category, name: unslug(GameCategory[item.category]) };
+      if (item.category) {
+        newItem.category = { id: item.category, name: unslug(GameCategory[item.category]) };
+      } else {
+        newItem.category = { id: 0, name: '' };
+      }
+
       return newItem;
     });
   }
