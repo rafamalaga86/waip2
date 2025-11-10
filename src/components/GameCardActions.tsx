@@ -113,7 +113,7 @@ export function GameCardActions({
           <Box sx={{ mr: 2 }} className="line-height-1">
             <BeatenIcon className="color-primary" />
           </Box>
-          <Box className="color-primary">Beaten!</Box>
+          <Box className="color-primary mr-2">Beaten!</Box>
         </MenuItem>
         <MenuItem
           onClick={async _ => {
@@ -143,7 +143,7 @@ export function GameCardActions({
             <Box sx={{ mr: 2, ml: 1 }} className="d-flex">
               <BsShareFill />
             </Box>
-            Copy Link To Share
+            Copy Link
           </Link>
         </MenuItem>
       </Menu>
