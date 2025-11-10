@@ -75,7 +75,7 @@ class IGDBService {
       }
       if (!searchOptions.includeEditions) {
         whereArray.push('version_parent = null');
-        whereArray.push('category != 3');
+        whereArray.push('game_type != 3');
       }
 
       where = 'where: ' + whereArray.join(' & ') + ';';
