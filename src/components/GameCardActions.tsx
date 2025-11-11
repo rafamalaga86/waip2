@@ -134,7 +134,8 @@ export function GameCardActions({
             href="#"
             className="line-height-1 h-w-100 d-flex"
             sx={{ p: 1 }}
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               navigator.clipboard.writeText(
                 `${window.location.origin}/games/${game.id}?igdbId=${game.igdb_id}`
               );
