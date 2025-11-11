@@ -160,6 +160,9 @@ export class PlayedModel {
     const authUser = await this.#getAuthUser();
     let game: games | undefined | null;
     game = await GameModel.findByIgdbId(details.igdbId, authUser.id);
+    if (game) {
+      return game.id;
+    }
     //@ts-ignore
     try {
       return await prisma.$transaction(async () => {
