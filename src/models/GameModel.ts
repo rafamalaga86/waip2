@@ -124,23 +124,29 @@ export class GameModel {
   }
 
   static async findGamesWithStoppedPlayingNull(userId: number, limit?: number) {
-    const query: PrismaQuery = {
-      where: {
-        user_id: userId,
-        playeds: {
-          some: {
-            stopped_playing_at: null,
-          },
-        },
-      },
-      orderBy: {
-        order: 'desc',
-      },
-    };
-    if (limit) {
-      query.take = limit;
-    }
-    return await prisma.games.findMany(query);
+    const limitClause = limit ? Prisma.sql`LIMIT ${limit}` : Prisma.empty;
+
+    const games = await prisma.$queryRaw<games[]>`
+      SELECT g.*
+      FROM games g
+      INNER JOIN (
+          -- Subquery to find the most recent 'created_at' for each game
+          -- among its 'currently playing' sessions.
+          SELECT
+              game_id,
+              MAX(created_at) as latest_played_at
+          FROM playeds
+          WHERE stopped_playing_at IS NULL
+          GROUP BY game_id
+      ) p ON g.id = p.game_id
+      WHERE g.user_id = ${userId}
+      ORDER BY
+          g.order DESC,
+          p.latest_played_at DESC
+      ${limitClause}
+    `;
+
+    return games;
   }
 
   static async delete(gameId: number): Promise<boolean> {
