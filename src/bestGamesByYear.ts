@@ -305,4 +305,9 @@ export const bestGamesByYear = {
     'https://images.igdb.com/igdb/image/upload/t_cover_big/co9gam.webp', // Expedition 33
     'https://images.igdb.com/igdb/image/upload/t_cover_big/co95gf.webp', // Split Fiction
   ],
+  2026: [
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/cobxnx.webp', // Pragmata
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/cobmj0.webp', // RE9
+    'https://images.igdb.com/igdb/image/upload/t_cover_big/cocaa5.webp', // GTA VI
+  ],
 };
