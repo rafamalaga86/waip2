@@ -2,7 +2,9 @@ import { Box, Button, Card, CardContent, CardMedia, Link, Typography } from '@mu
 import { FaCalendarCheck } from 'react-icons/fa6';
 import { bestGameByYearType, bestGamesByYear } from 'src/bestGamesByYear';
 import { PageTitle } from 'src/components/PageTitle';
+import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { getAuthUserVisible } from 'src/lib/auth.server';
+import { shapeIGDBCoverUrl } from 'src/lib/helpers';
 import { ObjectOfYearsFinished } from 'src/models/PlayedModel';
 import { PlayedModelCached } from 'src/models/cached/PlayedModelCached';
 import { UserModelCached } from 'src/models/cached/UserModelCached';
@@ -23,6 +25,21 @@ export default async function allYearsGamePage() {
     console.error('Error fetching data:', error);
     throw error;
   }
+
+  const coverByYear = Object.fromEntries(
+    await Promise.all(
+      Object.keys(allBeaten).map(async year => {
+        const playeds = await PlayedModelCached.findMany(user.id, Number(year), true, false);
+        const playedWithCover = playeds.find(played => played.game.igdb_cover_id);
+        return [
+          year,
+          playedWithCover
+            ? shapeIGDBCoverUrl(CoverSize.medium, playedWithCover.game.igdb_cover_id)
+            : defaultImage,
+        ];
+      })
+    )
+  );
 
   const title = authUser ? (
     'Your'
@@ -53,7 +70,7 @@ export default async function allYearsGamePage() {
             const imageUrls = (bestGamesByYear as bestGameByYearType)[yearNumber];
             const imageUrl = imageUrls?.length
               ? imageUrls[Math.floor(Math.random() * imageUrls.length)]
-              : defaultImage;
+              : coverByYear[year] ?? defaultImage;
             const beatenLink = `/playeds?year=${yearNumber}&beaten=1`;
             const abandonedLink = `/playeds?year=${yearNumber}&abandoned=1`;
             return (
