@@ -51,7 +51,9 @@ export default async function allYearsGamePage() {
           .map((year: string) => {
             const yearNumber = parseInt(year);
             const imageUrls = (bestGamesByYear as bestGameByYearType)[yearNumber];
-            const imageUrl = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+            const imageUrl = imageUrls?.length
+              ? imageUrls[Math.floor(Math.random() * imageUrls.length)]
+              : defaultImage;
             const beatenLink = `/playeds?year=${yearNumber}&beaten=1`;
             const abandonedLink = `/playeds?year=${yearNumber}&abandoned=1`;
             return (
