@@ -10,6 +10,7 @@ export function SearchGameSection({
   setLoading,
   searchLabel,
   initialGameTitle,
+  autoFocus = false,
 }: {
   setGameTitleToSearch: Function;
   initialSearchOptions: SearchOptions;
@@ -17,6 +18,7 @@ export function SearchGameSection({
   setLoading: Function;
   searchLabel: string;
   initialGameTitle?: string;
+  autoFocus?: boolean;
 }) {
   const [gameTitle, setGameTitle] = useState(initialGameTitle ?? '');
 
@@ -54,6 +56,7 @@ export function SearchGameSection({
           <TextField
             required
             fullWidth
+            autoFocus={autoFocus}
             autoComplete="off"
             label={searchLabel}
             id="game_name"

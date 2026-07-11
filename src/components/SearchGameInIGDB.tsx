@@ -39,6 +39,7 @@ export function SearchGameInIGDB({
         setOptionsToSearch={setOptionsToSearch}
         searchLabel="Search Game To Add"
         setLoading={setLoading}
+        autoFocus
       />
       <Divider sx={{ mt: 3, mb: 3 }} />
       <SearchFeedback loading={loading} searchedGames={searchedGames} />
