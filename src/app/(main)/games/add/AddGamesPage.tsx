@@ -1,6 +1,8 @@
 'use client';
-import { Box, Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { SearchGameInIGDB } from 'src/components/SearchGameInIGDB';
 import { CoverSize } from 'src/enums/business/IGDBEnums/gameEnums';
 import { useSearchIGDB } from 'src/hooks/useSearchIGDB';
@@ -24,17 +26,38 @@ export function AddGamesPage({
     useSearchIGDB(IGDB_COVER_SIZE, initialSearchOptions, keyword);
 
   function Actions({ name, igdbId, igdbCoverId, beaten, date }: GameWithPlayedCreation) {
+    const [adding, setAdding] = useState(false);
+
+    async function handleAdd() {
+      setAdding(true);
+
+      try {
+        const gameId = await addIGDBGame(name, igdbId, igdbCoverId, beaten, date);
+        router.push(`/games/${gameId}?igdbId=${igdbId}`);
+      } catch (error) {
+        setAdding(false);
+        throw error;
+      }
+    }
+
     return (
       <Box sx={{ my: 2 }} className="text-align-center">
-        <Button
+        <LoadingButton
+          className="details-loading-button"
+          loading={adding}
+          loadingPosition="center"
           variant="contained"
-          onClick={async () => {
-            const gameId = await addIGDBGame(name, igdbId, igdbCoverId, beaten, date);
-            router.push(`/games/${gameId}?igdbId=${igdbId}`);
+          onClick={handleAdd}
+          sx={{
+            '&.Mui-disabled': {
+              backgroundColor: 'primary.main',
+              color: 'primary.contrastText',
+              opacity: 1,
+            },
           }}
         >
-          Add
-        </Button>
+          <span className={adding ? 'color-transparent' : ''}>Add</span>
+        </LoadingButton>
       </Box>
     );
   }
