@@ -33,6 +33,9 @@ export function AddGamesPage({
 
       try {
         const gameId = await addIGDBGame(name, igdbId, igdbCoverId, beaten, date);
+        navigator.clipboard
+          .writeText(`${window.location.origin}/games/${gameId}?igdbId=${igdbId}`)
+          .catch(() => undefined);
         router.push(`/games/${gameId}?igdbId=${igdbId}`);
       } catch (error) {
         setAdding(false);

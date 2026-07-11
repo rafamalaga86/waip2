@@ -105,6 +105,11 @@ export function GameCardActions({
           onClick={async _ => {
             const successful = await beatPlayedServer(game.id);
             if (successful) {
+              navigator.clipboard
+                .writeText(
+                  `${window.location.origin}/games/${game.id}?igdbId=${game.igdb_id}`
+                )
+                .catch(() => undefined);
               removeGame(game.id);
               showCelebration();
             }
