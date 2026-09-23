@@ -31,3 +31,7 @@ function isAuthRoute(request: NextRequest): boolean {
   }
   return false;
 }
+
+export const config = {
+  runtime: 'nodejs',
+};
