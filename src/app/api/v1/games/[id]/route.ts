@@ -1,8 +1,9 @@
 import { getAuthUser } from 'src/lib/auth.server';
 import { GameModel } from 'src/models/GameModel';
 
-export async function PATCH(request: Request, context: { params: { id: string } }) {
-  const id = Number(context.params.id);
+export async function PATCH(request: Request, context: { params: Promise<{ id: string }> }) {
+  const { id: paramId } = await context.params;
+  const id = Number(paramId);
   const authUser = await getAuthUser();
 
   if (!authUser) {
@@ -32,8 +33,9 @@ export async function PATCH(request: Request, context: { params: { id: string } 
   }
 }
 
-export async function DELETE(_: Request, context: { params: { id: string } }) {
-  const id = Number(context.params.id);
+export async function DELETE(_: Request, context: { params: Promise<{ id: string }> }) {
+  const { id: paramId } = await context.params;
+  const id = Number(paramId);
   const authUser = await getAuthUser();
 
   if (!authUser) {

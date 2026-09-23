@@ -5,13 +5,14 @@ import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { GamesMasonry } from './GamesMasonry';
 
 interface SearchParams {
-  searchParams: {
+  searchParams: Promise<{
     q?: string;
-  };
+  }>;
 }
 
 export default async function SearchPage({ searchParams }: SearchParams) {
-  const query = searchParams.q?.toLowerCase() ?? null;
+  const { q } = await searchParams;
+  const query = q?.toLowerCase() ?? null;
 
   if (!query) {
     return <div>You didn{"'"}t write words in the search box...</div>;

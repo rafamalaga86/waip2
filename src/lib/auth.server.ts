@@ -132,7 +132,7 @@ async function createSession(user: users) {
   const session = await encrypt({ user, expires });
 
   // Save the session in a cookie
-  cookies().set('session', session, {
+  (await cookies()).set('session', session, {
     expires,
     httpOnly: true, // httpOnly cookies are only read on server
   });
@@ -142,12 +142,12 @@ async function createSession(user: users) {
 
 export async function logout(): Promise<boolean> {
   // Destroy the session
-  cookies().set('session', '', { expires: new Date(0) });
+  (await cookies()).set('session', '', { expires: new Date(0) });
   return true;
 }
 
 export async function getSession() {
-  const session = cookies().get('session')?.value;
+  const session = (await cookies()).get('session')?.value;
   if (!session) return null;
   return await decrypt(session);
 }

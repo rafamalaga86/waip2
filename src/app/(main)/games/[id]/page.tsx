@@ -26,8 +26,8 @@ import { OrderInput } from './OrderInput';
 import { PlayedsList } from './PlayedsList';
 
 interface Props {
-  params: { id: string };
-  searchParams: any;
+  params: Promise<{ id: string }>;
+  searchParams: Promise<any>;
 }
 
 async function getUserCached() {
@@ -36,9 +36,10 @@ async function getUserCached() {
   return { user, authUser };
 }
 
-async function getPrefetchedGame(params: { id: string }, searchParams: any) {
-  const id = Number(params.id);
-  let igdbId = Number(searchParams.igdbId);
+async function getPrefetchedGame(params: Props['params'], searchParams: Props['searchParams']) {
+  const [{ id: paramId }, resolvedSearchParams] = await Promise.all([params, searchParams]);
+  const id = Number(paramId);
+  let igdbId = Number(resolvedSearchParams.igdbId);
 
   if (isNaN(id)) {
     notFound();

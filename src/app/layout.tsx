@@ -1,4 +1,4 @@
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
 import { Baloo_2, Bungee_Inline, Orbitron } from 'next/font/google';
 import localFont from 'next/font/local';
@@ -13,7 +13,7 @@ export async function generateMetadata() {
   const authUser = await getAuthUserVisible();
   const user = authUser || (await UserModelCached.getDemoUser());
 
-  const host = headers().get('host') ?? 'waip.app';
+  const host = (await headers()).get('host') ?? 'waip.app';
   const protocol = host.startsWith('localhost') ? 'http' : 'https';
   const waipImage = `${protocol}://${host}/images/waip_smaller.jpg`;
 

@@ -9,7 +9,7 @@ import { UserModelCached } from 'src/models/cached/UserModelCached';
 import { PlayedsMasonry } from './PlayedsMasonry';
 
 interface Props {
-  searchParams: any;
+  searchParams: Promise<any>;
 }
 
 function shapeMetaData(playeds: any, user: any, year: number, beaten: boolean) {
@@ -30,8 +30,9 @@ function shapeMetaData(playeds: any, user: any, year: number, beaten: boolean) {
 }
 
 export async function generateMetadata({ searchParams }: Props) {
-  const year = Number(searchParams.year);
-  const beaten = Boolean(Number(searchParams.beaten));
+  const { year: yearParam, beaten: beatenParam } = await searchParams;
+  const year = Number(yearParam);
+  const beaten = Boolean(Number(beatenParam));
   const user = (await getAuthUserVisible()) || (await UserModelCached.getDemoUser());
   const playeds = await PlayedModelCached.findMany(user.id, year, beaten, false);
 
@@ -62,9 +63,10 @@ export async function generateMetadata({ searchParams }: Props) {
 }
 
 export default async function playedsPage({ searchParams }: Props) {
-  const year = Number(searchParams.year);
-  const beaten = Boolean(Number(searchParams.beaten));
-  let view = searchParams.view;
+  const { year: yearParam, beaten: beatenParam, view: viewParam } = await searchParams;
+  const year = Number(yearParam);
+  const beaten = Boolean(Number(beatenParam));
+  let view = viewParam;
 
   if (isNaN(year)) {
     notFound();
