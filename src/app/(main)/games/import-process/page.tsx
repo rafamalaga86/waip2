@@ -25,9 +25,8 @@ export default async function SearchGameInIGDB() {
     return await GameModel.discardImportGame(gameToImport.name);
   }
 
-  console.time('primero');
   const nextGame = await prisma.games_to_import.findFirst();
-  console.timeEnd('primero');
+
   if (!nextGame) return <h2>Nothing to import</h2>;
 
   const games = await prisma.games_to_import.findMany({
